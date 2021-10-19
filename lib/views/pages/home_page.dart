@@ -97,7 +97,12 @@ class _HomePageWithData extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40),
                   ),
                   builder: (_) {
-                    return const FilterBottomSheet();
+                    final pokeListProvider =
+                        Provider.of<PokeListProvider>(context, listen: false);
+                    return ChangeNotifierProvider.value(
+                      value: pokeListProvider,
+                      child: const FilterBottomSheet(),
+                    );
                   },
                 );
               },

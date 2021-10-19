@@ -169,3 +169,10 @@ class Palette {
   // TextField Colors
   static const kDefaultField = Color(0xfff2f2f2);
 }
+
+class FilterColor {
+  Color background;
+  Color icon;
+
+  FilterColor({required this.background, required this.icon});
+}

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
+import '../../view_models/view_models.dart';
 import '../theme/theme.dart';
 import 'components.dart';
 
@@ -12,12 +14,16 @@ class FilterBottomSheet extends StatelessWidget {
   static const double horizontalPad = 32;
   @override
   Widget build(BuildContext context) {
+    debugPrint('Showing Filter Bottom Sheet');
     final textTheme = Theme.of(context).textTheme;
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
     );
+
+    final pokeListProvider =
+        Provider.of<PokeListProvider>(context, listen: false);
 
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
@@ -43,33 +49,37 @@ class FilterBottomSheet extends StatelessWidget {
                     'Use advanced search to explore Pokémon by type, weakness, height and more!'),
               ),
               const SizedBox(height: 16),
-              const FilterTypeScroll<PokeType>(
+              FilterTypeScroll<PokeType>(
                 title: 'Types',
+                horizontalPad: horizontalPad,
                 enumValues: PokeType.values,
                 getSvgAsset: getPokeTypeIcon,
-                getColor: Palette.getTypeColor,
-                horizontalPad: horizontalPad,
+                getFilterColor: pokeListProvider.getTypeColor,
+                onPressed: pokeListProvider.toggleTypeFilter,
               ),
-              const FilterTypeScroll<PokeType>(
+              FilterTypeScroll<PokeType>(
                 title: 'Weaknessses',
+                horizontalPad: horizontalPad,
                 enumValues: PokeType.values,
                 getSvgAsset: getPokeTypeIcon,
-                getColor: Palette.getTypeColor,
-                horizontalPad: horizontalPad,
+                getFilterColor: pokeListProvider.getWeaknessColor,
+                onPressed: pokeListProvider.toggleWeaknessFilter,
               ),
-              const FilterTypeScroll<PokeHeight>(
+              FilterTypeScroll<PokeHeight>(
                 title: 'Heights',
+                horizontalPad: horizontalPad,
                 enumValues: PokeHeight.values,
                 getSvgAsset: getPokeHeightIcon,
-                getColor: Palette.getHeightColor,
-                horizontalPad: horizontalPad,
+                getFilterColor: pokeListProvider.getHeightColor,
+                onPressed: pokeListProvider.toggleHeightFilter,
               ),
-              const FilterTypeScroll<PokeWeight>(
+              FilterTypeScroll<PokeWeight>(
                 title: 'Weights',
+                horizontalPad: horizontalPad,
                 enumValues: PokeWeight.values,
                 getSvgAsset: getPokeWeightIcon,
-                getColor: Palette.getWeightColor,
-                horizontalPad: horizontalPad,
+                getFilterColor: pokeListProvider.getWeightColor,
+                onPressed: pokeListProvider.toggleWeightFilter,
               ),
               Padding(
                 padding:
