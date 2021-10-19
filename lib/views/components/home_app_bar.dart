@@ -12,7 +12,8 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     const height = kToolbarHeight + 124;
     final textTheme = Theme.of(context).textTheme;
-    final searchProvider = Provider.of<SearchProvider>(context, listen: false);
+    final searchProvider =
+        Provider.of<PokeListProvider>(context, listen: false);
 
     return SliverAppBar(
       floating: true,

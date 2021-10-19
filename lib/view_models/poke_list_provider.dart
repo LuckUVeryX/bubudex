@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 
 import '../models/models.dart';
 
-class SearchProvider extends ChangeNotifier {
-  SearchProvider(this._pokemons) {
+class PokeListProvider extends ChangeNotifier {
+  PokeListProvider(this._pokemons) {
     _pokemonsCopy = pokemons;
   }
 

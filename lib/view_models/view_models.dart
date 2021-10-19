@@ -1,2 +1,2 @@
 export 'home_provider.dart';
-export 'search_provider.dart';
+export 'poke_list_provider.dart';

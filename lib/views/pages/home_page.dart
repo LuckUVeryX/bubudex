@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
             case HomePageStatus.done:
               debugPrint(HomePageStatus.done.toString());
               return ChangeNotifierProvider(
-                create: (_) => SearchProvider(homeProvider.pokemons),
+                create: (_) => PokeListProvider(homeProvider.pokemons),
                 child: const _HomePageWithData(),
               );
 
@@ -110,7 +110,7 @@ class _HomePageWithData extends StatelessWidget {
           child: CustomScrollView(
             slivers: [
               const HomeAppBar(),
-              Consumer<SearchProvider>(builder: (_, search, __) {
+              Consumer<PokeListProvider>(builder: (_, search, __) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (_, i) => PokeCard(pokemon: search.pokemons[i]),
