@@ -89,7 +89,18 @@ class _HomePageWithData extends StatelessWidget {
               icon: const Icon(PokeIcons.sort),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  builder: (_) {
+                    return const FilterBottomSheet();
+                  },
+                );
+              },
               icon: const Icon(PokeIcons.filter),
             ),
           ],

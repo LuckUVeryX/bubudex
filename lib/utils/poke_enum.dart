@@ -18,3 +18,7 @@ enum PokeType {
   steel,
   water,
 }
+
+enum PokeHeight { short, medium, tall }
+
+enum PokeWeight { light, normal, heavy }

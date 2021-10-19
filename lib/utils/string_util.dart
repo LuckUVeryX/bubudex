@@ -10,6 +10,14 @@ PokeType pokeTypeFromString(String pokeType) {
   });
 }
 
+String stringFromPokeHeight(PokeHeight pokeHeight) {
+  return pokeHeight.toString().split('.')[1];
+}
+
+String stringFromPokeWeight(PokeWeight pokeWeight) {
+  return pokeWeight.toString().split('.')[1];
+}
+
 String pokeIdToString(int id) {
   return id.toString().padLeft(3, '0');
 }
