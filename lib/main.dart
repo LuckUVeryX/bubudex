@@ -4,6 +4,7 @@ import 'package:provider/single_child_widget.dart';
 
 import 'routes/app_router.dart';
 import 'services/api_service.dart';
+import 'ui/theme/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
+        theme: AppTheme.theme,
       ),
     );
   }
