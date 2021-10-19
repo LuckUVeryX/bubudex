@@ -5,7 +5,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 
-import '../pages/pages.dart';
+import '../ui/pages/pages.dart';
 
 part 'app_router.gr.dart';
 
