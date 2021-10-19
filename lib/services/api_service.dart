@@ -1,16 +1,14 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:retry/retry.dart';
 
-import '../models/models.dart';
-
+/// Http client with retry and logging
 class ApiService {
-  static const _dbEndpoint = 'https://pokemon-db-json.herokuapp.com';
-
-  Future<List<Pokemon>> getPokemons() async {
-    final uri = Uri.parse(_dbEndpoint);
-    final res = await http.get(uri);
-    Iterable ls = jsonDecode(res.body);
-    return ls.map((e) => Pokemon.fromJson(e)).toList();
+  Future<http.Response> get(String url) async {
+    debugPrint('GET Request: $url');
+    Uri uri = Uri.parse(url);
+    final res = await retry(() => http.get(uri));
+    debugPrint('GET Response: ${res.body}');
+    return res;
   }
 }

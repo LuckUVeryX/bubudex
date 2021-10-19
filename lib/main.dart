@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 
 import 'routes/app_router.dart';
-import 'services/api_service.dart';
+import 'services/services.dart';
 import 'views/theme/theme.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  HiveService hiveService = await _initHiveServices();
+  runApp(
+    Provider.value(value: hiveService, child: MyApp()),
+  );
+}
+
+Future<HiveService> _initHiveServices() async {
+  final HiveService hiveService = HiveService();
+  await hiveService.init();
+  return hiveService;
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +26,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: providers,
+      providers: [
+        Provider<ApiService>(create: (_) => ApiService()),
+      ],
       child: MaterialApp.router(
         routerDelegate: _appRouter.delegate(),
         routeInformationParser: _appRouter.defaultRouteParser(),
@@ -27,15 +37,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-List<SingleChildWidget> providers = [
-  ...independentServices,
-  ...dependentServices,
-  ...uiConsumableProviders,
-];
-
-List<SingleChildWidget> independentServices = [
-  Provider<ApiService>(create: (_) => ApiService()),
-];
-List<SingleChildWidget> dependentServices = [];
-List<SingleChildWidget> uiConsumableProviders = [];
