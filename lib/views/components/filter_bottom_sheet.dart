@@ -20,7 +20,7 @@ class FilterBottomSheet extends StatelessWidget {
     );
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.4,
+      initialChildSize: 0.5,
       maxChildSize: 0.8,
       expand: false,
       builder: (_, scrollController) {
