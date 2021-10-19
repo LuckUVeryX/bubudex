@@ -1,6 +1,6 @@
 import 'package:flutter/painting.dart';
 
-import '../../models/models.dart';
+import '../../utils/utils.dart';
 
 class Palette {
   // Poke type colors

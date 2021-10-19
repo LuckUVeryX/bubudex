@@ -15,7 +15,20 @@ class HomePage extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(PokeIcons.filter)),
         ],
       ),
-      body: const Center(child: Text('Home Page')),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: CustomScrollView(
+          slivers: [
+            const HomeAppBar(),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, i) => const PokeCard(),
+                childCount: 5,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
