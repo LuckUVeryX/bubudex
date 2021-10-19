@@ -4,6 +4,7 @@ class AppTheme {
   static final theme = ThemeData.from(colorScheme: _colorScheme).copyWith(
     appBarTheme: _appBarTheme,
     textTheme: _textTheme,
+    progressIndicatorTheme: _progressIndicatorTheme,
   );
 
   static const _colorScheme = ColorScheme.light(
@@ -55,5 +56,8 @@ class AppTheme {
       fontWeight: FontWeight.normal,
       color: Colors.black,
     ),
+  );
+  static const _progressIndicatorTheme = ProgressIndicatorThemeData(
+    color: Colors.black,
   );
 }
