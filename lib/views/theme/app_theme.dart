@@ -5,13 +5,18 @@ class AppTheme {
     appBarTheme: _appBarTheme,
     textTheme: _textTheme,
     progressIndicatorTheme: _progressIndicatorTheme,
+    iconTheme: _iconTheme,
   );
 
-  static const _colorScheme = ColorScheme.light(
-    primary: Colors.white,
-    onPrimary: Colors.black,
+  static const _colorScheme = ColorScheme.light(primary: Colors.black);
+
+  static const _appBarTheme = AppBarTheme(
+    elevation: 0,
+    color: Colors.white,
+    iconTheme: _iconTheme,
   );
-  static const _appBarTheme = AppBarTheme(elevation: 0);
+
+  static const _iconTheme = IconThemeData(color: Colors.black);
 
   static const _textTheme = TextTheme(
     // Title
@@ -57,6 +62,7 @@ class AppTheme {
       color: Colors.black,
     ),
   );
+
   static const _progressIndicatorTheme = ProgressIndicatorThemeData(
     color: Colors.black,
   );

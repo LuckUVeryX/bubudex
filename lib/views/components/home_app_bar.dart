@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_models/view_models.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
@@ -7,8 +10,9 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const height = kToolbarHeight + 124;
     final textTheme = Theme.of(context).textTheme;
-    final height = kToolbarHeight + 124;
+    final searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
     return SliverAppBar(
       floating: true,
@@ -24,6 +28,12 @@ class HomeAppBar extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           TextField(
+            controller: searchProvider.searchController,
+            onChanged: (_) {
+              searchProvider.searchPokemons();
+            },
+            textCapitalization: TextCapitalization.words,
+            style: textTheme.bodyText2,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -32,7 +42,6 @@ class HomeAppBar extends StatelessWidget {
               filled: true,
               prefixIcon: const Icon(Icons.search),
               hintText: 'What Pokémon are you looking for?',
-              hintStyle: textTheme.bodyText2,
             ),
           ),
           const SizedBox(height: 20),

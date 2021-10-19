@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/models.dart';
 import '../../repository/repository.dart';
 import '../../services/services.dart';
 import '../../view_models/view_models.dart';
@@ -24,22 +23,15 @@ class HomePage extends StatelessWidget {
             case HomePageStatus.init:
               debugPrint(HomePageStatus.init.toString());
               homeProvider.getPokemons();
+              return const _HomePageLoading();
 
-              return Scaffold(
-                body: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('Loading pokemons for the first time...'),
-                      SizedBox(height: 20),
-                      LinearProgressIndicator(),
-                    ],
-                  ),
-                ),
-              );
             case HomePageStatus.done:
               debugPrint(HomePageStatus.done.toString());
-              return _HomePageWithData(pokemons: homeProvider.pokemons);
+              return ChangeNotifierProvider(
+                create: (_) => SearchProvider(homeProvider.pokemons),
+                child: const _HomePageWithData(),
+              );
+
             case HomePageStatus.error:
               debugPrint(HomePageStatus.error.toString());
               return const Scaffold(
@@ -52,45 +44,71 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _HomePageWithData extends StatelessWidget {
-  const _HomePageWithData({
+class _HomePageLoading extends StatelessWidget {
+  const _HomePageLoading({
     Key? key,
-    required this.pokemons,
   }) : super(key: key);
-
-  final List<Pokemon> pokemons;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(PokeIcons.generation),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(PokeIcons.sort),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(PokeIcons.filter),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text('Loading pokemons for the first time...'),
+            SizedBox(height: 20),
+            LinearProgressIndicator(),
+          ],
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: CustomScrollView(
-          slivers: [
-            const HomeAppBar(),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, i) => PokeCard(pokemon: pokemons[i]),
-                childCount: pokemons.length,
-              ),
+    );
+  }
+}
+
+class _HomePageWithData extends StatelessWidget {
+  const _HomePageWithData({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(PokeIcons.generation),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(PokeIcons.sort),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(PokeIcons.filter),
             ),
           ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: CustomScrollView(
+            slivers: [
+              const HomeAppBar(),
+              Consumer<SearchProvider>(builder: (_, search, __) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (_, i) => PokeCard(pokemon: search.pokemons[i]),
+                    childCount: search.pokemons.length,
+                  ),
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );
