@@ -8,9 +8,10 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final height = kToolbarHeight + 104;
+    final height = kToolbarHeight + 124;
 
     return SliverAppBar(
+      floating: true,
       collapsedHeight: height,
       expandedHeight: height,
       flexibleSpace: Column(
@@ -34,6 +35,7 @@ class HomeAppBar extends StatelessWidget {
               hintStyle: textTheme.bodyText2,
             ),
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );
