@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 
-import '../../utils/utils.dart';
 import '../components/components.dart';
 import '../theme/theme.dart';
+import 'pages.dart';
 
 class PokeDetailsPage extends StatelessWidget {
   const PokeDetailsPage({
@@ -16,72 +14,69 @@ class PokeDetailsPage extends StatelessWidget {
   final int pokeId;
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: DefaultTabController(
         length: 3,
         child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                iconTheme: const IconThemeData(color: Colors.white),
-                pinned: true,
-                collapsedHeight: kToolbarHeight,
-                expandedHeight: 200,
-                backgroundColor: Palette.kBackgroundGrass,
-                flexibleSpace: SafeArea(
-                  child: FlexibleSpaceBar(
-                    title: Text('Bulbasaur',
-                        style:
-                            textTheme.headline6!.copyWith(color: Colors.white)),
-                    background: Stack(
-                      alignment: Alignment.topCenter,
-                      children: [
-                        SizedBox(
-                          height: 152,
-                          child: Opacity(
-                            opacity: 0.3,
-                            child: Marquee(
-                                text: 'BULBASAUR', style: textTheme.headline1),
-                          ),
-                        ),
-                        IntrinsicHeight(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: CachedNetworkImage(
-                                    imageUrl: getImageUrl(1)),
-                              ),
-                              Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Spacer(),
-                                    Text('#001', style: textTheme.bodyText1),
-                                    const PokeTypeChip(
-                                        pokeType: PokeType.grass),
-                                    const PokeTypeChip(
-                                        pokeType: PokeType.poison),
-                                    const Spacer(flex: 2),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                const SliverAppBar(
+                  iconTheme: IconThemeData(color: Colors.white),
+                  pinned: true,
+                  collapsedHeight: kToolbarHeight,
+                  expandedHeight: 200,
+                  backgroundColor: Palette.kBackgroundGrass,
+                  flexibleSpace:
+                      SafeArea(child: PokemonSpaceBar(), bottom: true),
+                ),
+                SliverPersistentHeader(
+                  delegate: _SliverAppBarDelegate(
+                    backgroundColor: Palette.kBackgroundGrass,
+                    bottom: const TabBar(
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                      unselectedLabelStyle: TextStyle(),
+                      tabs: [
+                        Tab(text: 'About'),
+                        Tab(text: 'Stats'),
+                        Tab(text: 'Evolution'),
                       ],
                     ),
                   ),
-                ),
-              )
-            ];
-          },
-          body: Center(child: Text('Text')),
-        ),
+                )
+              ];
+            },
+            body: const TabBarView(
+              children: [
+                AboutTab(),
+                Center(child: Text('Stats')),
+                Center(child: Text('Evolution')),
+              ],
+            )),
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({required this.backgroundColor, required this.bottom});
+  final TabBar bottom;
+  final Color backgroundColor;
+
+  @override
+  double get minExtent => bottom.preferredSize.height;
+  @override
+  double get maxExtent => bottom.preferredSize.height;
+
+  @override
+  Widget build(BuildContext context, double _, bool __) {
+    return Container(
+      child: bottom,
+      color: backgroundColor,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }
