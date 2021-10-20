@@ -48,7 +48,6 @@ class PokeListProvider extends ChangeNotifier {
   int get numOfPoke => _numOfPoke;
 
   // * Search
-  Timer? _searchDebounce;
   final _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
 
@@ -57,18 +56,15 @@ class PokeListProvider extends ChangeNotifier {
     if (query.isEmpty) {
       _pokemons = _pokemonsCopy;
     } else {
-      if (_searchDebounce?.isActive ?? false) _searchDebounce?.cancel();
-      _searchDebounce = Timer(const Duration(milliseconds: 100), () {
-        _pokemons = _pokemonsCopy.where((pokemon) {
-          int id = int.tryParse(query) ?? -1;
-          String name = pokemon.name.toLowerCase();
-          List<String> types =
-              pokemon.types.map((type) => type.toLowerCase()).toList();
-          return pokemon.id == id ||
-              name.contains(query) ||
-              types.contains(query);
-        }).toList();
-      });
+      _pokemons = _pokemonsCopy.where((pokemon) {
+        int id = int.tryParse(query) ?? -1;
+        String name = pokemon.name.toLowerCase();
+        List<String> types =
+            pokemon.types.map((type) => type.toLowerCase()).toList();
+        return pokemon.id == id ||
+            name.contains(query) ||
+            types.contains(query);
+      }).toList();
     }
     _clearFilters();
   }
@@ -236,7 +232,6 @@ class PokeListProvider extends ChangeNotifier {
   @override
   void dispose() {
     _searchController.dispose();
-    _searchDebounce?.cancel();
     _rangeSliderDebounce?.cancel();
     super.dispose();
   }
