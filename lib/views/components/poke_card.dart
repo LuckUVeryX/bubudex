@@ -25,19 +25,19 @@ class PokeCard extends StatelessWidget {
         pokemon.types.map((e) => pokeTypeFromString(e)).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Stack(
-        alignment: Alignment.topLeft,
-        clipBehavior: Clip.none,
-        children: [
-          Card(
-            elevation: 4,
-            color: Palette.getBackgroundTypeColor(types.first),
-            child: InkWell(
-              onTap: () {
-                // ! Temp
-                context.pushRoute(PokeDetailsRoute(pokeId: 1));
-              },
-              child: Padding(
+      child: Card(
+        elevation: 4,
+        color: Palette.getBackgroundTypeColor(types.first),
+        child: InkWell(
+          onTap: () {
+            // ! Temp
+            context.pushRoute(PokeDetailsRoute(pokeId: 1));
+          },
+          child: Stack(
+            alignment: Alignment.topLeft,
+            clipBehavior: Clip.none,
+            children: [
+              Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,8 +49,7 @@ class PokeCard extends StatelessWidget {
                     ),
                     Text(
                       pokemon.name.capitalize(),
-                      style:
-                          textTheme.headline6!.copyWith(color: Palette.kWhite),
+                      style: textTheme.headline6!.copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -62,20 +61,19 @@ class PokeCard extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
+              Positioned(
+                right: 12,
+                top: -20,
+                child: CachedNetworkImage(
+                  imageUrl: getImageUrl(pokemon.id),
+                  width: size.width / 3,
+                  height: size.width / 3,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            right: 12,
-            top: -20,
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokeIdToString(pokemon.id)}.png',
-              width: size.width / 3,
-              height: size.width / 3,
-              fit: BoxFit.contain,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

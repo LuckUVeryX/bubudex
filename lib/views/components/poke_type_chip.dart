@@ -23,24 +23,23 @@ class PokeTypeChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
         color: Palette.getTypeColor(pokeType),
       ),
-      child: Center(
-        child: Row(
-          children: [
-            SizedBox(
-              height: 16,
-              width: 16,
-              child: SvgPicture.asset(
-                getPokeTypeIcon(pokeType),
-                color: Palette.kWhite,
-              ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 16,
+            width: 16,
+            child: SvgPicture.asset(
+              getPokeTypeIcon(pokeType),
+              color: Palette.kWhite,
             ),
-            const SizedBox(width: 4),
-            Text(
-              stringFromPokeType(pokeType).capitalize(),
-              style: textTheme.subtitle2!.copyWith(color: Palette.kWhite),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            stringFromPokeType(pokeType).capitalize(),
+            style: textTheme.subtitle2!.copyWith(color: Palette.kWhite),
+          ),
+        ],
       ),
     );
   }

@@ -10,7 +10,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const height = kToolbarHeight + 124;
+    const height = kToolbarHeight + 132;
     final textTheme = Theme.of(context).textTheme;
     final searchProvider =
         Provider.of<PokeListProvider>(context, listen: false);
@@ -22,7 +22,7 @@ class HomeAppBar extends StatelessWidget {
       flexibleSpace: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Pokédex', style: textTheme.headline6),
+          Text('Pokédex', style: textTheme.headline5),
           const SizedBox(height: 8),
           const Text(
             'Search for Pokémon by name or using the National Pokédex number.',
