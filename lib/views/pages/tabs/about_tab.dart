@@ -15,6 +15,7 @@ class AboutTab extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.all(40),
         child: Column(
