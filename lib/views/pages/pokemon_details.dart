@@ -30,6 +30,7 @@ class PokeDetailsPage extends StatelessWidget {
                       SafeArea(child: PokemonSpaceBar(), bottom: true),
                 ),
                 SliverPersistentHeader(
+                  pinned: true,
                   delegate: _SliverAppBarDelegate(
                     backgroundColor: Palette.kBackgroundGrass,
                     bottom: const TabBar(
