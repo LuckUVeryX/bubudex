@@ -81,7 +81,7 @@ class FilterBottomSheet extends StatelessWidget {
               child: SizedBox(
                 height: 60,
                 child: ElevatedButton(
-                  style: selectedButtonStyle,
+                  style: unselectedButtonStyle,
                   onPressed: pokeListProvider.resetFilters,
                   child: const Text('Reset'),
                 ),
