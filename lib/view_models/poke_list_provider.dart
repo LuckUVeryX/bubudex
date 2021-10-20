@@ -159,7 +159,14 @@ class PokeListProvider extends ChangeNotifier {
           _heightFilter.every((height) => height == getPokeHeight(poke));
       bool weightMatch =
           _weightFilter.every((weight) => weight == getPokeWeight(poke));
-      return typeMatch && weaknessMatch && heightMatch && weightMatch;
+      bool numberMatch =
+          poke.id <= _rangeValues?.end && poke.id >= _rangeValues?.start;
+
+      return typeMatch &&
+          weaknessMatch &&
+          heightMatch &&
+          weightMatch &&
+          numberMatch;
     }).toList();
     notifyListeners();
   }
