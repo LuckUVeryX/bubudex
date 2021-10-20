@@ -102,9 +102,7 @@ class FilterBottomSheet extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(
                                 Palette.kPressedInput),
                           ),
-                          onPressed: () {
-                            pokeListProvider.resetFilters();
-                          },
+                          onPressed: pokeListProvider.resetFilters,
                           child: const Text('Reset'),
                         ),
                       ),
@@ -119,7 +117,7 @@ class FilterBottomSheet extends StatelessWidget {
                             backgroundColor:
                                 MaterialStateProperty.all(Palette.kPsychic),
                           ),
-                          onPressed: () {},
+                          onPressed: pokeListProvider.applyFilters,
                           child: const Text('Apply'),
                         ),
                       ),

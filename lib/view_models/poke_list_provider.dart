@@ -139,7 +139,11 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   void applyFilters() {
-    // TODO: Apply filters
+    _pokemons = _pokemonsCopy.where((poke) {
+      return _typeFilter
+          .every((type) => poke.types.contains(stringFromPokeType(type)));
+    }).toList();
+    notifyListeners();
   }
 
   @override
