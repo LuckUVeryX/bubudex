@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../utils/utils.dart';
 import '../../view_models/view_models.dart';
@@ -82,14 +84,7 @@ class FilterBottomSheet extends StatelessWidget {
                 getFilterColor: pokeListProvider.getWeightColor,
                 onPressed: pokeListProvider.toggleWeightFilter,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: horizontalPad - 24),
-                child: Slider(
-                  onChanged: (value) {},
-                  value: 0.5,
-                ),
-              ),
+              const IdRangeSlider(horizontalPad: horizontalPad),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
                 child: Row(
@@ -133,6 +128,51 @@ class FilterBottomSheet extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class IdRangeSlider extends StatelessWidget {
+  const IdRangeSlider({
+    Key? key,
+    required this.horizontalPad,
+  }) : super(key: key);
+
+  final double horizontalPad;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: horizontalPad),
+          child: Text('Number Range', style: textTheme.bodyText1),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: horizontalPad - 24),
+          child: Consumer<PokeListProvider>(builder: (_, pokeListProvider, __) {
+            return SfRangeSliderTheme(
+              data: SfRangeSliderThemeData(
+                thumbStrokeColor: Palette.kPsychic,
+                thumbStrokeWidth: 4,
+                activeTrackColor: Palette.kPsychic,
+                inactiveTrackColor: Palette.kDefaultInput,
+                thumbColor: Colors.white,
+              ),
+              child: SfRangeSlider(
+                values: pokeListProvider.rangeValues,
+                onChanged: pokeListProvider.setRangeValues,
+                stepSize: 1.0,
+                enableTooltip: true,
+                min: 1,
+                max: pokeListProvider.numOfPoke,
+              ),
+            );
+          }),
+        ),
+      ],
     );
   }
 }

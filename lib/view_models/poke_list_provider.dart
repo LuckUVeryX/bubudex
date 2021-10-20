@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../models/models.dart';
 import '../utils/utils.dart';
 import '../views/theme/theme.dart';
 
-enum PokeListState { noFilter, filter }
-
 class PokeListProvider extends ChangeNotifier {
-  PokeListProvider(this._pokemons) {
-    _pokemonsCopy = pokemons;
+  PokeListProvider(this._pokemons, this._numOfPoke) {
+    _pokemonsCopy = _pokemons;
   }
-
-  PokeListState state = PokeListState.noFilter;
 
   late final List<Pokemon> _pokemonsCopy; // to hold immutable list of pokemons
   List<Pokemon> _pokemons;
   List<Pokemon> get pokemons => _pokemons;
+
+  final int _numOfPoke;
+  int get numOfPoke => _numOfPoke;
 
   final _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
@@ -130,11 +130,21 @@ class PokeListProvider extends ChangeNotifier {
     }
   }
 
+  SfRangeValues? _rangeValues;
+  SfRangeValues get rangeValues =>
+      _rangeValues ??= SfRangeValues(1.0, _numOfPoke.toDouble());
+
+  void setRangeValues(SfRangeValues values) {
+    _rangeValues = values;
+    notifyListeners();
+  }
+
   void resetFilters() {
     _typeFilter.clear();
     _weaknessFilter.clear();
     _heightFilter.clear();
     _weightFilter.clear();
+    _rangeValues = SfRangeValues(1.0, _numOfPoke.toDouble());
     _pokemons = _pokemonsCopy;
     notifyListeners();
   }

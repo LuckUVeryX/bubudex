@@ -28,7 +28,10 @@ class HomePage extends StatelessWidget {
             case HomePageStatus.done:
               debugPrint(HomePageStatus.done.toString());
               return ChangeNotifierProvider(
-                create: (_) => PokeListProvider(homeProvider.pokemons),
+                create: (_) => PokeListProvider(
+                  homeProvider.pokemons,
+                  homeProvider.pokemons.length,
+                ),
                 child: const _HomePageWithData(),
               );
 
