@@ -1,10 +1,15 @@
 import 'package:flutter/foundation.dart';
 
+import '../models/models.dart';
+import '../repository/repository.dart';
+
 enum PokeDetailsStatus { init, done, error }
 
 class PokeDetailsProvider extends ChangeNotifier {
-  PokeDetailsStatus _status = PokeDetailsStatus.init;
+  PokeDetailsProvider(this._repository);
+  final IPokeDetailsRepository _repository;
 
+  PokeDetailsStatus _status = PokeDetailsStatus.init;
   PokeDetailsStatus get status => _status;
 
   void setStatus(PokeDetailsStatus status) {
@@ -12,9 +17,12 @@ class PokeDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void init() async {
+  late final PokeData _pokeData;
+  PokeData get pokeData => _pokeData;
+
+  void init(int id) async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      _pokeData = await _repository.getPokeData(id);
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());

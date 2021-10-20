@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
+import '../../repository/repository.dart';
+import '../../services/services.dart';
 import '../../utils/utils.dart';
 import '../../view_models/view_models.dart';
 import '../components/components.dart';
@@ -20,6 +22,9 @@ class PokeDetailsPage extends StatelessWidget {
   final Pokemon pokemon;
   @override
   Widget build(BuildContext context) {
+    final _apiService = Provider.of<ApiService>(context, listen: false);
+    final _hiveService = Provider.of<HiveService?>(context, listen: false);
+
     final backgroundColor =
         Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
     return Scaffold(
@@ -55,12 +60,13 @@ class PokeDetailsPage extends StatelessWidget {
             ];
           },
           body: ChangeNotifierProvider(
-            create: (_) => PokeDetailsProvider(),
+            create: (_) => PokeDetailsProvider(
+                PokeDetailsRepository(_apiService, _hiveService!)),
             child: Consumer<PokeDetailsProvider>(
                 builder: (_, pokeDetailsProvider, __) {
               switch (pokeDetailsProvider.status) {
                 case PokeDetailsStatus.init:
-                  pokeDetailsProvider.init();
+                  pokeDetailsProvider.init(pokemon.id);
                   return Center(
                     child: CircularProgressIndicator(color: backgroundColor),
                   );

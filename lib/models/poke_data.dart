@@ -14,9 +14,10 @@ class PokeData {
   /// hectograms
   final int weight;
 
-  final List<Abilities> abilities;
+  @JsonKey(name: 'abilities')
+  final List<PokemonAbility> abilities;
 
-  final int effort;
+  final List<PokemonStat> stats;
 
   @JsonKey(name: 'base_experience')
   final int baseExp;
@@ -26,7 +27,7 @@ class PokeData {
     required this.height,
     required this.weight,
     required this.abilities,
-    required this.effort,
+    required this.stats,
     required this.baseExp,
   });
 
@@ -34,6 +35,30 @@ class PokeData {
       _$PokeDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$PokeDataToJson(this);
+}
+
+@JsonSerializable()
+class PokemonStat {
+  final Stat stat;
+
+  final int effort;
+
+  PokemonStat({required this.stat, required this.effort});
+
+  factory PokemonStat.fromJson(Map<String, dynamic> json) =>
+      _$PokemonStatFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PokemonStatToJson(this);
+}
+
+@JsonSerializable()
+class Stat extends NamedApiResource {
+  Stat({required String name, required String url})
+      : super(name: name, url: url);
+
+  factory Stat.fromJson(Map<String, dynamic> json) => _$StatFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StatToJson(this);
 }
 
 @JsonSerializable()
@@ -48,12 +73,26 @@ class Species extends NamedApiResource {
 }
 
 @JsonSerializable()
-class Abilities extends NamedApiResource {
-  Abilities({required String name, required String url})
+class PokemonAbility {
+  final int slot;
+
+  final Ability ability;
+
+  PokemonAbility({required this.slot, required this.ability});
+
+  factory PokemonAbility.fromJson(Map<String, dynamic> json) =>
+      _$PokemonAbilityFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PokemonAbilityToJson(this);
+}
+
+@JsonSerializable()
+class Ability extends NamedApiResource {
+  Ability({required String name, required String url})
       : super(name: name, url: url);
 
-  factory Abilities.fromJson(Map<String, dynamic> json) =>
-      _$AbilitiesFromJson(json);
+  factory Ability.fromJson(Map<String, dynamic> json) =>
+      _$AbilityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AbilitiesToJson(this);
+  Map<String, dynamic> toJson() => _$AbilityToJson(this);
 }

@@ -1,5 +1,5 @@
 abstract class IPokeDetailsRepository {
-  Future getPokeData();
+  Future getPokeData(int id);
 
-  Future getPokeLocationAreas();
+  Future getPokeLocationAreas(int id);
 }
