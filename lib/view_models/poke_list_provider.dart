@@ -130,6 +130,18 @@ class PokeListProvider extends ChangeNotifier {
     }
   }
 
+  void resetFilters() {
+    _typeFilter.clear();
+    _weaknessFilter.clear();
+    _heightFilter.clear();
+    _weightFilter.clear();
+    notifyListeners();
+  }
+
+  void applyFilters() {
+    // TODO: Apply filters
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
