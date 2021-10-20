@@ -88,26 +88,14 @@ class _HomePageWithData extends StatelessWidget {
               icon: const Icon(PokeIcons.generation),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                _showHomeBottomSheet(context, const SortBottomSheet());
+              },
               icon: const Icon(PokeIcons.sort),
             ),
             IconButton(
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  builder: (_) {
-                    final pokeListProvider =
-                        Provider.of<PokeListProvider>(context, listen: false);
-                    return ChangeNotifierProvider.value(
-                      value: pokeListProvider,
-                      child: const FilterBottomSheet(),
-                    );
-                  },
-                );
+                _showHomeBottomSheet(context, const FilterBottomSheet());
               },
               icon: const Icon(PokeIcons.filter),
             ),
@@ -130,6 +118,24 @@ class _HomePageWithData extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showHomeBottomSheet(BuildContext context, Widget child) {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40),
+      ),
+      builder: (_) {
+        final pokeListProvider =
+            Provider.of<PokeListProvider>(context, listen: false);
+        return ChangeNotifierProvider.value(
+          value: pokeListProvider,
+          child: child,
+        );
+      },
     );
   }
 }
