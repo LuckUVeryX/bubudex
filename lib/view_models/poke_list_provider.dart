@@ -12,11 +12,38 @@ class PokeListProvider extends ChangeNotifier {
 
   late final List<Pokemon> _pokemonsCopy; // to hold immutable list of pokemons
   List<Pokemon> _pokemons;
-  List<Pokemon> get pokemons => _pokemons;
+
+  // * Sort
+  SortOrder _sortOrder = SortOrder.smallest;
+  SortOrder get sortOrder => _sortOrder;
+
+  void setSortOrder(SortOrder order) {
+    _sortOrder = order;
+    notifyListeners();
+  }
+
+  List<Pokemon> get pokemons {
+    switch (_sortOrder) {
+      case SortOrder.smallest:
+        _pokemons.sort((a, b) => a.id.compareTo(b.id));
+        break;
+      case SortOrder.highest:
+        _pokemons.sort((b, a) => a.id.compareTo(b.id));
+        break;
+      case SortOrder.aToZ:
+        _pokemons.sort((a, b) => a.name.compareTo(b.name));
+        break;
+      case SortOrder.zToA:
+        _pokemons.sort((b, a) => a.name.compareTo(b.name));
+        break;
+    }
+    return _pokemons;
+  }
 
   final int _numOfPoke;
   int get numOfPoke => _numOfPoke;
 
+  // * Search
   final _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
 
@@ -38,6 +65,7 @@ class PokeListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // * Filter
   final List<PokeType> _typeFilter = [];
   List<PokeType> get typeFilter => _typeFilter;
 
@@ -177,3 +205,5 @@ class PokeListProvider extends ChangeNotifier {
     super.dispose();
   }
 }
+
+enum SortOrder { smallest, highest, aToZ, zToA }
