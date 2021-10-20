@@ -13,6 +13,9 @@ part 'app_router.gr.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(page: HomePage, initial: true),
+    AutoRoute(page: PokeDetailsPage, path: '/pokemon/:pokeId'),
+    // Wildcard matching to handle invalid or undefined paths.
+    RedirectRoute(path: '*', redirectTo: '/')
   ],
 )
 // extend the generated private router

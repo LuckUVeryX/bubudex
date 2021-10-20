@@ -25,7 +25,7 @@ class AppTheme {
     headline1: TextStyle(
       fontSize: 100,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: Colors.white,
     ),
     // Application Title
     headline5: TextStyle(

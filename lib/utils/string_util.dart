@@ -22,6 +22,10 @@ String pokeIdToString(int id) {
   return id.toString().padLeft(3, '0');
 }
 
+String getImageUrl(int id) {
+  return 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokeIdToString(id)}.png';
+}
+
 extension StringExtension on String {
   String capitalize() {
     return '${this[0].toUpperCase()}${substring(1)}';

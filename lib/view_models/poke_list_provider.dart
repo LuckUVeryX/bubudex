@@ -213,8 +213,11 @@ class PokeListProvider extends ChangeNotifier {
           _heightFilter.every((height) => height == getPokeHeight(poke));
       bool weightMatch =
           _weightFilter.every((weight) => weight == getPokeWeight(poke));
-      bool numberMatch =
-          poke.id <= _rangeValues?.end && poke.id >= _rangeValues?.start;
+      bool numberMatch = true;
+      if (_rangeValues != null) {
+        numberMatch =
+            poke.id <= _rangeValues?.end && poke.id >= _rangeValues?.start;
+      }
       bool generationMatch = _generationFilter.isNotEmpty
           ? _generationFilter.contains(getGeneration(poke))
           : true;
