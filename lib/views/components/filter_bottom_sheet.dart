@@ -79,33 +79,13 @@ class FilterBottomSheet extends StatelessWidget {
             const _IdRangeSlider(horizontalPad: horizontalPad),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 60,
-                      child: ElevatedButton(
-                        style: unselectedButtonStyle,
-                        onPressed: pokeListProvider.resetFilters,
-                        child: const Text('Reset'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: SizedBox(
-                      height: 60,
-                      child: ElevatedButton(
-                        style: selectedButtonStyle,
-                        onPressed: () {
-                          pokeListProvider.applyFilters();
-                          AutoRouter.of(context).pop();
-                        },
-                        child: const Text('Apply'),
-                      ),
-                    ),
-                  ),
-                ],
+              child: SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  style: selectedButtonStyle,
+                  onPressed: pokeListProvider.resetFilters,
+                  child: const Text('Reset'),
+                ),
               ),
             ),
           ],

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -46,6 +48,7 @@ class PokeListProvider extends ChangeNotifier {
   int get numOfPoke => _numOfPoke;
 
   // * Search
+  Timer? _searchDebounce;
   final _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
 
@@ -54,17 +57,20 @@ class PokeListProvider extends ChangeNotifier {
     if (query.isEmpty) {
       _pokemons = _pokemonsCopy;
     } else {
-      _pokemons = _pokemonsCopy.where((pokemon) {
-        int id = int.tryParse(query) ?? -1;
-        String name = pokemon.name.toLowerCase();
-        List<String> types =
-            pokemon.types.map((type) => type.toLowerCase()).toList();
-        return pokemon.id == id ||
-            name.contains(query) ||
-            types.contains(query);
-      }).toList();
+      if (_searchDebounce?.isActive ?? false) _searchDebounce?.cancel();
+      _searchDebounce = Timer(const Duration(milliseconds: 100), () {
+        _pokemons = _pokemonsCopy.where((pokemon) {
+          int id = int.tryParse(query) ?? -1;
+          String name = pokemon.name.toLowerCase();
+          List<String> types =
+              pokemon.types.map((type) => type.toLowerCase()).toList();
+          return pokemon.id == id ||
+              name.contains(query) ||
+              types.contains(query);
+        }).toList();
+      });
     }
-    notifyListeners();
+    _clearFilters();
   }
 
   // * Filter
@@ -76,7 +82,7 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _typeFilter.add(pokeType);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Type Filter: $_typeFilter');
   }
 
@@ -98,7 +104,8 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _weaknessFilter.add(pokeType);
     }
-    notifyListeners();
+    _applyFilters();
+
     debugPrint('Weakness Filter: $_weaknessFilter');
   }
 
@@ -120,7 +127,7 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _heightFilter.add(pokeHeight);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Height Filter: $_heightFilter');
   }
 
@@ -142,7 +149,7 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _weightFilter.add(pokeWeight);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Height Filter: $_weightFilter');
   }
 
@@ -156,6 +163,8 @@ class PokeListProvider extends ChangeNotifier {
     }
   }
 
+  Timer? _rangeSliderDebounce;
+
   SfRangeValues? _rangeValues;
   SfRangeValues get rangeValues =>
       _rangeValues ??= SfRangeValues(1.0, _numOfPoke.toDouble());
@@ -163,37 +172,24 @@ class PokeListProvider extends ChangeNotifier {
   void setRangeValues(SfRangeValues values) {
     _rangeValues = values;
     notifyListeners();
+    if (_rangeSliderDebounce?.isActive ?? false) _rangeSliderDebounce?.cancel();
+    _rangeSliderDebounce = Timer(const Duration(milliseconds: 100), () {
+      _applyFilters();
+    });
   }
 
   void resetFilters() {
+    _searchController.clear();
+    _pokemons = _pokemonsCopy;
+    _clearFilters();
+  }
+
+  void _clearFilters() {
     _typeFilter.clear();
     _weaknessFilter.clear();
     _heightFilter.clear();
     _weightFilter.clear();
     _rangeValues = SfRangeValues(1.0, _numOfPoke.toDouble());
-    _pokemons = _pokemonsCopy;
-    notifyListeners();
-  }
-
-  void applyFilters() {
-    _pokemons = _pokemonsCopy.where((poke) {
-      bool typeMatch = _typeFilter
-          .every((type) => poke.types.contains(stringFromPokeType(type)));
-      bool weaknessMatch = _weaknessFilter
-          .every((type) => getTypeWeakness(poke.typeDefences).contains(type));
-      bool heightMatch =
-          _heightFilter.every((height) => height == getPokeHeight(poke));
-      bool weightMatch =
-          _weightFilter.every((weight) => weight == getPokeWeight(poke));
-      bool numberMatch =
-          poke.id <= _rangeValues?.end && poke.id >= _rangeValues?.start;
-
-      return typeMatch &&
-          weaknessMatch &&
-          heightMatch &&
-          weightMatch &&
-          numberMatch;
-    }).toList();
     notifyListeners();
   }
 
@@ -207,13 +203,41 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _generationFilter.add(generation);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Generation Filter: $_generationFilter');
+  }
+
+  void _applyFilters() {
+    _pokemons = _pokemonsCopy.where((poke) {
+      bool typeMatch = _typeFilter
+          .every((type) => poke.types.contains(stringFromPokeType(type)));
+      bool weaknessMatch = _weaknessFilter
+          .every((type) => getTypeWeakness(poke.typeDefences).contains(type));
+      bool heightMatch =
+          _heightFilter.every((height) => height == getPokeHeight(poke));
+      bool weightMatch =
+          _weightFilter.every((weight) => weight == getPokeWeight(poke));
+      bool numberMatch =
+          poke.id <= _rangeValues?.end && poke.id >= _rangeValues?.start;
+      bool generationMatch = _generationFilter.isNotEmpty
+          ? _generationFilter.contains(getGeneration(poke))
+          : true;
+
+      return typeMatch &&
+          weaknessMatch &&
+          heightMatch &&
+          weightMatch &&
+          numberMatch &&
+          generationMatch;
+    }).toList();
+    notifyListeners();
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _searchDebounce?.cancel();
+    _rangeSliderDebounce?.cancel();
     super.dispose();
   }
 }
