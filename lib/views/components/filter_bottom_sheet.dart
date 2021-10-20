@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -117,7 +118,10 @@ class FilterBottomSheet extends StatelessWidget {
                             backgroundColor:
                                 MaterialStateProperty.all(Palette.kPsychic),
                           ),
-                          onPressed: pokeListProvider.applyFilters,
+                          onPressed: () {
+                            pokeListProvider.applyFilters();
+                            AutoRouter.of(context).pop();
+                          },
                           child: const Text('Apply'),
                         ),
                       ),

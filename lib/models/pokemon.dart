@@ -26,6 +26,9 @@ class Pokemon {
   @HiveField(5)
   List<String> types;
 
+  @HiveField(6)
+  TypeDefences typeDefences;
+
   Pokemon({
     required this.id,
     required this.name,
@@ -33,6 +36,7 @@ class Pokemon {
     required this.height,
     required this.weight,
     required this.types,
+    required this.typeDefences,
   });
 
   factory Pokemon.fromJson(Map<String, dynamic> json) =>
@@ -50,59 +54,59 @@ class Pokemon {
 @HiveType(typeId: HiveTypeId.typeDefenses)
 class TypeDefences {
   @HiveField(6)
-  double normal;
+  double? normal;
 
   @HiveField(7)
-  double fire;
+  double? fire;
 
   @HiveField(8)
-  double water;
+  double? water;
 
   @HiveField(9)
-  double electric;
+  double? electric;
 
   @HiveField(10)
-  double grass;
+  double? grass;
 
   @HiveField(11)
-  double ice;
+  double? ice;
 
   @HiveField(12)
-  double fighting;
+  double? fighting;
 
   @HiveField(13)
-  double poison;
+  double? poison;
 
   @HiveField(14)
-  double ground;
+  double? ground;
 
   @HiveField(15)
-  double flying;
+  double? flying;
 
   @HiveField(16)
-  double psychic;
+  double? psychic;
 
   @HiveField(17)
-  double bug;
+  double? bug;
 
   @HiveField(18)
-  double rock;
+  double? rock;
 
   @HiveField(19)
-  double ghost;
+  double? ghost;
 
   @HiveField(20)
-  double dragon;
+  double? dragon;
 
   @JsonKey(name: 'darl')
   @HiveField(21)
-  double dark;
+  double? dark;
 
   @HiveField(22)
-  double steel;
+  double? steel;
 
   @HiveField(23)
-  double fairy;
+  double? fairy;
 
   TypeDefences({
     required this.normal,
@@ -130,8 +134,26 @@ class TypeDefences {
 
   Map<String, dynamic> toJson() => _$TypeDefencesToJson(this);
 
-  @override
-  String toString() {
-    return toJson().toString();
+  Map<PokeType, double?> toMap() {
+    return <PokeType, double?>{
+      PokeType.normal: normal,
+      PokeType.fire: fire,
+      PokeType.water: water,
+      PokeType.electric: electric,
+      PokeType.grass: grass,
+      PokeType.ice: ice,
+      PokeType.fighting: fighting,
+      PokeType.poison: poison,
+      PokeType.ground: ground,
+      PokeType.flying: flying,
+      PokeType.psychic: psychic,
+      PokeType.bug: bug,
+      PokeType.rock: rock,
+      PokeType.ghost: ghost,
+      PokeType.dragon: dragon,
+      PokeType.dark: dark,
+      PokeType.steel: steel,
+      PokeType.fairy: fairy,
+    };
   }
 }

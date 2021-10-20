@@ -2,16 +2,12 @@ import '../models/models.dart';
 import 'utils.dart';
 
 List<PokeType> getTypeWeakness(TypeDefences typeDefences) {
-  List<PokeType> weakness = [];
-  Map<String, dynamic> map = typeDefences.toJson();
+  Map<PokeType, double?> map = typeDefences.toMap();
   map.removeWhere((key, value) {
-    return double.tryParse(value)?.compareTo(1) == 1;
+    // remove if defense value is null or less than 1
+    return value == null || value < 1;
   });
-  for (String key in map.keys) {
-    weakness.add(pokeTypeFromString(key));
-  }
-  print(weakness);
-  return weakness;
+  return map.keys.toList();
 }
 
 PokeHeight getPokeHeight(Pokemon pokemon) {
