@@ -26,7 +26,7 @@ class FilterBottomSheet extends StatelessWidget {
         Provider.of<PokeListProvider>(context, listen: false);
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.5,
+      initialChildSize: 0.8,
       maxChildSize: 0.8,
       expand: false,
       builder: (_, scrollController) {
