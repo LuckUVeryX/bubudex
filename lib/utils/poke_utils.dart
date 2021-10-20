@@ -10,10 +10,24 @@ List<PokeType> getTypeWeakness(TypeDefences typeDefences) {
   return map.keys.toList();
 }
 
+/// Height thresholds obtained from
+/// https://pokemon.fandom.com/wiki/List_of_Pokémon_by_height
 PokeHeight getPokeHeight(Pokemon pokemon) {
-  return PokeHeight.medium;
+  if (pokemon.height < 1.3) {
+    return PokeHeight.short;
+  } else if (pokemon.height < 2.2) {
+    return PokeHeight.medium;
+  } else {
+    return PokeHeight.tall;
+  }
 }
 
 PokeWeight getPokeWeight(Pokemon pokemon) {
-  return PokeWeight.normal;
+  if (pokemon.weight < 45) {
+    return PokeWeight.light;
+  } else if (pokemon.weight < 230) {
+    return PokeWeight.normal;
+  } else {
+    return PokeWeight.heavy;
+  }
 }
