@@ -33,107 +33,103 @@ class FilterBottomSheet extends StatelessWidget {
       maxChildSize: 0.8,
       expand: false,
       builder: (_, scrollController) {
-        return SizedBox(
-          height: 400,
-          width: 400,
-          child: ListView(
-            physics: const ClampingScrollPhysics(),
-            controller: scrollController,
-            children: [
-              const SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
-                child: Text('Filters', style: textTheme.headline6),
-              ),
-              const SizedBox(height: 4),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPad),
-                child: Text(
-                    'Use advanced search to explore Pokémon by type, weakness, height and more!'),
-              ),
-              const SizedBox(height: 16),
-              FilterTypeScroll<PokeType>(
-                title: 'Types',
-                horizontalPad: horizontalPad,
-                enumValues: PokeType.values,
-                getSvgAsset: getPokeTypeIcon,
-                getFilterColor: pokeListProvider.getTypeColor,
-                onPressed: pokeListProvider.toggleTypeFilter,
-              ),
-              FilterTypeScroll<PokeType>(
-                title: 'Weaknessses',
-                horizontalPad: horizontalPad,
-                enumValues: PokeType.values,
-                getSvgAsset: getPokeTypeIcon,
-                getFilterColor: pokeListProvider.getWeaknessColor,
-                onPressed: pokeListProvider.toggleWeaknessFilter,
-              ),
-              FilterTypeScroll<PokeHeight>(
-                title: 'Heights',
-                horizontalPad: horizontalPad,
-                enumValues: PokeHeight.values,
-                getSvgAsset: getPokeHeightIcon,
-                getFilterColor: pokeListProvider.getHeightColor,
-                onPressed: pokeListProvider.toggleHeightFilter,
-              ),
-              FilterTypeScroll<PokeWeight>(
-                title: 'Weights',
-                horizontalPad: horizontalPad,
-                enumValues: PokeWeight.values,
-                getSvgAsset: getPokeWeightIcon,
-                getFilterColor: pokeListProvider.getWeightColor,
-                onPressed: pokeListProvider.toggleWeightFilter,
-              ),
-              const IdRangeSlider(horizontalPad: horizontalPad),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 60,
-                        child: ElevatedButton(
-                          style: buttonStyle.copyWith(
-                            elevation: MaterialStateProperty.all(0),
-                            backgroundColor: MaterialStateProperty.all(
-                                Palette.kPressedInput),
-                          ),
-                          onPressed: pokeListProvider.resetFilters,
-                          child: const Text('Reset'),
+        return ListView(
+          physics: const ClampingScrollPhysics(),
+          controller: scrollController,
+          children: [
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
+              child: Text('Filters', style: textTheme.headline6),
+            ),
+            const SizedBox(height: 4),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: horizontalPad),
+              child: Text(
+                  'Use advanced search to explore Pokémon by type, weakness, height and more!'),
+            ),
+            const SizedBox(height: 16),
+            FilterTypeScroll<PokeType>(
+              title: 'Types',
+              horizontalPad: horizontalPad,
+              enumValues: PokeType.values,
+              getSvgAsset: getPokeTypeIcon,
+              getFilterColor: pokeListProvider.getTypeColor,
+              onPressed: pokeListProvider.toggleTypeFilter,
+            ),
+            FilterTypeScroll<PokeType>(
+              title: 'Weaknessses',
+              horizontalPad: horizontalPad,
+              enumValues: PokeType.values,
+              getSvgAsset: getPokeTypeIcon,
+              getFilterColor: pokeListProvider.getWeaknessColor,
+              onPressed: pokeListProvider.toggleWeaknessFilter,
+            ),
+            FilterTypeScroll<PokeHeight>(
+              title: 'Heights',
+              horizontalPad: horizontalPad,
+              enumValues: PokeHeight.values,
+              getSvgAsset: getPokeHeightIcon,
+              getFilterColor: pokeListProvider.getHeightColor,
+              onPressed: pokeListProvider.toggleHeightFilter,
+            ),
+            FilterTypeScroll<PokeWeight>(
+              title: 'Weights',
+              horizontalPad: horizontalPad,
+              enumValues: PokeWeight.values,
+              getSvgAsset: getPokeWeightIcon,
+              getFilterColor: pokeListProvider.getWeightColor,
+              onPressed: pokeListProvider.toggleWeightFilter,
+            ),
+            const _IdRangeSlider(horizontalPad: horizontalPad),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 60,
+                      child: ElevatedButton(
+                        style: buttonStyle.copyWith(
+                          elevation: MaterialStateProperty.all(0),
+                          backgroundColor:
+                              MaterialStateProperty.all(Palette.kPressedInput),
                         ),
+                        onPressed: pokeListProvider.resetFilters,
+                        child: const Text('Reset'),
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: SizedBox(
-                        height: 60,
-                        child: ElevatedButton(
-                          style: buttonStyle.copyWith(
-                            elevation: MaterialStateProperty.all(0),
-                            backgroundColor:
-                                MaterialStateProperty.all(Palette.kPsychic),
-                          ),
-                          onPressed: () {
-                            pokeListProvider.applyFilters();
-                            AutoRouter.of(context).pop();
-                          },
-                          child: const Text('Apply'),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: SizedBox(
+                      height: 60,
+                      child: ElevatedButton(
+                        style: buttonStyle.copyWith(
+                          elevation: MaterialStateProperty.all(0),
+                          backgroundColor:
+                              MaterialStateProperty.all(Palette.kPsychic),
                         ),
+                        onPressed: () {
+                          pokeListProvider.applyFilters();
+                          AutoRouter.of(context).pop();
+                        },
+                        child: const Text('Apply'),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
   }
 }
 
-class IdRangeSlider extends StatelessWidget {
-  const IdRangeSlider({
+class _IdRangeSlider extends StatelessWidget {
+  const _IdRangeSlider({
     Key? key,
     required this.horizontalPad,
   }) : super(key: key);
