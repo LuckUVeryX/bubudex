@@ -125,11 +125,27 @@ class Palette {
     }
   }
 
-  // Background colors
-  static const kWhite = Color(0xffffffff);
-  static const kDefaultInput = Color(0xfff2f2f2);
-  static const kPressedInput = Color(0xffe2e2e2);
-  static const kModal = Color(0x40000000);
+  static Color getHeightColor(PokeHeight pokeHeight) {
+    switch (pokeHeight) {
+      case PokeHeight.short:
+        return kShortHeight;
+      case PokeHeight.medium:
+        return kMediumHeight;
+      case PokeHeight.tall:
+        return kTallHeight;
+    }
+  }
+
+  static Color getWeightColor(PokeWeight pokeWeight) {
+    switch (pokeWeight) {
+      case PokeWeight.light:
+        return kLightWeight;
+      case PokeWeight.normal:
+        return kNormalWeight;
+      case PokeWeight.heavy:
+        return kHeavyWeight;
+    }
+  }
 
   // Height colors
   static const kShortHeight = Color(0xffffc5e6);
@@ -141,9 +157,22 @@ class Palette {
   static const kNormalWeight = Color(0xff57b2dc);
   static const kHeavyWeight = Color(0xff5a92a5);
 
+  // Background colors
+  static const kWhite = Color(0xffffffff);
+  static const kDefaultInput = Color(0xfff2f2f2);
+  static const kPressedInput = Color(0xffe2e2e2);
+  static const kModal = Color(0x40000000);
+
   // Text colors
   static const kTextNumber = Color(0x9917171B);
 
   // TextField Colors
   static const kDefaultField = Color(0xfff2f2f2);
+}
+
+class FilterColor {
+  Color background;
+  Color icon;
+
+  FilterColor({required this.background, required this.icon});
 }

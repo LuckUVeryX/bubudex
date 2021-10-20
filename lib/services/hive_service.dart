@@ -11,6 +11,7 @@ class HiveService {
     await Hive.initFlutter();
 
     Hive.registerAdapter(PokemonAdapter());
+    Hive.registerAdapter(TypeDefencesAdapter());
     pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
 
     debugPrint('Initialized Hive Service');

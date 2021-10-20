@@ -28,7 +28,10 @@ class HomePage extends StatelessWidget {
             case HomePageStatus.done:
               debugPrint(HomePageStatus.done.toString());
               return ChangeNotifierProvider(
-                create: (_) => SearchProvider(homeProvider.pokemons),
+                create: (_) => PokeListProvider(
+                  homeProvider.pokemons,
+                  homeProvider.pokemons.length,
+                ),
                 child: const _HomePageWithData(),
               );
 
@@ -89,7 +92,23 @@ class _HomePageWithData extends StatelessWidget {
               icon: const Icon(PokeIcons.sort),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  builder: (_) {
+                    final pokeListProvider =
+                        Provider.of<PokeListProvider>(context, listen: false);
+                    return ChangeNotifierProvider.value(
+                      value: pokeListProvider,
+                      child: const FilterBottomSheet(),
+                    );
+                  },
+                );
+              },
               icon: const Icon(PokeIcons.filter),
             ),
           ],
@@ -99,7 +118,7 @@ class _HomePageWithData extends StatelessWidget {
           child: CustomScrollView(
             slivers: [
               const HomeAppBar(),
-              Consumer<SearchProvider>(builder: (_, search, __) {
+              Consumer<PokeListProvider>(builder: (_, search, __) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (_, i) => PokeCard(pokemon: search.pokemons[i]),
