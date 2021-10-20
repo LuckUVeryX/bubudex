@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../models/models.dart';
 import '../utils/utils.dart';
 import '../views/theme/theme.dart';
+
+enum SortOrder { smallest, highest, aToZ, zToA }
 
 class PokeListProvider extends ChangeNotifier {
   PokeListProvider(this._pokemons, this._numOfPoke) {
@@ -44,6 +48,7 @@ class PokeListProvider extends ChangeNotifier {
   int get numOfPoke => _numOfPoke;
 
   // * Search
+  Timer? _searchDebounce;
   final _searchController = TextEditingController();
   TextEditingController get searchController => _searchController;
 
@@ -52,22 +57,24 @@ class PokeListProvider extends ChangeNotifier {
     if (query.isEmpty) {
       _pokemons = _pokemonsCopy;
     } else {
-      _pokemons = _pokemonsCopy.where((pokemon) {
-        int id = int.tryParse(query) ?? -1;
-        String name = pokemon.name.toLowerCase();
-        List<String> types =
-            pokemon.types.map((type) => type.toLowerCase()).toList();
-        return pokemon.id == id ||
-            name.contains(query) ||
-            types.contains(query);
-      }).toList();
+      if (_searchDebounce?.isActive ?? false) _searchDebounce?.cancel();
+      _searchDebounce = Timer(const Duration(milliseconds: 100), () {
+        _pokemons = _pokemonsCopy.where((pokemon) {
+          int id = int.tryParse(query) ?? -1;
+          String name = pokemon.name.toLowerCase();
+          List<String> types =
+              pokemon.types.map((type) => type.toLowerCase()).toList();
+          return pokemon.id == id ||
+              name.contains(query) ||
+              types.contains(query);
+        }).toList();
+      });
     }
-    notifyListeners();
+    _clearFilters();
   }
 
   // * Filter
   final List<PokeType> _typeFilter = [];
-  List<PokeType> get typeFilter => _typeFilter;
 
   void toggleTypeFilter(PokeType pokeType) {
     if (_typeFilter.contains(pokeType)) {
@@ -75,7 +82,7 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _typeFilter.add(pokeType);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Type Filter: $_typeFilter');
   }
 
@@ -90,7 +97,6 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   final List<PokeType> _weaknessFilter = [];
-  List<PokeType> get weaknessFilter => _weaknessFilter;
 
   void toggleWeaknessFilter(PokeType pokeType) {
     if (_weaknessFilter.contains(pokeType)) {
@@ -98,7 +104,8 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _weaknessFilter.add(pokeType);
     }
-    notifyListeners();
+    _applyFilters();
+
     debugPrint('Weakness Filter: $_weaknessFilter');
   }
 
@@ -113,7 +120,6 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   final List<PokeHeight> _heightFilter = [];
-  List<PokeHeight> get heightFilter => _heightFilter;
 
   void toggleHeightFilter(PokeHeight pokeHeight) {
     if (_heightFilter.contains(pokeHeight)) {
@@ -121,7 +127,7 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _heightFilter.add(pokeHeight);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Height Filter: $_heightFilter');
   }
 
@@ -136,7 +142,6 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   final List<PokeWeight> _weightFilter = [];
-  List<PokeWeight> get weightFilter => _weightFilter;
 
   void toggleWeightFilter(PokeWeight pokeWeight) {
     if (_weightFilter.contains(pokeWeight)) {
@@ -144,7 +149,7 @@ class PokeListProvider extends ChangeNotifier {
     } else {
       _weightFilter.add(pokeWeight);
     }
-    notifyListeners();
+    _applyFilters();
     debugPrint('Height Filter: $_weightFilter');
   }
 
@@ -158,6 +163,8 @@ class PokeListProvider extends ChangeNotifier {
     }
   }
 
+  Timer? _rangeSliderDebounce;
+
   SfRangeValues? _rangeValues;
   SfRangeValues get rangeValues =>
       _rangeValues ??= SfRangeValues(1.0, _numOfPoke.toDouble());
@@ -165,19 +172,42 @@ class PokeListProvider extends ChangeNotifier {
   void setRangeValues(SfRangeValues values) {
     _rangeValues = values;
     notifyListeners();
+    if (_rangeSliderDebounce?.isActive ?? false) _rangeSliderDebounce?.cancel();
+    _rangeSliderDebounce = Timer(const Duration(milliseconds: 100), () {
+      _applyFilters();
+    });
   }
 
   void resetFilters() {
+    _searchController.clear();
+    _pokemons = _pokemonsCopy;
+    _clearFilters();
+  }
+
+  void _clearFilters() {
     _typeFilter.clear();
     _weaknessFilter.clear();
     _heightFilter.clear();
     _weightFilter.clear();
     _rangeValues = SfRangeValues(1.0, _numOfPoke.toDouble());
-    _pokemons = _pokemonsCopy;
     notifyListeners();
   }
 
-  void applyFilters() {
+  // * Generation
+  final List<Generation> _generationFilter = [];
+  List<Generation> get generationFilter => _generationFilter;
+
+  void toggleGeneration(Generation generation) {
+    if (_generationFilter.contains(generation)) {
+      _generationFilter.remove(generation);
+    } else {
+      _generationFilter.add(generation);
+    }
+    _applyFilters();
+    debugPrint('Generation Filter: $_generationFilter');
+  }
+
+  void _applyFilters() {
     _pokemons = _pokemonsCopy.where((poke) {
       bool typeMatch = _typeFilter
           .every((type) => poke.types.contains(stringFromPokeType(type)));
@@ -189,12 +219,16 @@ class PokeListProvider extends ChangeNotifier {
           _weightFilter.every((weight) => weight == getPokeWeight(poke));
       bool numberMatch =
           poke.id <= _rangeValues?.end && poke.id >= _rangeValues?.start;
+      bool generationMatch = _generationFilter.isNotEmpty
+          ? _generationFilter.contains(getGeneration(poke))
+          : true;
 
       return typeMatch &&
           weaknessMatch &&
           heightMatch &&
           weightMatch &&
-          numberMatch;
+          numberMatch &&
+          generationMatch;
     }).toList();
     notifyListeners();
   }
@@ -202,8 +236,8 @@ class PokeListProvider extends ChangeNotifier {
   @override
   void dispose() {
     _searchController.dispose();
+    _searchDebounce?.cancel();
+    _rangeSliderDebounce?.cancel();
     super.dispose();
   }
 }
-
-enum SortOrder { smallest, highest, aToZ, zToA }

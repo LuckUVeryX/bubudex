@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'theme.dart';
+
 class AppTheme {
   static final theme = ThemeData.from(colorScheme: _colorScheme).copyWith(
     appBarTheme: _appBarTheme,
@@ -67,3 +69,19 @@ class AppTheme {
     color: Colors.black,
   );
 }
+
+final ButtonStyle selectedButtonStyle = ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),
+  ),
+  elevation: 2.0,
+  primary: Palette.kPsychic,
+);
+final ButtonStyle unselectedButtonStyle = ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),
+  ),
+  onPrimary: Colors.grey[600],
+  elevation: 0,
+  primary: Palette.kDefaultInput,
+);

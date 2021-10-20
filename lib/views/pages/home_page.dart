@@ -84,7 +84,9 @@ class _HomePageWithData extends StatelessWidget {
         appBar: AppBar(
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                _showHomeBottomSheet(context, const GenerationsBottomSheet());
+              },
               icon: const Icon(PokeIcons.generation),
             ),
             IconButton(

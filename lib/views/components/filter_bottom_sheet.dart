@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -19,11 +18,6 @@ class FilterBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('Showing Filter Bottom Sheet');
     final textTheme = Theme.of(context).textTheme;
-    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-    );
 
     final pokeListProvider =
         Provider.of<PokeListProvider>(context, listen: false);
@@ -84,41 +78,13 @@ class FilterBottomSheet extends StatelessWidget {
             const _IdRangeSlider(horizontalPad: horizontalPad),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: horizontalPad),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 60,
-                      child: ElevatedButton(
-                        style: buttonStyle.copyWith(
-                          elevation: MaterialStateProperty.all(0),
-                          backgroundColor:
-                              MaterialStateProperty.all(Palette.kPressedInput),
-                        ),
-                        onPressed: pokeListProvider.resetFilters,
-                        child: const Text('Reset'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: SizedBox(
-                      height: 60,
-                      child: ElevatedButton(
-                        style: buttonStyle.copyWith(
-                          elevation: MaterialStateProperty.all(0),
-                          backgroundColor:
-                              MaterialStateProperty.all(Palette.kPsychic),
-                        ),
-                        onPressed: () {
-                          pokeListProvider.applyFilters();
-                          AutoRouter.of(context).pop();
-                        },
-                        child: const Text('Apply'),
-                      ),
-                    ),
-                  ),
-                ],
+              child: SizedBox(
+                height: 60,
+                child: ElevatedButton(
+                  style: selectedButtonStyle,
+                  onPressed: pokeListProvider.resetFilters,
+                  child: const Text('Reset'),
+                ),
               ),
             ),
           ],
