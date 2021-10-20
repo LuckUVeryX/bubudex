@@ -65,11 +65,11 @@ class PokeDetailsPage extends StatelessWidget {
                     child: CircularProgressIndicator(color: backgroundColor),
                   );
                 case PokeDetailsStatus.done:
-                  return const TabBarView(
+                  return TabBarView(
                     children: [
-                      AboutTab(),
-                      Center(child: Text('Stats')),
-                      Center(child: Text('Evolution')),
+                      AboutTab(pokemon: pokemon),
+                      const Center(child: Text('Stats')),
+                      const Center(child: Text('Evolution')),
                     ],
                   );
                 case PokeDetailsStatus.error:

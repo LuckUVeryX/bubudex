@@ -18,21 +18,25 @@ class Pokemon {
   String image;
 
   @HiveField(3)
-  double height;
+  String description;
 
   @HiveField(4)
-  double weight;
+  double height;
 
   @HiveField(5)
-  List<String> types;
+  double weight;
 
   @HiveField(6)
+  List<String> types;
+
+  @HiveField(7)
   TypeDefences typeDefences;
 
   Pokemon({
     required this.id,
     required this.name,
     required this.image,
+    required this.description,
     required this.height,
     required this.weight,
     required this.types,

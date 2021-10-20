@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/models.dart';
 import '../../../utils/utils.dart';
 import '../../components/weakness_icon.dart';
 import '../../theme/theme.dart';
 
 class AboutTab extends StatelessWidget {
-  const AboutTab({Key? key}) : super(key: key);
+  const AboutTab({Key? key, required this.pokemon}) : super(key: key);
 
   static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
+
+  final Pokemon pokemon;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,8 @@ class AboutTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger.",
+            Text(
+              pokemon.description,
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 28),

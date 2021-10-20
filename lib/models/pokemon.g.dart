@@ -20,17 +20,18 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       id: fields[0] as int,
       name: fields[1] as String,
       image: fields[2] as String,
-      height: fields[3] as double,
-      weight: fields[4] as double,
-      types: (fields[5] as List).cast<String>(),
-      typeDefences: fields[6] as TypeDefences,
+      description: fields[3] as String,
+      height: fields[4] as double,
+      weight: fields[5] as double,
+      types: (fields[6] as List).cast<String>(),
+      typeDefences: fields[7] as TypeDefences,
     );
   }
 
   @override
   void write(BinaryWriter writer, Pokemon obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,12 +39,14 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       ..writeByte(2)
       ..write(obj.image)
       ..writeByte(3)
-      ..write(obj.height)
+      ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.weight)
+      ..write(obj.height)
       ..writeByte(5)
-      ..write(obj.types)
+      ..write(obj.weight)
       ..writeByte(6)
+      ..write(obj.types)
+      ..writeByte(7)
       ..write(obj.typeDefences);
   }
 
@@ -151,6 +154,7 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
       id: json['id'] as int,
       name: json['name'] as String,
       image: json['image'] as String,
+      description: json['description'] as String,
       height: (json['height'] as num).toDouble(),
       weight: (json['weight'] as num).toDouble(),
       types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
@@ -162,6 +166,7 @@ Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'image': instance.image,
+      'description': instance.description,
       'height': instance.height,
       'weight': instance.weight,
       'types': instance.types,
