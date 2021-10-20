@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
+import '../../view_models/view_models.dart';
 import '../theme/theme.dart';
 
 class GenerationsBottomSheet extends StatelessWidget {
@@ -60,30 +62,36 @@ class _GenerationButton extends StatelessWidget {
     return SizedBox(
       height: 120,
       width: buttonWidth,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (String asset in getGenerationImg(generation))
-                    SizedBox(
-                      height: 40,
-                      width: (buttonWidth - 32 * 2) / 3,
-                      child: Image.asset(asset),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Text(generation.toString().replaceFirst('.', ' '))
-            ],
+      child: Consumer<PokeListProvider>(builder: (_, pokeListProvider, __) {
+        return ElevatedButton(
+          onPressed: () {
+            pokeListProvider.toggleGeneration(generation);
+          },
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (String asset in getGenerationImg(generation))
+                      SizedBox(
+                        height: 40,
+                        width: (buttonWidth - 32 * 2) / 3,
+                        child: Image.asset(asset),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(generation.toString().replaceFirst('.', ' '))
+              ],
+            ),
           ),
-        ),
-        style: unselectedButtonStyle,
-      ),
+          style: pokeListProvider.generationFilter.contains(generation)
+              ? selectedButtonStyle
+              : unselectedButtonStyle,
+        );
+      }),
     );
   }
 }

@@ -69,7 +69,6 @@ class PokeListProvider extends ChangeNotifier {
 
   // * Filter
   final List<PokeType> _typeFilter = [];
-  List<PokeType> get typeFilter => _typeFilter;
 
   void toggleTypeFilter(PokeType pokeType) {
     if (_typeFilter.contains(pokeType)) {
@@ -92,7 +91,6 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   final List<PokeType> _weaknessFilter = [];
-  List<PokeType> get weaknessFilter => _weaknessFilter;
 
   void toggleWeaknessFilter(PokeType pokeType) {
     if (_weaknessFilter.contains(pokeType)) {
@@ -115,7 +113,6 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   final List<PokeHeight> _heightFilter = [];
-  List<PokeHeight> get heightFilter => _heightFilter;
 
   void toggleHeightFilter(PokeHeight pokeHeight) {
     if (_heightFilter.contains(pokeHeight)) {
@@ -138,7 +135,6 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   final List<PokeWeight> _weightFilter = [];
-  List<PokeWeight> get weightFilter => _weightFilter;
 
   void toggleWeightFilter(PokeWeight pokeWeight) {
     if (_weightFilter.contains(pokeWeight)) {
@@ -199,6 +195,20 @@ class PokeListProvider extends ChangeNotifier {
           numberMatch;
     }).toList();
     notifyListeners();
+  }
+
+  // * Generation
+  final List<Generation> _generationFilter = [];
+  List<Generation> get generationFilter => _generationFilter;
+
+  void toggleGeneration(Generation generation) {
+    if (_generationFilter.contains(generation)) {
+      _generationFilter.remove(generation);
+    } else {
+      _generationFilter.add(generation);
+    }
+    notifyListeners();
+    debugPrint('Generation Filter: $_generationFilter');
   }
 
   @override
