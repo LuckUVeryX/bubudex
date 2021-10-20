@@ -66,21 +66,6 @@ class _SortButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle selectedButtonStyle = ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 2.0,
-      primary: Palette.kPsychic,
-    );
-    final ButtonStyle unselectedButtonStyle = ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      onPrimary: Colors.grey[600],
-      elevation: 0,
-      primary: Palette.kDefaultInput,
-    );
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 0),
       width: double.infinity,

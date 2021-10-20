@@ -35,3 +35,26 @@ PokeWeight getPokeWeight(Pokemon pokemon) {
     return PokeWeight.heavy;
   }
 }
+
+/// Generations obtained from
+///
+/// https://en.wikipedia.org/wiki/List_of_Pokémon#List_of_species
+Generation getGeneration(Pokemon pokemon) {
+  if (pokemon.id < 152) {
+    return Generation.I;
+  } else if (pokemon.id < 252) {
+    return Generation.II;
+  } else if (pokemon.id < 387) {
+    return Generation.III;
+  } else if (pokemon.id < 494) {
+    return Generation.IV;
+  } else if (pokemon.id < 650) {
+    return Generation.V;
+  } else if (pokemon.id < 722) {
+    return Generation.VI;
+  } else if (pokemon.id < 810) {
+    return Generation.VII;
+  } else {
+    return Generation.VIII;
+  }
+}

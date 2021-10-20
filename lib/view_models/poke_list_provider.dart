@@ -5,6 +5,8 @@ import '../models/models.dart';
 import '../utils/utils.dart';
 import '../views/theme/theme.dart';
 
+enum SortOrder { smallest, highest, aToZ, zToA }
+
 class PokeListProvider extends ChangeNotifier {
   PokeListProvider(this._pokemons, this._numOfPoke) {
     _pokemonsCopy = _pokemons;
@@ -205,5 +207,3 @@ class PokeListProvider extends ChangeNotifier {
     super.dispose();
   }
 }
-
-enum SortOrder { smallest, highest, aToZ, zToA }

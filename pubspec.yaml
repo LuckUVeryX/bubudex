@@ -40,6 +40,7 @@ flutter:
     - assets/poke_heights/
     - assets/poke_types/
     - assets/poke_weights/
+    - assets/poke_generations/
 
   fonts:
     - family: PokeIcons
