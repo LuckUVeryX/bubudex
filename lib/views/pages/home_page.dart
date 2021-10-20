@@ -5,6 +5,7 @@ import '../../repository/repository.dart';
 import '../../services/services.dart';
 import '../../view_models/view_models.dart';
 import '../components/components.dart';
+import '../theme/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -61,7 +62,7 @@ class _HomePageLoading extends StatelessWidget {
           children: const [
             Text('Loading pokemons for the first time...'),
             SizedBox(height: 20),
-            LinearProgressIndicator(),
+            LinearProgressIndicator(color: Palette.kPsychic),
           ],
         ),
       ),
