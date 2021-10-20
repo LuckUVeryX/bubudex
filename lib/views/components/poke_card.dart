@@ -30,8 +30,7 @@ class PokeCard extends StatelessWidget {
         color: Palette.getBackgroundTypeColor(types.first),
         child: InkWell(
           onTap: () {
-            // ! Temp
-            context.pushRoute(PokeDetailsRoute(pokeId: 1));
+            context.pushRoute(PokeDetailsRoute(pokeId: pokemon.id));
           },
           child: Stack(
             alignment: Alignment.topLeft,
