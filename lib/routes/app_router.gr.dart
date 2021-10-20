@@ -20,13 +20,11 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData, child: const HomePage());
     },
     PokeDetailsRoute.name: (routeData) {
-      final pathParams = routeData.pathParams;
-      final args = routeData.argsAs<PokeDetailsRouteArgs>(
-          orElse: () =>
-              PokeDetailsRouteArgs(pokeId: pathParams.getInt('pokeId')));
+      final args = routeData.argsAs<PokeDetailsRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: PokeDetailsPage(key: args.key, pokeId: args.pokeId));
+          child: PokeDetailsPage(
+              key: args.key, pokeId: args.pokeId, pokemon: args.pokemon));
     }
   };
 
@@ -47,19 +45,23 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for [PokeDetailsPage]
 class PokeDetailsRoute extends PageRouteInfo<PokeDetailsRouteArgs> {
-  PokeDetailsRoute({Key? key, required int pokeId})
+  PokeDetailsRoute({Key? key, required int pokeId, required Pokemon pokemon})
       : super(name,
             path: '/pokemon/:pokeId',
-            args: PokeDetailsRouteArgs(key: key, pokeId: pokeId),
+            args: PokeDetailsRouteArgs(
+                key: key, pokeId: pokeId, pokemon: pokemon),
             rawPathParams: {'pokeId': pokeId});
 
   static const String name = 'PokeDetailsRoute';
 }
 
 class PokeDetailsRouteArgs {
-  const PokeDetailsRouteArgs({this.key, required this.pokeId});
+  const PokeDetailsRouteArgs(
+      {this.key, required this.pokeId, required this.pokemon});
 
   final Key? key;
 
   final int pokeId;
+
+  final Pokemon pokemon;
 }
