@@ -40,7 +40,14 @@ flutter:
     - assets/poke_heights/
     - assets/poke_types/
     - assets/poke_weights/
-    - assets/poke_generations/
+    - assets/poke_generations/generation1/
+    - assets/poke_generations/generation2/
+    - assets/poke_generations/generation3/
+    - assets/poke_generations/generation4/
+    - assets/poke_generations/generation5/
+    - assets/poke_generations/generation6/
+    - assets/poke_generations/generation7/
+    - assets/poke_generations/generation8/
 
   fonts:
     - family: PokeIcons
