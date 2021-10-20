@@ -7,7 +7,7 @@ import '../../theme/theme.dart';
 class AboutTab extends StatelessWidget {
   const AboutTab({Key? key}) : super(key: key);
 
-  static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(120)};
+  static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
 
   @override
@@ -17,30 +17,95 @@ class AboutTab extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.all(32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-                "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger."),
+              "Bulbasaur can be seen napping in bright sunlight. There is a seed on its back. By soaking up the sun's rays, the seed grows progressively larger.",
+              textAlign: TextAlign.justify,
+            ),
             const SizedBox(height: 28),
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
             const SizedBox(height: verticalSpacing),
             const _PokedexDataTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
+            Text('Training',
+                style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
+            const SizedBox(height: verticalSpacing),
+            const _TrainingTable(columnWidths: columnWidths),
+            const SizedBox(height: verticalSpacing),
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
             const SizedBox(height: verticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
-            Text('Breeding',
+            Text('Location',
                 style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
             const SizedBox(height: verticalSpacing),
             const _LocationTable(columnWidths: columnWidths)
           ],
         ),
       ),
+    );
+  }
+}
+
+class _TrainingTable extends StatelessWidget {
+  const _TrainingTable({
+    Key? key,
+    required this.columnWidths,
+  }) : super(key: key);
+
+  final Map<int, TableColumnWidth> columnWidths;
+
+  @override
+  Widget build(BuildContext context) {
+    return Table(
+      columnWidths: columnWidths,
+      children: [
+        const TableRow(
+          children: [
+            Text(
+              'EV Yield',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text('1 Special Attack'),
+          ],
+        ),
+        _tableRowSpacing(),
+        const TableRow(
+          children: [
+            Text(
+              'Base Friendship',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text('70 (normal)'),
+          ],
+        ),
+        _tableRowSpacing(),
+        const TableRow(
+          children: [
+            Text(
+              'Base Exp',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text('64'),
+          ],
+        ),
+        _tableRowSpacing(),
+        const TableRow(
+          children: [
+            Text(
+              'Growth Rate',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text('Medium Slow'),
+          ],
+        ),
+        _tableRowSpacing(),
+      ],
     );
   }
 }
@@ -234,6 +299,8 @@ class _PokedexDataTable extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: const [
                 WeaknessIcon(pokeType: PokeType.fire),
                 WeaknessIcon(pokeType: PokeType.flying),
