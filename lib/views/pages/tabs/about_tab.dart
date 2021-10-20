@@ -16,6 +16,8 @@ class AboutTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final headerColor =
+        Palette.getTypeColor(pokeTypeFromString(pokemon.types[0]));
 
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
@@ -30,22 +32,22 @@ class AboutTab extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             Text('Pokédex Data',
-                style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
+                style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
             const _PokedexDataTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Training',
-                style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
+                style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
             const _TrainingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Breeding',
-                style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
+                style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Location',
-                style: textTheme.bodyText1!.copyWith(color: Palette.kGrass)),
+                style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
             const _LocationTable(columnWidths: columnWidths)
           ],
