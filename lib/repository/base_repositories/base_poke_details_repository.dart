@@ -4,4 +4,6 @@ abstract class IPokeDetailsRepository {
   Future<Pokemon> getPokemon(int id);
 
   Future<PokeSpecies> getSpecies(int id);
+
+  PokeSummary getPokeSummary(id);
 }

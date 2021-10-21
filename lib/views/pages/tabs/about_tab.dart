@@ -292,8 +292,9 @@ class _PokeDexDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final pokeSpecies =
-        Provider.of<PokeDetailsProvider>(context, listen: false).pokeSpecies;
+    final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
+    final pokeSpecies = provider.pokeSpecies;
+    final pokeSummary = provider.pokeSummary;
     return Table(
       columnWidths: columnWidths,
       children: [
@@ -414,7 +415,11 @@ class _PokeDexDataTable extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: const [WeaknessIcon(pokeType: PokeTypes.fire)],
+              children: [
+                for (PokeTypes typeWeakness
+                    in getTypeWeakness(pokeSummary.typeDefences))
+                  WeaknessIcon(pokeTypes: typeWeakness)
+              ],
             ),
           ],
         ),

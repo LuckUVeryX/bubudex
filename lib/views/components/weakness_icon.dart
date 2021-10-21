@@ -7,10 +7,10 @@ import '../theme/theme.dart';
 class WeaknessIcon extends StatelessWidget {
   const WeaknessIcon({
     Key? key,
-    required this.pokeType,
+    required this.pokeTypes,
   }) : super(key: key);
 
-  final PokeTypes pokeType;
+  final PokeTypes pokeTypes;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,10 @@ class WeaknessIcon extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: Palette.getTypeColor(pokeType),
+        color: Palette.getTypeColor(pokeTypes),
       ),
       child: SvgPicture.asset(
-        getPokeTypeIcon(pokeType),
+        getPokeTypeIcon(pokeTypes),
         color: Colors.white,
         fit: BoxFit.contain,
       ),

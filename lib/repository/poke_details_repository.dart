@@ -29,4 +29,9 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
     await _hiveService.addPokeSpecies(pokeSpecies);
     return pokeSpecies;
   }
+
+  @override
+  PokeSummary getPokeSummary(id) {
+    return _hiveService.getPokeSummary(id);
+  }
 }

@@ -61,11 +61,13 @@ class PokeDetailsPage extends StatelessWidget {
           },
           body: ChangeNotifierProvider(
             create: (_) => PokeDetailsProvider(
-                PokeDetailsRepository(_apiService, _hiveService)),
+              PokeDetailsRepository(_apiService, _hiveService),
+              pokeId,
+            ),
             child: Consumer<PokeDetailsProvider>(builder: (_, value, __) {
               switch (value.status) {
                 case PokeDetailsStatus.init:
-                  value.init(pokeId);
+                  value.init();
                   return Center(
                     child: CircularProgressIndicator(color: backgroundColor),
                   );
