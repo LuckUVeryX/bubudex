@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pokemon.dart';
+part of 'poke_summary.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

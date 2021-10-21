@@ -17,31 +17,57 @@ class HiveService {
     Hive.registerAdapter(PokeSummaryAdapter());
     Hive.registerAdapter(TypeDefencesAdapter());
 
+    Hive.registerAdapter(PokemonAdapter());
+    Hive.registerAdapter(PokeAbilityAdapter());
+    Hive.registerAdapter(PokeMoveAdapter());
+    Hive.registerAdapter(PokeMoveVersionAdapter());
+    Hive.registerAdapter(PokeStatAdapter());
+    Hive.registerAdapter(PokeTypeAdapter());
+
     Hive.registerAdapter(PokeSpeciesAdapter());
     Hive.registerAdapter(PokeSpeciesDexEntryAdapter());
     Hive.registerAdapter(PalParkEncounterAreaAdapter());
     Hive.registerAdapter(PokemonSpeciesVarietyAdapter());
     Hive.registerAdapter(GenusAdapter());
 
-    _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
+    _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
 
     debugPrint('Initialized Hive Service');
   }
 
-  late Box<PokeSummary> _pokemonDb;
+  // PokeSummary
+  late Box<PokeSummary> _pokeSummaryDb;
 
-  bool get pokemonDbIsNotEmpty => _pokemonDb.isNotEmpty;
+  bool get pokeSummaryIsNotEmpty => _pokeSummaryDb.isNotEmpty;
 
-  List<PokeSummary> get pokemons => _pokemonDb.values.toList();
+  List<PokeSummary> get pokemons => _pokeSummaryDb.values.toList();
 
   Future<void> addPokemons(List<PokeSummary> pokemons) async {
     final pokeMap = {for (PokeSummary pokemon in pokemons) pokemon.id: pokemon};
-    await _pokemonDb.putAll(pokeMap);
+    await _pokeSummaryDb.putAll(pokeMap);
   }
 
-  PokeSummary getPokemon(int id) {
-    PokeSummary? pokemon = _pokemonDb.get(id);
+  PokeSummary getPokeSummary(int id) {
+    PokeSummary? pokeSummary = _pokeSummaryDb.get(id);
+    if (pokeSummary != null) {
+      return pokeSummary;
+    } else {
+      throw 'Invalid pokemon id';
+    }
+  }
+
+  // Pokemon
+  Future<void> addPokeSpecies(PokeSpecies pokeSpecies) async {
+    await _pokeSpeciesDb.put(pokeSpecies.id, pokeSpecies);
+  }
+
+  late Box<Pokemon> _pokemonDb;
+
+  bool inPokemonDb(int id) => _pokemonDb.containsKey(id);
+
+  Pokemon getPokemon(int id) {
+    Pokemon? pokemon = _pokemonDb.get(id);
     if (pokemon != null) {
       return pokemon;
     } else {
@@ -49,6 +75,7 @@ class HiveService {
     }
   }
 
+  // Poke Species
   late Box<PokeSpecies> _pokeSpeciesDb;
 
   bool inSpeciesDb(int id) => _pokeSpeciesDb.containsKey(id);
@@ -60,9 +87,5 @@ class HiveService {
     } else {
       throw 'Invalid pokemon id';
     }
-  }
-
-  Future<void> addPokeSpecies(PokeSpecies pokeSpecies) async {
-    await _pokeSpeciesDb.put(pokeSpecies.id, pokeSpecies);
   }
 }

@@ -8,7 +8,7 @@ part of 'poke_species.dart';
 
 class PokeSpeciesAdapter extends TypeAdapter<PokeSpecies> {
   @override
-  final int typeId = 7;
+  final int typeId = 13;
 
   @override
   PokeSpecies read(BinaryReader reader) {
@@ -120,7 +120,7 @@ class PokeSpeciesAdapter extends TypeAdapter<PokeSpecies> {
 
 class PokeSpeciesDexEntryAdapter extends TypeAdapter<PokeSpeciesDexEntry> {
   @override
-  final int typeId = 8;
+  final int typeId = 14;
 
   @override
   PokeSpeciesDexEntry read(BinaryReader reader) {
@@ -157,7 +157,7 @@ class PokeSpeciesDexEntryAdapter extends TypeAdapter<PokeSpeciesDexEntry> {
 
 class PalParkEncounterAreaAdapter extends TypeAdapter<PalParkEncounterArea> {
   @override
-  final int typeId = 9;
+  final int typeId = 15;
 
   @override
   PalParkEncounterArea read(BinaryReader reader) {
@@ -197,7 +197,7 @@ class PalParkEncounterAreaAdapter extends TypeAdapter<PalParkEncounterArea> {
 
 class PokemonSpeciesVarietyAdapter extends TypeAdapter<PokemonSpeciesVariety> {
   @override
-  final int typeId = 10;
+  final int typeId = 16;
 
   @override
   PokemonSpeciesVariety read(BinaryReader reader) {
@@ -234,7 +234,7 @@ class PokemonSpeciesVarietyAdapter extends TypeAdapter<PokemonSpeciesVariety> {
 
 class GenusAdapter extends TypeAdapter<Genus> {
   @override
-  final int typeId = 11;
+  final int typeId = 17;
 
   @override
   Genus read(BinaryReader reader) {

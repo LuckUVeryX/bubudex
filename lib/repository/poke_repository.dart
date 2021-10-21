@@ -13,7 +13,7 @@ class PokeSummaryRepository implements IPokeSummaryRepository {
 
   @override
   Future<List<PokeSummary>> getPokemons() async {
-    if (_hiveService.pokemonDbIsNotEmpty) {
+    if (_hiveService.pokeSummaryIsNotEmpty) {
       return _hiveService.pokemons;
     }
     final res = await _apiService.get(_dbEndpoint);

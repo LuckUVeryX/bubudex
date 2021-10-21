@@ -10,11 +10,18 @@ class HiveTypeId {
   static const pokeSummary = 5;
   static const typeDefenses = 6;
 
-  static const pokeSpecies = 7;
-  static const pokeSpeciesDexEntry = 8;
-  static const palParkEncounterArea = 9;
-  static const pokemonSpeciesVariety = 10;
-  static const genus = 11;
+  static const pokemon = 7;
+  static const pokeAbility = 8;
+  static const pokeMove = 9;
+  static const pokeMoveVersion = 10;
+  static const pokeStat = 11;
+  static const pokeType = 12;
+
+  static const pokeSpecies = 13;
+  static const pokeSpeciesDexEntry = 14;
+  static const palParkEncounterArea = 15;
+  static const pokemonSpeciesVariety = 16;
+  static const genus = 17;
 }
 
 class HiveBoxId {

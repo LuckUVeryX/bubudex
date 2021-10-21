@@ -7,10 +7,9 @@ enum PokeDetailsStatus { init, done, error }
 
 class PokeDetailsProvider extends ChangeNotifier {
   PokeDetailsProvider(this._repository);
-
   final IPokeDetailsRepository _repository;
-  PokeDetailsStatus _status = PokeDetailsStatus.init;
 
+  PokeDetailsStatus _status = PokeDetailsStatus.init;
   PokeDetailsStatus get status => _status;
 
   void setStatus(PokeDetailsStatus status) {
@@ -21,9 +20,13 @@ class PokeDetailsProvider extends ChangeNotifier {
   late final PokeSpecies _pokeSpecies;
   PokeSpecies get pokeSpecies => _pokeSpecies;
 
+  late final Pokemon _pokemon;
+  Pokemon get pokemon => _pokemon;
+
   void init(int id) async {
     try {
       _pokeSpecies = await _repository.getSpecies(id);
+
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());

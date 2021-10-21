@@ -10,9 +10,11 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   final HiveService _hiveService;
 
   @override
-  Future<Pokemon> getPokeData(int id) async {
+  Future<Pokemon> getPokemon(int id) async {
+    if (_hiveService.inPokemonDb(id)) {
+      return _hiveService.getPokemon(id);
+    }
     final res = await _apiService.get('https://pokeapi.co/api/v2/pokemon/$id/');
-
     return Pokemon.fromJson(jsonDecode(res.body));
   }
 

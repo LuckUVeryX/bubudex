@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../utils/utils.dart';
 
-part 'pokemon.g.dart';
+part 'poke_summary.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: HiveTypeId.pokeSummary)

@@ -23,7 +23,7 @@ class PokeDetailsPage extends StatelessWidget {
     final _apiService = Provider.of<ApiService>(context, listen: false);
     final _hiveService = Provider.of<HiveService>(context, listen: false);
 
-    final PokeSummary pokemon = _hiveService.getPokemon(pokeId);
+    final PokeSummary pokemon = _hiveService.getPokeSummary(pokeId);
     final backgroundColor =
         Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
 
