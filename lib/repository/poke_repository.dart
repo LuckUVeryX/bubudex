@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import 'base_poke_repository.dart';
+import 'base_repositories/base_poke_repository.dart';
 
 class PokeApiRepository implements IPokeRepository {
   PokeApiRepository(this._apiService, this._hiveService);

@@ -27,7 +27,8 @@ Map<String, dynamic> _$PokeDataToJson(PokeData instance) => <String, dynamic>{
 PokeAbility _$PokeAbilityFromJson(Map<String, dynamic> json) => PokeAbility(
       isHidden: json['is_hidden'] as bool,
       slot: json['slot'] as int,
-      ability: Ability.fromJson(json['ability'] as Map<String, dynamic>),
+      ability:
+          NamedApiResource.fromJson(json['ability'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PokeAbilityToJson(PokeAbility instance) =>
@@ -35,14 +36,4 @@ Map<String, dynamic> _$PokeAbilityToJson(PokeAbility instance) =>
       'is_hidden': instance.isHidden,
       'slot': instance.slot,
       'ability': instance.ability,
-    };
-
-Ability _$AbilityFromJson(Map<String, dynamic> json) => Ability(
-      name: json['name'] as String,
-      url: json['url'] as String,
-    );
-
-Map<String, dynamic> _$AbilityToJson(Ability instance) => <String, dynamic>{
-      'name': instance.name,
-      'url': instance.url,
     };

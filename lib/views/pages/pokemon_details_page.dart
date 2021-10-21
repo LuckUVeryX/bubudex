@@ -60,8 +60,8 @@ class PokeDetailsPage extends StatelessWidget {
             ];
           },
           body: ChangeNotifierProvider(
-            create: (_) => PokeDetailsProvider(
-                PokeDetailsRepository(_apiService, _hiveService)),
+            create: (_) =>
+                PokeDetailsProvider(PokeSpeciesRepository(_apiService)),
             child: Consumer<PokeDetailsProvider>(
                 builder: (_, pokeDetailsProvider, __) {
               switch (pokeDetailsProvider.status) {
@@ -75,7 +75,6 @@ class PokeDetailsPage extends StatelessWidget {
                     children: [
                       AboutTab(
                         pokemon: pokemon,
-                        pokeData: pokeDetailsProvider.pokeData,
                       ),
                       const Center(child: Text('Stats')),
                       const Center(child: Text('Evolution')),

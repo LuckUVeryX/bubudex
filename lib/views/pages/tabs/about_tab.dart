@@ -9,14 +9,12 @@ class AboutTab extends StatelessWidget {
   const AboutTab({
     Key? key,
     required this.pokemon,
-    required this.pokeData,
   }) : super(key: key);
 
   static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
 
   final Pokemon pokemon;
-  final PokeData pokeData;
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +37,17 @@ class AboutTab extends StatelessWidget {
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            _PokedexDataTable(
-              columnWidths: columnWidths,
-              pokemon: pokemon,
-              pokeData: pokeData,
-            ),
+            _PokedexDataTable(columnWidths: columnWidths, pokemon: pokemon),
             const SizedBox(height: verticalSpacing),
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            _TrainingTable(
-                columnWidths: columnWidths, training: pokemon.training),
+            const _TrainingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            _BreedingTable(
-                columnWidths: columnWidths, breedings: pokemon.breedings),
+            const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Location',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
@@ -72,55 +64,52 @@ class _TrainingTable extends StatelessWidget {
   const _TrainingTable({
     Key? key,
     required this.columnWidths,
-    required this.training,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
-  final Training training;
 
   @override
   Widget build(BuildContext context) {
     return Table(
       columnWidths: columnWidths,
       children: [
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'EV Yield',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(training.evYield),
+            Text('1 Special Attack'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Base Friendship',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(
-                '${training.baseFriendship.value} (${training.baseFriendship.text})'),
+            Text('70 (normal)'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Base Exp',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('${training.baseExp}'),
+            Text('64'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Growth Rate',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(training.growthRate),
+            Text('Medium Slow'),
           ],
         ),
         _tableRowSpacing(),
@@ -211,52 +200,43 @@ class _BreedingTable extends StatelessWidget {
   const _BreedingTable({
     Key? key,
     required this.columnWidths,
-    required this.breedings,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
-  final Breedings breedings;
 
   @override
   Widget build(BuildContext context) {
-    List<String> capitaliseEggGroup = [];
-    for (String eggGroup in breedings.eggGroups) {
-      capitaliseEggGroup.add(eggGroup.capitalize());
-    }
-
     return Table(
       columnWidths: columnWidths,
       children: [
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Gender',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             // TODO: convert to colored text
-            Text(breedings.gender.isNull
-                ? 'Undefined'
-                : 'M: ${breedings.gender.male}%, F: ${breedings.gender.female}%'),
+            Text('M: 87.5%, F: 12.5%'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Egg Groups',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(capitaliseEggGroup.join(' ')),
+            Text('Grass Monster'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Egg Cycles',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('${breedings.eggCycles.value} (${breedings.eggCycles.text})'),
+            Text('20 (4,884-5140 steps'),
           ],
         ),
       ],
@@ -269,12 +249,10 @@ class _PokedexDataTable extends StatelessWidget {
     Key? key,
     required this.columnWidths,
     required this.pokemon,
-    required this.pokeData,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
   final Pokemon pokemon;
-  final PokeData pokeData;
 
   @override
   Widget build(BuildContext context) {
@@ -282,33 +260,33 @@ class _PokedexDataTable extends StatelessWidget {
     return Table(
       columnWidths: columnWidths,
       children: [
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Species',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(pokemon.species),
+            Text('Seed Pokemon'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Height',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('${pokeData.height / 10}m'),
+            Text('0.2m'),
           ],
         ),
         _tableRowSpacing(),
-        TableRow(
+        const TableRow(
           children: [
-            const Text(
+            Text(
               'Weight',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('${pokeData.weight / 10} kg'),
+            Text('3.4kg'),
           ],
         ),
         _tableRowSpacing(),
@@ -321,15 +299,8 @@ class _PokedexDataTable extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (PokeAbility pokeAbility in pokeData.abilities)
-                  pokeAbility.isHidden
-                      ? Text(
-                          '${pokeAbility.ability.name.capitalize()} (hidden)',
-                          style: textTheme.subtitle2,
-                        )
-                      : Text(
-                          '${pokeAbility.slot}. ${pokeAbility.ability.name.capitalize()}',
-                        ),
+                const Text('1. Shed-skin'),
+                Text('Overcoat (hidden)', style: textTheme.subtitle2),
               ],
             ),
           ],

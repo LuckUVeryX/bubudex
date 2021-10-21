@@ -2,7 +2,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../utils/utils.dart';
-import 'models.dart';
 
 part 'pokemon.g.dart';
 
@@ -27,17 +26,8 @@ class Pokemon {
   @HiveField(5)
   final double weight;
 
-  @HiveField(6)
-  final String species;
-
   @HiveField(7)
   final List<String> types;
-
-  @HiveField(8)
-  final Training training;
-
-  @HiveField(9)
-  final Breedings breedings;
 
   @HiveField(10)
   final TypeDefences typeDefences;
@@ -49,10 +39,7 @@ class Pokemon {
     required this.description,
     required this.height,
     required this.weight,
-    required this.species,
     required this.types,
-    required this.training,
-    required this.breedings,
     required this.typeDefences,
   });
 
@@ -60,146 +47,6 @@ class Pokemon {
       _$PokemonFromJson(json);
 
   Map<String, dynamic> toJson() => _$PokemonToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-@HiveType(typeId: HiveTypeId.training)
-class Training {
-  @HiveField(11)
-  final String evYield;
-
-  @HiveField(12)
-  final CatchRate catchRate;
-
-  @HiveField(13)
-  final BaseFriendship baseFriendship;
-
-  @HiveField(14)
-  final int? baseExp;
-
-  @HiveField(15)
-  final String growthRate;
-
-  Training({
-    required this.evYield,
-    required this.catchRate,
-    required this.baseFriendship,
-    this.baseExp,
-    required this.growthRate,
-  });
-
-  factory Training.fromJson(Map<String, dynamic> json) =>
-      _$TrainingFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TrainingToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-@HiveType(typeId: HiveTypeId.catchRate)
-class CatchRate extends NameValuePair {
-  CatchRate({required int? value, required String text})
-      : super(text: text, value: value);
-
-  factory CatchRate.fromJson(Map<String, dynamic> json) =>
-      _$CatchRateFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CatchRateToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-@HiveType(typeId: HiveTypeId.baseFriendship)
-class BaseFriendship extends NameValuePair {
-  BaseFriendship({required int? value, required String text})
-      : super(text: text, value: value);
-
-  factory BaseFriendship.fromJson(Map<String, dynamic> json) =>
-      _$BaseFriendshipFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BaseFriendshipToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-@HiveType(typeId: HiveTypeId.breedings)
-class Breedings {
-  @HiveField(30)
-  final List<String> eggGroups;
-
-  @HiveField(31)
-  final Gender gender;
-
-  @HiveField(32)
-  final EggCycles eggCycles;
-
-  Breedings({
-    required this.eggGroups,
-    required this.gender,
-    required this.eggCycles,
-  });
-
-  factory Breedings.fromJson(Map<String, dynamic> json) =>
-      _$BreedingsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BreedingsToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-@HiveType(typeId: HiveTypeId.gender)
-class Gender {
-  @HiveField(33)
-  final double? male;
-
-  @HiveField(34)
-  final double? female;
-
-  Gender({required this.male, required this.female});
-
-  factory Gender.fromJson(Map<String, dynamic> json) => _$GenderFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GenderToJson(this);
-
-  bool get isNull => male == null || female == null;
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-@HiveType(typeId: HiveTypeId.eggCycles)
-class EggCycles extends NameValuePair {
-  EggCycles({required String text, required int value})
-      : super(text: text, value: value);
-
-  factory EggCycles.fromJson(Map<String, dynamic> json) =>
-      _$EggCyclesFromJson(json);
-
-  Map<String, dynamic> toJson() => _$EggCyclesToJson(this);
 
   @override
   String toString() {

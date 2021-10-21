@@ -28,12 +28,6 @@ class HiveService {
     await Hive.initFlutter();
 
     Hive.registerAdapter(PokemonAdapter());
-    Hive.registerAdapter(TrainingAdapter());
-    Hive.registerAdapter(CatchRateAdapter());
-    Hive.registerAdapter(BaseFriendshipAdapter());
-    Hive.registerAdapter(BreedingsAdapter());
-    Hive.registerAdapter(GenderAdapter());
-    Hive.registerAdapter(EggCyclesAdapter());
     Hive.registerAdapter(TypeDefencesAdapter());
 
     _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);

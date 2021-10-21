@@ -23,10 +23,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       description: fields[3] as String,
       height: fields[4] as double,
       weight: fields[5] as double,
-      species: fields[6] as String,
       types: (fields[7] as List).cast<String>(),
-      training: fields[8] as Training,
-      breedings: fields[9] as Breedings,
       typeDefences: fields[10] as TypeDefences,
     );
   }
@@ -34,7 +31,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
   @override
   void write(BinaryWriter writer, Pokemon obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,14 +44,8 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       ..write(obj.height)
       ..writeByte(5)
       ..write(obj.weight)
-      ..writeByte(6)
-      ..write(obj.species)
       ..writeByte(7)
       ..write(obj.types)
-      ..writeByte(8)
-      ..write(obj.training)
-      ..writeByte(9)
-      ..write(obj.breedings)
       ..writeByte(10)
       ..write(obj.typeDefences);
   }
@@ -70,243 +61,9 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
           typeId == other.typeId;
 }
 
-class TrainingAdapter extends TypeAdapter<Training> {
-  @override
-  final int typeId = 1;
-
-  @override
-  Training read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Training(
-      evYield: fields[11] as String,
-      catchRate: fields[12] as CatchRate,
-      baseFriendship: fields[13] as BaseFriendship,
-      baseExp: fields[14] as int?,
-      growthRate: fields[15] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Training obj) {
-    writer
-      ..writeByte(5)
-      ..writeByte(11)
-      ..write(obj.evYield)
-      ..writeByte(12)
-      ..write(obj.catchRate)
-      ..writeByte(13)
-      ..write(obj.baseFriendship)
-      ..writeByte(14)
-      ..write(obj.baseExp)
-      ..writeByte(15)
-      ..write(obj.growthRate);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TrainingAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class CatchRateAdapter extends TypeAdapter<CatchRate> {
-  @override
-  final int typeId = 2;
-
-  @override
-  CatchRate read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return CatchRate(
-      value: fields[20] as int?,
-      text: fields[21] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, CatchRate obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(20)
-      ..write(obj.value)
-      ..writeByte(21)
-      ..write(obj.text);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CatchRateAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class BaseFriendshipAdapter extends TypeAdapter<BaseFriendship> {
-  @override
-  final int typeId = 3;
-
-  @override
-  BaseFriendship read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return BaseFriendship(
-      value: fields[20] as int?,
-      text: fields[21] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, BaseFriendship obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(20)
-      ..write(obj.value)
-      ..writeByte(21)
-      ..write(obj.text);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BaseFriendshipAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class BreedingsAdapter extends TypeAdapter<Breedings> {
-  @override
-  final int typeId = 4;
-
-  @override
-  Breedings read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Breedings(
-      eggGroups: (fields[30] as List).cast<String>(),
-      gender: fields[31] as Gender,
-      eggCycles: fields[32] as EggCycles,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Breedings obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(30)
-      ..write(obj.eggGroups)
-      ..writeByte(31)
-      ..write(obj.gender)
-      ..writeByte(32)
-      ..write(obj.eggCycles);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BreedingsAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class GenderAdapter extends TypeAdapter<Gender> {
-  @override
-  final int typeId = 6;
-
-  @override
-  Gender read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Gender(
-      male: fields[33] as double?,
-      female: fields[34] as double?,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Gender obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(33)
-      ..write(obj.male)
-      ..writeByte(34)
-      ..write(obj.female);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is GenderAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class EggCyclesAdapter extends TypeAdapter<EggCycles> {
-  @override
-  final int typeId = 5;
-
-  @override
-  EggCycles read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return EggCycles(
-      text: fields[21] as String,
-      value: fields[20] as int,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, EggCycles obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(20)
-      ..write(obj.value)
-      ..writeByte(21)
-      ..write(obj.text);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is EggCyclesAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
   @override
-  final int typeId = 7;
+  final int typeId = 1;
 
   @override
   TypeDefences read(BinaryReader reader) {
@@ -400,10 +157,7 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
       description: json['description'] as String,
       height: (json['height'] as num).toDouble(),
       weight: (json['weight'] as num).toDouble(),
-      species: json['species'] as String,
       types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
-      training: Training.fromJson(json['training'] as Map<String, dynamic>),
-      breedings: Breedings.fromJson(json['breedings'] as Map<String, dynamic>),
       typeDefences:
           TypeDefences.fromJson(json['typeDefences'] as Map<String, dynamic>),
     );
@@ -415,83 +169,8 @@ Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
       'description': instance.description,
       'height': instance.height,
       'weight': instance.weight,
-      'species': instance.species,
       'types': instance.types,
-      'training': instance.training,
-      'breedings': instance.breedings,
       'typeDefences': instance.typeDefences,
-    };
-
-Training _$TrainingFromJson(Map<String, dynamic> json) => Training(
-      evYield: json['evYield'] as String,
-      catchRate: CatchRate.fromJson(json['catchRate'] as Map<String, dynamic>),
-      baseFriendship: BaseFriendship.fromJson(
-          json['baseFriendship'] as Map<String, dynamic>),
-      baseExp: json['baseExp'] as int?,
-      growthRate: json['growthRate'] as String,
-    );
-
-Map<String, dynamic> _$TrainingToJson(Training instance) => <String, dynamic>{
-      'evYield': instance.evYield,
-      'catchRate': instance.catchRate,
-      'baseFriendship': instance.baseFriendship,
-      'baseExp': instance.baseExp,
-      'growthRate': instance.growthRate,
-    };
-
-CatchRate _$CatchRateFromJson(Map<String, dynamic> json) => CatchRate(
-      value: json['value'] as int?,
-      text: json['text'] as String,
-    );
-
-Map<String, dynamic> _$CatchRateToJson(CatchRate instance) => <String, dynamic>{
-      'value': instance.value,
-      'text': instance.text,
-    };
-
-BaseFriendship _$BaseFriendshipFromJson(Map<String, dynamic> json) =>
-    BaseFriendship(
-      value: json['value'] as int?,
-      text: json['text'] as String,
-    );
-
-Map<String, dynamic> _$BaseFriendshipToJson(BaseFriendship instance) =>
-    <String, dynamic>{
-      'value': instance.value,
-      'text': instance.text,
-    };
-
-Breedings _$BreedingsFromJson(Map<String, dynamic> json) => Breedings(
-      eggGroups:
-          (json['eggGroups'] as List<dynamic>).map((e) => e as String).toList(),
-      gender: Gender.fromJson(json['gender'] as Map<String, dynamic>),
-      eggCycles: EggCycles.fromJson(json['eggCycles'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$BreedingsToJson(Breedings instance) => <String, dynamic>{
-      'eggGroups': instance.eggGroups,
-      'gender': instance.gender,
-      'eggCycles': instance.eggCycles,
-    };
-
-Gender _$GenderFromJson(Map<String, dynamic> json) => Gender(
-      male: (json['male'] as num?)?.toDouble(),
-      female: (json['female'] as num?)?.toDouble(),
-    );
-
-Map<String, dynamic> _$GenderToJson(Gender instance) => <String, dynamic>{
-      'male': instance.male,
-      'female': instance.female,
-    };
-
-EggCycles _$EggCyclesFromJson(Map<String, dynamic> json) => EggCycles(
-      text: json['text'] as String,
-      value: json['value'] as int,
-    );
-
-Map<String, dynamic> _$EggCyclesToJson(EggCycles instance) => <String, dynamic>{
-      'value': instance.value,
-      'text': instance.text,
     };
 
 TypeDefences _$TypeDefencesFromJson(Map<String, dynamic> json) => TypeDefences(

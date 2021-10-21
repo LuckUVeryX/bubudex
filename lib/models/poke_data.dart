@@ -41,7 +41,7 @@ class PokeAbility {
 
   int slot;
 
-  Ability ability;
+  NamedApiResource ability;
 
   PokeAbility({
     required this.isHidden,
@@ -53,24 +53,6 @@ class PokeAbility {
       _$PokeAbilityFromJson(json);
 
   Map<String, dynamic> toJson() => _$PokeAbilityToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable()
-class Ability extends NamedApiResource {
-  Ability({
-    required String name,
-    required String url,
-  }) : super(name: name, url: url);
-
-  factory Ability.fromJson(Map<String, dynamic> json) =>
-      _$AbilityFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AbilityToJson(this);
 
   @override
   String toString() {
