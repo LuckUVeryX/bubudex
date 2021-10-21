@@ -48,7 +48,8 @@ class AboutTab extends StatelessWidget {
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            const _TrainingTable(columnWidths: columnWidths),
+            _TrainingTable(
+                columnWidths: columnWidths, training: pokemon.training),
             const SizedBox(height: verticalSpacing),
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
@@ -70,52 +71,55 @@ class _TrainingTable extends StatelessWidget {
   const _TrainingTable({
     Key? key,
     required this.columnWidths,
+    required this.training,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
+  final Training training;
 
   @override
   Widget build(BuildContext context) {
     return Table(
       columnWidths: columnWidths,
       children: [
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'EV Yield',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('1 Special Attack'),
+            Text(training.evYield),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Base Friendship',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('70 (normal)'),
+            Text(
+                '${training.baseFriendship.value} (${training.baseFriendship.text})'),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Base Exp',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('64'),
+            Text('${training.baseExp}'),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Growth Rate',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('Medium Slow'),
+            Text(training.growthRate),
           ],
         ),
         _tableRowSpacing(),
