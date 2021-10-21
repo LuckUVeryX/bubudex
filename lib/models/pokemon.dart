@@ -2,6 +2,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../utils/utils.dart';
+import 'models.dart';
 
 part 'pokemon.g.dart';
 
@@ -33,6 +34,9 @@ class Pokemon {
   List<String> types;
 
   @HiveField(8)
+  Training training;
+
+  @HiveField(9)
   TypeDefences typeDefences;
 
   Pokemon({
@@ -44,6 +48,7 @@ class Pokemon {
     required this.weight,
     required this.species,
     required this.types,
+    required this.training,
     required this.typeDefences,
   });
 
@@ -59,61 +64,132 @@ class Pokemon {
 }
 
 @JsonSerializable()
-@HiveType(typeId: HiveTypeId.typeDefenses)
-class TypeDefences {
-  @HiveField(6)
-  double? normal;
-
-  @HiveField(7)
-  double? fire;
-
-  @HiveField(8)
-  double? water;
-
-  @HiveField(9)
-  double? electric;
-
+@HiveType(typeId: HiveTypeId.training)
+class Training {
   @HiveField(10)
-  double? grass;
+  String evYield;
 
   @HiveField(11)
-  double? ice;
+  CatchRate catchRate;
 
   @HiveField(12)
-  double? fighting;
+  BaseFriendship baseFriendship;
 
   @HiveField(13)
-  double? poison;
+  int? baseExp;
 
   @HiveField(14)
+  String growthRate;
+
+  Training({
+    required this.evYield,
+    required this.catchRate,
+    required this.baseFriendship,
+    this.baseExp,
+    required this.growthRate,
+  });
+
+  factory Training.fromJson(Map<String, dynamic> json) =>
+      _$TrainingFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TrainingToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: HiveTypeId.catchRate)
+class CatchRate extends NameValuePair {
+  CatchRate({required int? value, required String text})
+      : super(text: text, value: value);
+
+  factory CatchRate.fromJson(Map<String, dynamic> json) =>
+      _$CatchRateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CatchRateToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: HiveTypeId.baseFriendship)
+class BaseFriendship extends NameValuePair {
+  BaseFriendship({required int? value, required String text})
+      : super(text: text, value: value);
+
+  factory BaseFriendship.fromJson(Map<String, dynamic> json) =>
+      _$BaseFriendshipFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BaseFriendshipToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: HiveTypeId.typeDefenses)
+class TypeDefences {
+  @HiveField(20)
+  double? normal;
+
+  @HiveField(21)
+  double? fire;
+
+  @HiveField(22)
+  double? water;
+
+  @HiveField(23)
+  double? electric;
+
+  @HiveField(24)
+  double? grass;
+
+  @HiveField(25)
+  double? ice;
+
+  @HiveField(26)
+  double? fighting;
+
+  @HiveField(27)
+  double? poison;
+
+  @HiveField(28)
   double? ground;
 
-  @HiveField(15)
+  @HiveField(29)
   double? flying;
 
-  @HiveField(16)
+  @HiveField(30)
   double? psychic;
 
-  @HiveField(17)
+  @HiveField(31)
   double? bug;
 
-  @HiveField(18)
+  @HiveField(32)
   double? rock;
 
-  @HiveField(19)
+  @HiveField(33)
   double? ghost;
 
-  @HiveField(20)
+  @HiveField(34)
   double? dragon;
 
   @JsonKey(name: 'darl')
-  @HiveField(21)
+  @HiveField(35)
   double? dark;
 
-  @HiveField(22)
+  @HiveField(36)
   double? steel;
 
-  @HiveField(23)
+  @HiveField(37)
   double? fairy;
 
   TypeDefences({
