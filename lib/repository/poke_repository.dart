@@ -4,8 +4,8 @@ import '../models/models.dart';
 import '../services/services.dart';
 import 'base_repositories/base_poke_repository.dart';
 
-class PokeApiRepository implements IPokeRepository {
-  PokeApiRepository(this._apiService, this._hiveService);
+class PokeSummaryRepository implements IPokeSummaryRepository {
+  PokeSummaryRepository(this._apiService, this._hiveService);
   final ApiService _apiService;
   final HiveService _hiveService;
 

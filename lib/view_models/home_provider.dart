@@ -8,7 +8,7 @@ enum HomePageStatus { init, done, error }
 
 class HomeProvider extends ChangeNotifier {
   HomeProvider(this._repository);
-  final IPokeRepository _repository;
+  final IPokeSummaryRepository _repository;
 
   HomePageStatus _status = HomePageStatus.init;
   HomePageStatus get status => _status;

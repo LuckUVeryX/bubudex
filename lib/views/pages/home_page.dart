@@ -16,7 +16,8 @@ class HomePage extends StatelessWidget {
     final _hiveService = Provider.of<HiveService>(context, listen: false);
 
     return ChangeNotifierProvider(
-      create: (_) => HomeProvider(PokeApiRepository(_apiService, _hiveService)),
+      create: (_) =>
+          HomeProvider(PokeSummaryRepository(_apiService, _hiveService)),
       child: Consumer<HomeProvider>(
         builder: (_, homeProvider, __) {
           switch (homeProvider.status) {

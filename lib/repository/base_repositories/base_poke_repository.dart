@@ -1,5 +1,5 @@
 import '../../models/models.dart';
 
-abstract class IPokeRepository {
+abstract class IPokeSummaryRepository {
   Future<List<PokeSummary>> getPokemons();
 }
