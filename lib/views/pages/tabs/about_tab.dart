@@ -39,7 +39,11 @@ class AboutTab extends StatelessWidget {
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            _PokedexDataTable(columnWidths: columnWidths, pokemon: pokemon),
+            _PokedexDataTable(
+              columnWidths: columnWidths,
+              pokemon: pokemon,
+              pokeData: pokeData,
+            ),
             const SizedBox(height: verticalSpacing),
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
@@ -250,13 +254,16 @@ class _PokedexDataTable extends StatelessWidget {
     Key? key,
     required this.columnWidths,
     required this.pokemon,
+    required this.pokeData,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
   final Pokemon pokemon;
+  final PokeData pokeData;
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Table(
       columnWidths: columnWidths,
       children: [
@@ -276,17 +283,17 @@ class _PokedexDataTable extends StatelessWidget {
               'Height',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('${pokemon.height}m'),
+            Text('${pokeData.height / 10}m'),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Weight',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('6.9kg (15.2 lbs)'),
+            Text('${pokeData.weight / 10} kg'),
           ],
         ),
         _tableRowSpacing(),
@@ -298,9 +305,19 @@ class _PokedexDataTable extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('1. Overgrow'),
-                Text('Chlorophyll (hidden ability)'),
+              children: [
+                for (PokeAbility pokeAbility in pokeData.abilities)
+                  pokeAbility.isHidden
+                      ? Text(
+                          '${pokeAbility.ability.name.capitalize()} (hidden)',
+                          style: textTheme.subtitle2,
+                        )
+                      : Text(
+                          '${pokeAbility.slot}. ${pokeAbility.ability.name.capitalize()}',
+                        ),
+
+                // Text('1. Overgrow'),
+                // Text('Chlorophyll (hidden ability)'),
               ],
             ),
           ],

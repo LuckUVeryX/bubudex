@@ -6,93 +6,74 @@ part 'poke_data.g.dart';
 
 @JsonSerializable()
 class PokeData {
-  final Species species;
+  int id;
 
-  /// decimeters
-  final int height;
+  String name;
 
-  /// hectograms
-  final int weight;
+  int height;
 
-  @JsonKey(name: 'abilities')
-  final List<PokemonAbility> abilities;
+  int weight;
 
-  final List<PokemonStat> stats;
+  List<PokeAbility> abilities;
 
-  @JsonKey(name: 'base_experience')
-  final int baseExp;
-
-  PokeData({
-    required this.species,
-    required this.height,
-    required this.weight,
-    required this.abilities,
-    required this.stats,
-    required this.baseExp,
-  });
+  PokeData(
+      {required this.id,
+      required this.name,
+      required this.height,
+      required this.weight,
+      required this.abilities});
 
   factory PokeData.fromJson(Map<String, dynamic> json) =>
       _$PokeDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$PokeDataToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable()
-class PokemonStat {
-  final Stat stat;
+class PokeAbility {
+  @JsonKey(name: 'is_hidden')
+  bool isHidden;
 
-  final int effort;
+  int slot;
 
-  PokemonStat({required this.stat, required this.effort});
+  Ability ability;
 
-  factory PokemonStat.fromJson(Map<String, dynamic> json) =>
-      _$PokemonStatFromJson(json);
+  PokeAbility({
+    required this.isHidden,
+    required this.slot,
+    required this.ability,
+  });
 
-  Map<String, dynamic> toJson() => _$PokemonStatToJson(this);
-}
+  factory PokeAbility.fromJson(Map<String, dynamic> json) =>
+      _$PokeAbilityFromJson(json);
 
-@JsonSerializable()
-class Stat extends NamedApiResource {
-  Stat({required String name, required String url})
-      : super(name: name, url: url);
+  Map<String, dynamic> toJson() => _$PokeAbilityToJson(this);
 
-  factory Stat.fromJson(Map<String, dynamic> json) => _$StatFromJson(json);
-
-  Map<String, dynamic> toJson() => _$StatToJson(this);
-}
-
-@JsonSerializable()
-class Species extends NamedApiResource {
-  Species({required String name, required String url})
-      : super(name: name, url: url);
-
-  factory Species.fromJson(Map<String, dynamic> json) =>
-      _$SpeciesFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SpeciesToJson(this);
-}
-
-@JsonSerializable()
-class PokemonAbility {
-  final int slot;
-
-  final Ability ability;
-
-  PokemonAbility({required this.slot, required this.ability});
-
-  factory PokemonAbility.fromJson(Map<String, dynamic> json) =>
-      _$PokemonAbilityFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PokemonAbilityToJson(this);
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable()
 class Ability extends NamedApiResource {
-  Ability({required String name, required String url})
-      : super(name: name, url: url);
+  Ability({
+    required String name,
+    required String url,
+  }) : super(name: name, url: url);
 
   factory Ability.fromJson(Map<String, dynamic> json) =>
       _$AbilityFromJson(json);
 
   Map<String, dynamic> toJson() => _$AbilityToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }

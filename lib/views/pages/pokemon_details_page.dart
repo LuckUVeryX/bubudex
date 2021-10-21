@@ -66,7 +66,7 @@ class PokeDetailsPage extends StatelessWidget {
                 builder: (_, pokeDetailsProvider, __) {
               switch (pokeDetailsProvider.status) {
                 case PokeDetailsStatus.init:
-                  pokeDetailsProvider.init(pokemon.id);
+                  pokeDetailsProvider.init(pokeId);
                   return Center(
                     child: CircularProgressIndicator(color: backgroundColor),
                   );

@@ -7,66 +7,32 @@ part of 'poke_data.dart';
 // **************************************************************************
 
 PokeData _$PokeDataFromJson(Map<String, dynamic> json) => PokeData(
-      species: Species.fromJson(json['species'] as Map<String, dynamic>),
+      id: json['id'] as int,
+      name: json['name'] as String,
       height: json['height'] as int,
       weight: json['weight'] as int,
       abilities: (json['abilities'] as List<dynamic>)
-          .map((e) => PokemonAbility.fromJson(e as Map<String, dynamic>))
+          .map((e) => PokeAbility.fromJson(e as Map<String, dynamic>))
           .toList(),
-      stats: (json['stats'] as List<dynamic>)
-          .map((e) => PokemonStat.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      baseExp: json['base_experience'] as int,
     );
 
 Map<String, dynamic> _$PokeDataToJson(PokeData instance) => <String, dynamic>{
-      'species': instance.species,
+      'id': instance.id,
+      'name': instance.name,
       'height': instance.height,
       'weight': instance.weight,
       'abilities': instance.abilities,
-      'stats': instance.stats,
-      'base_experience': instance.baseExp,
     };
 
-PokemonStat _$PokemonStatFromJson(Map<String, dynamic> json) => PokemonStat(
-      stat: Stat.fromJson(json['stat'] as Map<String, dynamic>),
-      effort: json['effort'] as int,
-    );
-
-Map<String, dynamic> _$PokemonStatToJson(PokemonStat instance) =>
-    <String, dynamic>{
-      'stat': instance.stat,
-      'effort': instance.effort,
-    };
-
-Stat _$StatFromJson(Map<String, dynamic> json) => Stat(
-      name: json['name'] as String,
-      url: json['url'] as String,
-    );
-
-Map<String, dynamic> _$StatToJson(Stat instance) => <String, dynamic>{
-      'name': instance.name,
-      'url': instance.url,
-    };
-
-Species _$SpeciesFromJson(Map<String, dynamic> json) => Species(
-      name: json['name'] as String,
-      url: json['url'] as String,
-    );
-
-Map<String, dynamic> _$SpeciesToJson(Species instance) => <String, dynamic>{
-      'name': instance.name,
-      'url': instance.url,
-    };
-
-PokemonAbility _$PokemonAbilityFromJson(Map<String, dynamic> json) =>
-    PokemonAbility(
+PokeAbility _$PokeAbilityFromJson(Map<String, dynamic> json) => PokeAbility(
+      isHidden: json['is_hidden'] as bool,
       slot: json['slot'] as int,
       ability: Ability.fromJson(json['ability'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PokemonAbilityToJson(PokemonAbility instance) =>
+Map<String, dynamic> _$PokeAbilityToJson(PokeAbility instance) =>
     <String, dynamic>{
+      'is_hidden': instance.isHidden,
       'slot': instance.slot,
       'ability': instance.ability,
     };
