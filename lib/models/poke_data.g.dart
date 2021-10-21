@@ -23,7 +23,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       height: fields[3] as int,
       weight: fields[4] as int,
       abilities: (fields[5] as List).cast<PokeAbility>(),
-      forms: fields[6] as NamedApiResource,
+      forms: (fields[6] as List).cast<NamedApiResource>(),
       moves: (fields[7] as List).cast<PokeMove>(),
       species: fields[8] as NamedApiResource,
       stats: (fields[9] as List).cast<PokeStat>(),
@@ -277,7 +277,9 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
       abilities: (json['abilities'] as List<dynamic>)
           .map((e) => PokeAbility.fromJson(e as Map<String, dynamic>))
           .toList(),
-      forms: NamedApiResource.fromJson(json['forms'] as Map<String, dynamic>),
+      forms: (json['forms'] as List<dynamic>)
+          .map((e) => NamedApiResource.fromJson(e as Map<String, dynamic>))
+          .toList(),
       moves: (json['moves'] as List<dynamic>)
           .map((e) => PokeMove.fromJson(e as Map<String, dynamic>))
           .toList(),

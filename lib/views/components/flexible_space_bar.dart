@@ -49,7 +49,7 @@ class PokemonSpaceBar extends StatelessWidget {
                       Text('#${pokeIdToString(pokemon.id)}',
                           style: textTheme.bodyText1),
                       for (String pokeType in pokemon.types)
-                        PokeTypeChip(pokeType: pokeTypeFromString(pokeType)),
+                        PokeTypeChip(pokeType: pokeTypesFromString(pokeType)),
                       const Spacer(flex: 2),
                     ],
                   ),

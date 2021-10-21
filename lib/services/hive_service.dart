@@ -30,7 +30,8 @@ class HiveService {
     Hive.registerAdapter(PokemonSpeciesVarietyAdapter());
     Hive.registerAdapter(GenusAdapter());
 
-    _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokemonDb);
+    _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokeSummaryDb);
+    _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
 
     debugPrint('Initialized Hive Service');

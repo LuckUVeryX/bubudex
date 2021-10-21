@@ -22,7 +22,7 @@ class PokeCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     final List<PokeTypes> types =
-        pokemon.types.map((e) => pokeTypeFromString(e)).toList();
+        pokemon.types.map((e) => pokeTypesFromString(e)).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Card(

@@ -26,6 +26,7 @@ class PokeDetailsProvider extends ChangeNotifier {
   void init(int id) async {
     try {
       _pokeSpecies = await _repository.getSpecies(id);
+      _pokemon = await _repository.getPokemon(id);
 
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {

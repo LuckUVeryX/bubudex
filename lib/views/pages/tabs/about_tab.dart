@@ -10,11 +10,9 @@ import '../../theme/theme.dart';
 class AboutTab extends StatelessWidget {
   const AboutTab({
     Key? key,
-    required this.pokemon,
     required this.pokeId,
   }) : super(key: key);
 
-  final PokeSummary pokemon;
   final int pokeId;
 
   static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
@@ -22,11 +20,15 @@ class AboutTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final backgroundColor = Palette.kGrass;
+    final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
 
-    final pokeSpecies =
-        Provider.of<PokeDetailsProvider>(context, listen: false).pokeSpecies;
+    final PokeSpecies pokeSpecies = provider.pokeSpecies;
+    final Pokemon pokemon = provider.pokemon;
+
+    final Color color = Palette.getTypeColor(pokeTypesFromString(
+        pokemon.types.firstWhere((type) => type.slot == 1).type.name));
+
+    final textTheme = Theme.of(context).textTheme;
 
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
@@ -51,22 +53,22 @@ class AboutTab extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             Text('Pokédex Data',
-                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+                style: textTheme.bodyText1!.copyWith(color: color)),
             const SizedBox(height: verticalSpacing),
             const _PokeDexDataTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Training',
-                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+                style: textTheme.bodyText1!.copyWith(color: color)),
             const SizedBox(height: verticalSpacing),
             const _TrainingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Breeding',
-                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+                style: textTheme.bodyText1!.copyWith(color: color)),
             const SizedBox(height: verticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
             Text('Location',
-                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+                style: textTheme.bodyText1!.copyWith(color: color)),
             const SizedBox(height: verticalSpacing),
             const _LocationTable(columnWidths: columnWidths)
           ],

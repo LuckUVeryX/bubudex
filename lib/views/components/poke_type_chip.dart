@@ -36,7 +36,7 @@ class PokeTypeChip extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            stringFromPokeType(pokeType).capitalize(),
+            stringFromPokeTypes(pokeType).capitalize(),
             style: textTheme.subtitle2!.copyWith(color: Palette.kWhite),
           ),
         ],

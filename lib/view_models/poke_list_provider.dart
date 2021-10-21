@@ -207,7 +207,7 @@ class PokeListProvider extends ChangeNotifier {
   void _applyFilters() {
     _pokemons = _pokemonsCopy.where((poke) {
       bool typeMatch = _typeFilter
-          .every((type) => poke.types.contains(stringFromPokeType(type)));
+          .every((type) => poke.types.contains(stringFromPokeTypes(type)));
       bool weaknessMatch = _weaknessFilter
           .every((type) => getTypeWeakness(poke.typeDefences).contains(type));
       bool heightMatch =

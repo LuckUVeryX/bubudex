@@ -29,7 +29,7 @@ class Pokemon {
   final List<PokeAbility> abilities;
 
   @HiveField(6)
-  final NamedApiResource forms;
+  final List<NamedApiResource> forms;
 
   @HiveField(7)
   final List<PokeMove> moves;

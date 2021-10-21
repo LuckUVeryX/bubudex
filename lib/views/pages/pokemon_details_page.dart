@@ -25,7 +25,7 @@ class PokeDetailsPage extends StatelessWidget {
 
     final PokeSummary pokemon = _hiveService.getPokeSummary(pokeId);
     final backgroundColor =
-        Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
+        Palette.getBackgroundTypeColor(pokeTypesFromString(pokemon.types[0]));
 
     return Scaffold(
       body: DefaultTabController(
@@ -76,7 +76,7 @@ class PokeDetailsPage extends StatelessWidget {
                 case PokeDetailsStatus.done:
                   return TabBarView(
                     children: [
-                      AboutTab(pokemon: pokemon, pokeId: pokeId),
+                      AboutTab(pokeId: pokeId),
                       const Center(child: Text('Stats')),
                       const Center(child: Text('Evolution')),
                     ],
