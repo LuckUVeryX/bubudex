@@ -6,8 +6,8 @@ import '../utils/utils.dart';
 part 'pokemon.g.dart';
 
 @JsonSerializable()
-@HiveType(typeId: HiveTypeId.pokemon)
-class Pokemon {
+@HiveType(typeId: HiveTypeId.pokeSummary)
+class PokeSummary {
   @HiveField(0)
   final int id;
 
@@ -32,7 +32,7 @@ class Pokemon {
   @HiveField(10)
   final TypeDefences typeDefences;
 
-  Pokemon({
+  PokeSummary({
     required this.id,
     required this.name,
     required this.image,
@@ -43,10 +43,10 @@ class Pokemon {
     required this.typeDefences,
   });
 
-  factory Pokemon.fromJson(Map<String, dynamic> json) =>
-      _$PokemonFromJson(json);
+  factory PokeSummary.fromJson(Map<String, dynamic> json) =>
+      _$PokeSummaryFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PokemonToJson(this);
+  Map<String, dynamic> toJson() => _$PokeSummaryToJson(this);
 
   @override
   String toString() {

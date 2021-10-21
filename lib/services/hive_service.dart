@@ -14,7 +14,7 @@ class HiveService {
     Hive.registerAdapter(DescriptionAdapter());
     Hive.registerAdapter(FlavorTextAdapter());
 
-    Hive.registerAdapter(PokemonAdapter());
+    Hive.registerAdapter(PokeSummaryAdapter());
     Hive.registerAdapter(TypeDefencesAdapter());
 
     Hive.registerAdapter(PokeSpeciesAdapter());
@@ -29,19 +29,19 @@ class HiveService {
     debugPrint('Initialized Hive Service');
   }
 
-  late Box<Pokemon> _pokemonDb;
+  late Box<PokeSummary> _pokemonDb;
 
   bool get pokemonDbIsNotEmpty => _pokemonDb.isNotEmpty;
 
-  List<Pokemon> get pokemons => _pokemonDb.values.toList();
+  List<PokeSummary> get pokemons => _pokemonDb.values.toList();
 
-  Future<void> addPokemons(List<Pokemon> pokemons) async {
-    final pokeMap = {for (Pokemon pokemon in pokemons) pokemon.id: pokemon};
+  Future<void> addPokemons(List<PokeSummary> pokemons) async {
+    final pokeMap = {for (PokeSummary pokemon in pokemons) pokemon.id: pokemon};
     await _pokemonDb.putAll(pokeMap);
   }
 
-  Pokemon getPokemon(int id) {
-    Pokemon? pokemon = _pokemonDb.get(id);
+  PokeSummary getPokemon(int id) {
+    PokeSummary? pokemon = _pokemonDb.get(id);
     if (pokemon != null) {
       return pokemon;
     } else {

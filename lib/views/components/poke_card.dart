@@ -14,7 +14,7 @@ class PokeCard extends StatelessWidget {
     required this.pokemon,
   }) : super(key: key);
 
-  final Pokemon pokemon;
+  final PokeSummary pokemon;
 
   @override
   Widget build(BuildContext context) {

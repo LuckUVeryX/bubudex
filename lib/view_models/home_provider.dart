@@ -13,8 +13,8 @@ class HomeProvider extends ChangeNotifier {
   HomePageStatus _status = HomePageStatus.init;
   HomePageStatus get status => _status;
 
-  List<Pokemon> _pokemons = [];
-  List<Pokemon> get pokemons => _pokemons;
+  List<PokeSummary> _pokemons = [];
+  List<PokeSummary> get pokemons => _pokemons;
 
   void getPokemons() async {
     try {

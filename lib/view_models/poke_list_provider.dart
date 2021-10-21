@@ -14,8 +14,9 @@ class PokeListProvider extends ChangeNotifier {
     _pokemonsCopy = _pokemons;
   }
 
-  late final List<Pokemon> _pokemonsCopy; // to hold immutable list of pokemons
-  List<Pokemon> _pokemons;
+  late final List<PokeSummary>
+      _pokemonsCopy; // to hold immutable list of pokemons
+  List<PokeSummary> _pokemons;
 
   // * Sort
   SortOrder _sortOrder = SortOrder.smallest;
@@ -26,7 +27,7 @@ class PokeListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Pokemon> get pokemons {
+  List<PokeSummary> get pokemons {
     switch (_sortOrder) {
       case SortOrder.smallest:
         _pokemons.sort((a, b) => a.id.compareTo(b.id));

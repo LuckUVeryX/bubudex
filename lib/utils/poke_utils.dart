@@ -13,7 +13,7 @@ List<PokeType> getTypeWeakness(TypeDefences typeDefences) {
 /// Height thresholds obtained from
 ///
 /// https://pokemon.fandom.com/wiki/List_of_Pokémon_by_height
-PokeHeight getPokeHeight(Pokemon pokemon) {
+PokeHeight getPokeHeight(PokeSummary pokemon) {
   if (pokemon.height < 1.3) {
     return PokeHeight.short;
   } else if (pokemon.height < 2.2) {
@@ -26,7 +26,7 @@ PokeHeight getPokeHeight(Pokemon pokemon) {
 /// Weight thresholds obtained from
 ///
 /// https://pokemon.fandom.com/wiki/List_of_Pokémon_by_weight
-PokeWeight getPokeWeight(Pokemon pokemon) {
+PokeWeight getPokeWeight(PokeSummary pokemon) {
   if (pokemon.weight < 45) {
     return PokeWeight.light;
   } else if (pokemon.weight < 230) {
@@ -39,7 +39,7 @@ PokeWeight getPokeWeight(Pokemon pokemon) {
 /// Generations obtained from
 ///
 /// https://en.wikipedia.org/wiki/List_of_Pokémon#List_of_species
-Generation getGeneration(Pokemon pokemon) {
+Generation getGeneration(PokeSummary pokemon) {
   if (pokemon.id < 152) {
     return Generation.I;
   } else if (pokemon.id < 252) {

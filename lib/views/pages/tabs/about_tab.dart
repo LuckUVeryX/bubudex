@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/models.dart';
-import '../../../repository/repository.dart';
-import '../../../services/services.dart';
 import '../../../utils/utils.dart';
 import '../../../view_models/view_models.dart';
 import '../../components/weakness_icon.dart';
@@ -16,77 +14,64 @@ class AboutTab extends StatelessWidget {
     required this.pokeId,
   }) : super(key: key);
 
+  final PokeSummary pokemon;
+  final int pokeId;
+
   static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
 
-  final Pokemon pokemon;
-  final int pokeId;
-
   @override
   Widget build(BuildContext context) {
-    final _apiService = Provider.of<ApiService>(context, listen: false);
-    final _hiveService = Provider.of<HiveService>(context, listen: false);
-
-    final backgroundColor =
-        Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
     final textTheme = Theme.of(context).textTheme;
+    final backgroundColor = Palette.kGrass;
 
-    return ChangeNotifierProvider(
-      create: (_) =>
-          AboutTabProvider(PokeSpeciesRepository(_apiService, _hiveService)),
-      child: Consumer<AboutTabProvider>(builder: (_, pokeDetailsProvider, __) {
-        switch (pokeDetailsProvider.status) {
-          case AboutTabStatus.init:
-            pokeDetailsProvider.init(pokeId);
-            return Center(
-              child: CircularProgressIndicator(color: backgroundColor),
-            );
-          case AboutTabStatus.error:
-            return const Center(child: Text('Error'));
+    final pokeSpecies =
+        Provider.of<PokeDetailsProvider>(context, listen: false).pokeSpecies;
 
-          case AboutTabStatus.done:
-            return SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      pokemon.description,
-                      textAlign: TextAlign.justify,
-                    ),
-                    const SizedBox(height: 28),
-                    Text('Pokédex Data',
-                        style: textTheme.bodyText1!
-                            .copyWith(color: backgroundColor)),
-                    const SizedBox(height: verticalSpacing),
-                    _PokedexDataTable(
-                        columnWidths: columnWidths, pokemon: pokemon),
-                    const SizedBox(height: verticalSpacing),
-                    Text('Training',
-                        style: textTheme.bodyText1!
-                            .copyWith(color: backgroundColor)),
-                    const SizedBox(height: verticalSpacing),
-                    const _TrainingTable(columnWidths: columnWidths),
-                    const SizedBox(height: verticalSpacing),
-                    Text('Breeding',
-                        style: textTheme.bodyText1!
-                            .copyWith(color: backgroundColor)),
-                    const SizedBox(height: verticalSpacing),
-                    const _BreedingTable(columnWidths: columnWidths),
-                    const SizedBox(height: verticalSpacing),
-                    Text('Location',
-                        style: textTheme.bodyText1!
-                            .copyWith(color: backgroundColor)),
-                    const SizedBox(height: verticalSpacing),
-                    const _LocationTable(columnWidths: columnWidths)
-                  ],
-                ),
-              ),
-            );
-        }
-      }),
+    return SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              pokeSpecies.flavorTextEntries
+                  .firstWhere((flavorText) => flavorText.language.name == 'en',
+                      orElse: () => FlavorText(
+                            flavorText: '',
+                            language: NamedApiResource(name: '', url: ''),
+                            version: NamedApiResource(name: '', url: ''),
+                          ))
+                  .flavorText
+                  .replaceAll('\n', ' ')
+                  .replaceAll('\f', ' '),
+              // pokeSpecies.flavorTextEntries[0].flavorText
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 28),
+            Text('Pokédex Data',
+                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+            const SizedBox(height: verticalSpacing),
+            const _PokeDexDataTable(columnWidths: columnWidths),
+            const SizedBox(height: verticalSpacing),
+            Text('Training',
+                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+            const SizedBox(height: verticalSpacing),
+            const _TrainingTable(columnWidths: columnWidths),
+            const SizedBox(height: verticalSpacing),
+            Text('Breeding',
+                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+            const SizedBox(height: verticalSpacing),
+            const _BreedingTable(columnWidths: columnWidths),
+            const SizedBox(height: verticalSpacing),
+            Text('Location',
+                style: textTheme.bodyText1!.copyWith(color: backgroundColor)),
+            const SizedBox(height: verticalSpacing),
+            const _LocationTable(columnWidths: columnWidths)
+          ],
+        ),
+      ),
     );
   }
 }
@@ -237,17 +222,36 @@ class _BreedingTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final pokeSpecies =
+        Provider.of<PokeDetailsProvider>(context, listen: false).pokeSpecies;
     return Table(
       columnWidths: columnWidths,
       children: [
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Gender',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            // TODO: convert to colored text
-            Text('M: 87.5%, F: 12.5%'),
+            pokeSpecies.genderRate == -1
+                ? const Text('Undefined')
+                : RichText(
+                    text: TextSpan(
+                      style: textTheme.bodyText2,
+                      children: [
+                        TextSpan(
+                          text: 'M: ${(1 - pokeSpecies.genderRate / 8) * 100}%',
+                          style: const TextStyle(color: Palette.kFlying),
+                        ),
+                        const TextSpan(text: ', '),
+                        TextSpan(
+                          text: 'F: ${pokeSpecies.genderRate / 8 * 100}%',
+                          style: const TextStyle(color: Palette.kFairy),
+                        ),
+                      ],
+                    ),
+                  ),
           ],
         ),
         _tableRowSpacing(),
@@ -275,49 +279,111 @@ class _BreedingTable extends StatelessWidget {
   }
 }
 
-class _PokedexDataTable extends StatelessWidget {
-  const _PokedexDataTable({
+class _PokeDexDataTable extends StatelessWidget {
+  const _PokeDexDataTable({
     Key? key,
     required this.columnWidths,
-    required this.pokemon,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
-  final Pokemon pokemon;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final pokeSpecies =
+        Provider.of<PokeDetailsProvider>(context, listen: false).pokeSpecies;
     return Table(
       columnWidths: columnWidths,
       children: [
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Species',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('Seed Pokemon'),
+            Text(
+              pokeSpecies.genera
+                  .firstWhere((genus) => genus.language.name == 'en')
+                  .genus,
+            ),
+          ],
+        ),
+        pokeSpecies.isBaby ? _tableRowSpacing() : _emptyTableRow(),
+        pokeSpecies.isBaby
+            ? const TableRow(
+                children: [
+                  Text(
+                    'Baby',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text('True'),
+                ],
+              )
+            : _emptyTableRow(),
+        pokeSpecies.isLegendary ? _tableRowSpacing() : _emptyTableRow(),
+        pokeSpecies.isLegendary
+            ? const TableRow(
+                children: [
+                  Text(
+                    'Legendary',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text('True'),
+                ],
+              )
+            : _emptyTableRow(),
+        pokeSpecies.isMythical ? _tableRowSpacing() : _emptyTableRow(),
+        pokeSpecies.isMythical
+            ? const TableRow(
+                children: [
+                  Text(
+                    'Mythical',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text('True'),
+                ],
+              )
+            : _emptyTableRow(),
+        _tableRowSpacing(),
+        TableRow(
+          children: [
+            const Text(
+              'Base Happiness',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(pokeSpecies.baseHappiness.toString()),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Height',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('0.2m'),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('1. Shed-skin'),
+                Text('Overcoat (hidden)', style: textTheme.subtitle2),
+              ],
+            ),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Weight',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('3.4kg'),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('1. Shed-skin'),
+                Text('Overcoat (hidden)', style: textTheme.subtitle2),
+              ],
+            ),
           ],
         ),
         _tableRowSpacing(),
@@ -346,10 +412,7 @@ class _PokedexDataTable extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: [
-                for (PokeType type in getTypeWeakness(pokemon.typeDefences))
-                  WeaknessIcon(pokeType: type),
-              ],
+              children: const [WeaknessIcon(pokeType: PokeType.fire)],
             ),
           ],
         ),
@@ -361,5 +424,11 @@ class _PokedexDataTable extends StatelessWidget {
 TableRow _tableRowSpacing() {
   return const TableRow(
     children: [SizedBox(height: 12), SizedBox(height: 12)],
+  );
+}
+
+TableRow _emptyTableRow() {
+  return const TableRow(
+    children: [SizedBox(), SizedBox()],
   );
 }

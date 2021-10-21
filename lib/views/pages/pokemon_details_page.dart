@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bubudex/repository/repository.dart';
+import 'package:bubudex/view_models/poke_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,9 +20,10 @@ class PokeDetailsPage extends StatelessWidget {
   final int pokeId;
   @override
   Widget build(BuildContext context) {
+    final _apiService = Provider.of<ApiService>(context, listen: false);
     final _hiveService = Provider.of<HiveService>(context, listen: false);
 
-    final Pokemon pokemon = _hiveService.getPokemon(pokeId);
+    final PokeSummary pokemon = _hiveService.getPokemon(pokeId);
     final backgroundColor =
         Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
 
@@ -56,12 +59,30 @@ class PokeDetailsPage extends StatelessWidget {
               )
             ];
           },
-          body: TabBarView(
-            children: [
-              AboutTab(pokemon: pokemon, pokeId: pokeId),
-              const Center(child: Text('Stats')),
-              const Center(child: Text('Evolution')),
-            ],
+          body: ChangeNotifierProvider(
+            create: (_) => PokeDetailsProvider(
+                PokeSpeciesRepository(_apiService, _hiveService)),
+            child: Consumer<PokeDetailsProvider>(builder: (_, value, __) {
+              switch (value.status) {
+                case PokeDetailsStatus.init:
+                  value.init(pokeId);
+                  return Center(
+                    child: CircularProgressIndicator(color: backgroundColor),
+                  );
+
+                case PokeDetailsStatus.error:
+                  return const Center(child: Text('Error'));
+
+                case PokeDetailsStatus.done:
+                  return TabBarView(
+                    children: [
+                      AboutTab(pokemon: pokemon, pokeId: pokeId),
+                      const Center(child: Text('Stats')),
+                      const Center(child: Text('Evolution')),
+                    ],
+                  );
+              }
+            }),
           ),
         ),
       ),

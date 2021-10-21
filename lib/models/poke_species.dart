@@ -81,7 +81,7 @@ class PokeSpecies {
   final ApiResource evolutionChain;
 
   @HiveField(19)
-  final NamedApiResource habitat;
+  final NamedApiResource? habitat;
 
   @HiveField(20)
   final NamedApiResource generation;
@@ -127,7 +127,7 @@ class PokeSpecies {
     required this.shape,
     this.evolvesFromSpecies,
     required this.evolutionChain,
-    required this.habitat,
+    this.habitat,
     required this.generation,
     required this.names,
     required this.palParkEncounters,

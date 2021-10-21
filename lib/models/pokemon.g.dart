@@ -6,17 +6,17 @@ part of 'pokemon.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PokemonAdapter extends TypeAdapter<Pokemon> {
+class PokeSummaryAdapter extends TypeAdapter<PokeSummary> {
   @override
   final int typeId = 5;
 
   @override
-  Pokemon read(BinaryReader reader) {
+  PokeSummary read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Pokemon(
+    return PokeSummary(
       id: fields[0] as int,
       name: fields[1] as String,
       image: fields[2] as String,
@@ -29,7 +29,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
   }
 
   @override
-  void write(BinaryWriter writer, Pokemon obj) {
+  void write(BinaryWriter writer, PokeSummary obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)
@@ -56,7 +56,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PokemonAdapter &&
+      other is PokeSummaryAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -150,7 +150,7 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
+PokeSummary _$PokeSummaryFromJson(Map<String, dynamic> json) => PokeSummary(
       id: json['id'] as int,
       name: json['name'] as String,
       image: json['image'] as String,
@@ -162,7 +162,8 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
           TypeDefences.fromJson(json['typeDefences'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
+Map<String, dynamic> _$PokeSummaryToJson(PokeSummary instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'image': instance.image,

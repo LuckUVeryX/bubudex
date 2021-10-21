@@ -36,7 +36,7 @@ class PokeSpeciesAdapter extends TypeAdapter<PokeSpecies> {
       shape: fields[16] as NamedApiResource,
       evolvesFromSpecies: fields[17] as NamedApiResource?,
       evolutionChain: fields[18] as ApiResource,
-      habitat: fields[19] as NamedApiResource,
+      habitat: fields[19] as NamedApiResource?,
       generation: fields[20] as NamedApiResource,
       names: (fields[21] as List).cast<Name>(),
       palParkEncounters: (fields[22] as List).cast<PalParkEncounterArea>(),
@@ -302,8 +302,9 @@ PokeSpecies _$PokeSpeciesFromJson(Map<String, dynamic> json) => PokeSpecies(
               json['evolves_from_species'] as Map<String, dynamic>),
       evolutionChain:
           ApiResource.fromJson(json['evolution_chain'] as Map<String, dynamic>),
-      habitat:
-          NamedApiResource.fromJson(json['habitat'] as Map<String, dynamic>),
+      habitat: json['habitat'] == null
+          ? null
+          : NamedApiResource.fromJson(json['habitat'] as Map<String, dynamic>),
       generation:
           NamedApiResource.fromJson(json['generation'] as Map<String, dynamic>),
       names: (json['names'] as List<dynamic>)

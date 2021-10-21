@@ -7,7 +7,7 @@ class HiveTypeId {
   static const flavorText = 4;
 
   // Pokemon
-  static const pokemon = 5;
+  static const pokeSummary = 5;
   static const typeDefenses = 6;
 
   static const pokeSpecies = 7;

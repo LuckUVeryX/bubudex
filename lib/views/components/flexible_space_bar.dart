@@ -12,7 +12,7 @@ class PokemonSpaceBar extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final Pokemon pokemon;
+  final PokeSummary pokemon;
 
   @override
   Widget build(BuildContext context) {

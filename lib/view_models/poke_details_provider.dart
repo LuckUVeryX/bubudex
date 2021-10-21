@@ -3,17 +3,17 @@ import 'package:flutter/foundation.dart';
 import '../models/models.dart';
 import '../repository/repository.dart';
 
-enum AboutTabStatus { init, done, error }
+enum PokeDetailsStatus { init, done, error }
 
-class AboutTabProvider extends ChangeNotifier {
-  AboutTabProvider(this._speciesRepository);
+class PokeDetailsProvider extends ChangeNotifier {
+  PokeDetailsProvider(this._speciesRepository);
 
   final IPokeSpeciesRepository _speciesRepository;
-  AboutTabStatus _status = AboutTabStatus.init;
+  PokeDetailsStatus _status = PokeDetailsStatus.init;
 
-  AboutTabStatus get status => _status;
+  PokeDetailsStatus get status => _status;
 
-  void setStatus(AboutTabStatus status) {
+  void setStatus(PokeDetailsStatus status) {
     _status = status;
     notifyListeners();
   }
@@ -24,10 +24,10 @@ class AboutTabProvider extends ChangeNotifier {
   void init(int id) async {
     try {
       _pokeSpecies = await _speciesRepository.getSpecies(id);
-      setStatus(AboutTabStatus.done);
+      setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());
-      setStatus(AboutTabStatus.error);
+      setStatus(PokeDetailsStatus.error);
     }
   }
 }
