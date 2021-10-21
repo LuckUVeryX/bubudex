@@ -8,9 +8,9 @@ abstract class NamedApiResource {
 }
 
 abstract class NameValuePair {
-  @HiveField(15)
+  @HiveField(20)
   final int? value;
-  @HiveField(16)
+  @HiveField(21)
   final String text;
 
   NameValuePair({this.value, required this.text});

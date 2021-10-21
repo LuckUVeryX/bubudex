@@ -10,34 +10,37 @@ part 'pokemon.g.dart';
 @HiveType(typeId: HiveTypeId.pokemon)
 class Pokemon {
   @HiveField(0)
-  int id;
+  final int id;
 
   @HiveField(1)
-  String name;
+  final String name;
 
   @HiveField(2)
-  String image;
+  final String image;
 
   @HiveField(3)
-  String description;
+  final String description;
 
   @HiveField(4)
-  double height;
+  final double height;
 
   @HiveField(5)
-  double weight;
+  final double weight;
 
   @HiveField(6)
-  String species;
+  final String species;
 
   @HiveField(7)
-  List<String> types;
+  final List<String> types;
 
   @HiveField(8)
-  Training training;
+  final Training training;
 
   @HiveField(9)
-  TypeDefences typeDefences;
+  final Breedings breedings;
+
+  @HiveField(10)
+  final TypeDefences typeDefences;
 
   Pokemon({
     required this.id,
@@ -49,6 +52,7 @@ class Pokemon {
     required this.species,
     required this.types,
     required this.training,
+    required this.breedings,
     required this.typeDefences,
   });
 
@@ -66,20 +70,20 @@ class Pokemon {
 @JsonSerializable()
 @HiveType(typeId: HiveTypeId.training)
 class Training {
-  @HiveField(10)
-  String evYield;
-
   @HiveField(11)
-  CatchRate catchRate;
+  final String evYield;
 
   @HiveField(12)
-  BaseFriendship baseFriendship;
+  final CatchRate catchRate;
 
   @HiveField(13)
-  int? baseExp;
+  final BaseFriendship baseFriendship;
 
   @HiveField(14)
-  String growthRate;
+  final int? baseExp;
+
+  @HiveField(15)
+  final String growthRate;
 
   Training({
     required this.evYield,
@@ -135,62 +139,131 @@ class BaseFriendship extends NameValuePair {
 }
 
 @JsonSerializable()
-@HiveType(typeId: HiveTypeId.typeDefenses)
-class TypeDefences {
-  @HiveField(20)
-  double? normal;
-
-  @HiveField(21)
-  double? fire;
-
-  @HiveField(22)
-  double? water;
-
-  @HiveField(23)
-  double? electric;
-
-  @HiveField(24)
-  double? grass;
-
-  @HiveField(25)
-  double? ice;
-
-  @HiveField(26)
-  double? fighting;
-
-  @HiveField(27)
-  double? poison;
-
-  @HiveField(28)
-  double? ground;
-
-  @HiveField(29)
-  double? flying;
-
+@HiveType(typeId: HiveTypeId.breedings)
+class Breedings {
   @HiveField(30)
-  double? psychic;
+  final List<String> eggGroups;
 
   @HiveField(31)
-  double? bug;
+  final Gender gender;
 
   @HiveField(32)
-  double? rock;
+  final EggCycles eggCycles;
 
+  Breedings({
+    required this.eggGroups,
+    required this.gender,
+    required this.eggCycles,
+  });
+
+  factory Breedings.fromJson(Map<String, dynamic> json) =>
+      _$BreedingsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BreedingsToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: HiveTypeId.gender)
+class Gender {
   @HiveField(33)
-  double? ghost;
+  final double? male;
 
   @HiveField(34)
-  double? dragon;
+  final double? female;
+
+  Gender({required this.male, required this.female});
+
+  factory Gender.fromJson(Map<String, dynamic> json) => _$GenderFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GenderToJson(this);
+
+  bool get isNull => male == null || female == null;
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: HiveTypeId.eggCycles)
+class EggCycles extends NameValuePair {
+  EggCycles({required String text, required int value})
+      : super(text: text, value: value);
+
+  factory EggCycles.fromJson(Map<String, dynamic> json) =>
+      _$EggCyclesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$EggCyclesToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable()
+@HiveType(typeId: HiveTypeId.typeDefenses)
+class TypeDefences {
+  @HiveField(40)
+  final double? normal;
+
+  @HiveField(41)
+  final double? fire;
+
+  @HiveField(42)
+  final double? water;
+
+  @HiveField(43)
+  final double? electric;
+
+  @HiveField(44)
+  final double? grass;
+
+  @HiveField(45)
+  final double? ice;
+
+  @HiveField(46)
+  final double? fighting;
+
+  @HiveField(47)
+  final double? poison;
+
+  @HiveField(48)
+  final double? ground;
+
+  @HiveField(49)
+  final double? flying;
+
+  @HiveField(50)
+  final double? psychic;
+
+  @HiveField(51)
+  final double? bug;
+
+  @HiveField(52)
+  final double? rock;
+
+  @HiveField(53)
+  final double? ghost;
+
+  @HiveField(54)
+  final double? dragon;
 
   @JsonKey(name: 'darl')
-  @HiveField(35)
-  double? dark;
+  @HiveField(55)
+  final double? dark;
 
-  @HiveField(36)
-  double? steel;
+  @HiveField(56)
+  final double? steel;
 
-  @HiveField(37)
-  double? fairy;
+  @HiveField(57)
+  final double? fairy;
 
   TypeDefences({
     required this.normal,

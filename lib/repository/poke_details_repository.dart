@@ -12,6 +12,7 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   @override
   Future<PokeData> getPokeData(int id) async {
     final res = await _apiService.get('https://pokeapi.co/api/v2/pokemon/$id/');
+
     return PokeData.fromJson(jsonDecode(res.body));
   }
 }

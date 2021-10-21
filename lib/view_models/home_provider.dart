@@ -23,6 +23,7 @@ class HomeProvider extends ChangeNotifier {
     } catch (e) {
       _status = HomePageStatus.error;
       debugPrint(e.toString());
+      rethrow;
     }
     notifyListeners();
   }

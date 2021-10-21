@@ -54,7 +54,8 @@ class AboutTab extends StatelessWidget {
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            const _BreedingTable(columnWidths: columnWidths),
+            _BreedingTable(
+                columnWidths: columnWidths, breedings: pokemon.breedings),
             const SizedBox(height: verticalSpacing),
             Text('Location',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
@@ -210,42 +211,52 @@ class _BreedingTable extends StatelessWidget {
   const _BreedingTable({
     Key? key,
     required this.columnWidths,
+    required this.breedings,
   }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
+  final Breedings breedings;
 
   @override
   Widget build(BuildContext context) {
+    List<String> capitaliseEggGroup = [];
+    for (String eggGroup in breedings.eggGroups) {
+      capitaliseEggGroup.add(eggGroup.capitalize());
+    }
+
     return Table(
       columnWidths: columnWidths,
       children: [
-        const TableRow(
+        TableRow(
           children: [
-            Text(
-              'Species',
+            const Text(
+              'Gender',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('M: 87.5%, F: 12.5%'),
+            // TODO: convert to colored text
+            Text(breedings.gender.isNull
+                ? 'Undefined'
+                : 'M: ${breedings.gender.male}%, F: ${breedings.gender.female}%'),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Egg Groups',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('Grass, Monster'),
+            Text(capitaliseEggGroup.join(' ')),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Egg Cycles',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('20 (4,884 - 5,140 steps)'),
+            Text('${breedings.eggCycles.value} (${breedings.eggCycles.text})'),
           ],
         ),
       ],

@@ -26,14 +26,15 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       species: fields[6] as String,
       types: (fields[7] as List).cast<String>(),
       training: fields[8] as Training,
-      typeDefences: fields[9] as TypeDefences,
+      breedings: fields[9] as Breedings,
+      typeDefences: fields[10] as TypeDefences,
     );
   }
 
   @override
   void write(BinaryWriter writer, Pokemon obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,6 +54,8 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       ..writeByte(8)
       ..write(obj.training)
       ..writeByte(9)
+      ..write(obj.breedings)
+      ..writeByte(10)
       ..write(obj.typeDefences);
   }
 
@@ -78,11 +81,11 @@ class TrainingAdapter extends TypeAdapter<Training> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Training(
-      evYield: fields[10] as String,
-      catchRate: fields[11] as CatchRate,
-      baseFriendship: fields[12] as BaseFriendship,
-      baseExp: fields[13] as int?,
-      growthRate: fields[14] as String,
+      evYield: fields[11] as String,
+      catchRate: fields[12] as CatchRate,
+      baseFriendship: fields[13] as BaseFriendship,
+      baseExp: fields[14] as int?,
+      growthRate: fields[15] as String,
     );
   }
 
@@ -90,15 +93,15 @@ class TrainingAdapter extends TypeAdapter<Training> {
   void write(BinaryWriter writer, Training obj) {
     writer
       ..writeByte(5)
-      ..writeByte(10)
-      ..write(obj.evYield)
       ..writeByte(11)
-      ..write(obj.catchRate)
+      ..write(obj.evYield)
       ..writeByte(12)
-      ..write(obj.baseFriendship)
+      ..write(obj.catchRate)
       ..writeByte(13)
-      ..write(obj.baseExp)
+      ..write(obj.baseFriendship)
       ..writeByte(14)
+      ..write(obj.baseExp)
+      ..writeByte(15)
       ..write(obj.growthRate);
   }
 
@@ -124,8 +127,8 @@ class CatchRateAdapter extends TypeAdapter<CatchRate> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CatchRate(
-      value: fields[15] as int?,
-      text: fields[16] as String,
+      value: fields[20] as int?,
+      text: fields[21] as String,
     );
   }
 
@@ -133,9 +136,9 @@ class CatchRateAdapter extends TypeAdapter<CatchRate> {
   void write(BinaryWriter writer, CatchRate obj) {
     writer
       ..writeByte(2)
-      ..writeByte(15)
+      ..writeByte(20)
       ..write(obj.value)
-      ..writeByte(16)
+      ..writeByte(21)
       ..write(obj.text);
   }
 
@@ -161,8 +164,8 @@ class BaseFriendshipAdapter extends TypeAdapter<BaseFriendship> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return BaseFriendship(
-      value: fields[15] as int?,
-      text: fields[16] as String,
+      value: fields[20] as int?,
+      text: fields[21] as String,
     );
   }
 
@@ -170,9 +173,9 @@ class BaseFriendshipAdapter extends TypeAdapter<BaseFriendship> {
   void write(BinaryWriter writer, BaseFriendship obj) {
     writer
       ..writeByte(2)
-      ..writeByte(15)
+      ..writeByte(20)
       ..write(obj.value)
-      ..writeByte(16)
+      ..writeByte(21)
       ..write(obj.text);
   }
 
@@ -187,9 +190,123 @@ class BaseFriendshipAdapter extends TypeAdapter<BaseFriendship> {
           typeId == other.typeId;
 }
 
-class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
+class BreedingsAdapter extends TypeAdapter<Breedings> {
   @override
   final int typeId = 4;
+
+  @override
+  Breedings read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Breedings(
+      eggGroups: (fields[30] as List).cast<String>(),
+      gender: fields[31] as Gender,
+      eggCycles: fields[32] as EggCycles,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Breedings obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(30)
+      ..write(obj.eggGroups)
+      ..writeByte(31)
+      ..write(obj.gender)
+      ..writeByte(32)
+      ..write(obj.eggCycles);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BreedingsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class GenderAdapter extends TypeAdapter<Gender> {
+  @override
+  final int typeId = 6;
+
+  @override
+  Gender read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Gender(
+      male: fields[33] as double?,
+      female: fields[34] as double?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Gender obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(33)
+      ..write(obj.male)
+      ..writeByte(34)
+      ..write(obj.female);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GenderAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class EggCyclesAdapter extends TypeAdapter<EggCycles> {
+  @override
+  final int typeId = 5;
+
+  @override
+  EggCycles read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return EggCycles(
+      text: fields[21] as String,
+      value: fields[20] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, EggCycles obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(20)
+      ..write(obj.value)
+      ..writeByte(21)
+      ..write(obj.text);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is EggCyclesAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
+  @override
+  final int typeId = 7;
 
   @override
   TypeDefences read(BinaryReader reader) {
@@ -198,24 +315,24 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TypeDefences(
-      normal: fields[20] as double?,
-      fire: fields[21] as double?,
-      water: fields[22] as double?,
-      electric: fields[23] as double?,
-      grass: fields[24] as double?,
-      ice: fields[25] as double?,
-      fighting: fields[26] as double?,
-      poison: fields[27] as double?,
-      ground: fields[28] as double?,
-      flying: fields[29] as double?,
-      psychic: fields[30] as double?,
-      bug: fields[31] as double?,
-      rock: fields[32] as double?,
-      ghost: fields[33] as double?,
-      dragon: fields[34] as double?,
-      dark: fields[35] as double?,
-      steel: fields[36] as double?,
-      fairy: fields[37] as double?,
+      normal: fields[40] as double?,
+      fire: fields[41] as double?,
+      water: fields[42] as double?,
+      electric: fields[43] as double?,
+      grass: fields[44] as double?,
+      ice: fields[45] as double?,
+      fighting: fields[46] as double?,
+      poison: fields[47] as double?,
+      ground: fields[48] as double?,
+      flying: fields[49] as double?,
+      psychic: fields[50] as double?,
+      bug: fields[51] as double?,
+      rock: fields[52] as double?,
+      ghost: fields[53] as double?,
+      dragon: fields[54] as double?,
+      dark: fields[55] as double?,
+      steel: fields[56] as double?,
+      fairy: fields[57] as double?,
     );
   }
 
@@ -223,41 +340,41 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
   void write(BinaryWriter writer, TypeDefences obj) {
     writer
       ..writeByte(18)
-      ..writeByte(20)
+      ..writeByte(40)
       ..write(obj.normal)
-      ..writeByte(21)
+      ..writeByte(41)
       ..write(obj.fire)
-      ..writeByte(22)
+      ..writeByte(42)
       ..write(obj.water)
-      ..writeByte(23)
+      ..writeByte(43)
       ..write(obj.electric)
-      ..writeByte(24)
+      ..writeByte(44)
       ..write(obj.grass)
-      ..writeByte(25)
+      ..writeByte(45)
       ..write(obj.ice)
-      ..writeByte(26)
+      ..writeByte(46)
       ..write(obj.fighting)
-      ..writeByte(27)
+      ..writeByte(47)
       ..write(obj.poison)
-      ..writeByte(28)
+      ..writeByte(48)
       ..write(obj.ground)
-      ..writeByte(29)
+      ..writeByte(49)
       ..write(obj.flying)
-      ..writeByte(30)
+      ..writeByte(50)
       ..write(obj.psychic)
-      ..writeByte(31)
+      ..writeByte(51)
       ..write(obj.bug)
-      ..writeByte(32)
+      ..writeByte(52)
       ..write(obj.rock)
-      ..writeByte(33)
+      ..writeByte(53)
       ..write(obj.ghost)
-      ..writeByte(34)
+      ..writeByte(54)
       ..write(obj.dragon)
-      ..writeByte(35)
+      ..writeByte(55)
       ..write(obj.dark)
-      ..writeByte(36)
+      ..writeByte(56)
       ..write(obj.steel)
-      ..writeByte(37)
+      ..writeByte(57)
       ..write(obj.fairy);
   }
 
@@ -286,6 +403,7 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
       species: json['species'] as String,
       types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
       training: Training.fromJson(json['training'] as Map<String, dynamic>),
+      breedings: Breedings.fromJson(json['breedings'] as Map<String, dynamic>),
       typeDefences:
           TypeDefences.fromJson(json['typeDefences'] as Map<String, dynamic>),
     );
@@ -300,6 +418,7 @@ Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
       'species': instance.species,
       'types': instance.types,
       'training': instance.training,
+      'breedings': instance.breedings,
       'typeDefences': instance.typeDefences,
     };
 
@@ -338,6 +457,39 @@ BaseFriendship _$BaseFriendshipFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BaseFriendshipToJson(BaseFriendship instance) =>
     <String, dynamic>{
+      'value': instance.value,
+      'text': instance.text,
+    };
+
+Breedings _$BreedingsFromJson(Map<String, dynamic> json) => Breedings(
+      eggGroups:
+          (json['eggGroups'] as List<dynamic>).map((e) => e as String).toList(),
+      gender: Gender.fromJson(json['gender'] as Map<String, dynamic>),
+      eggCycles: EggCycles.fromJson(json['eggCycles'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$BreedingsToJson(Breedings instance) => <String, dynamic>{
+      'eggGroups': instance.eggGroups,
+      'gender': instance.gender,
+      'eggCycles': instance.eggCycles,
+    };
+
+Gender _$GenderFromJson(Map<String, dynamic> json) => Gender(
+      male: (json['male'] as num?)?.toDouble(),
+      female: (json['female'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$GenderToJson(Gender instance) => <String, dynamic>{
+      'male': instance.male,
+      'female': instance.female,
+    };
+
+EggCycles _$EggCyclesFromJson(Map<String, dynamic> json) => EggCycles(
+      text: json['text'] as String,
+      value: json['value'] as int,
+    );
+
+Map<String, dynamic> _$EggCyclesToJson(EggCycles instance) => <String, dynamic>{
       'value': instance.value,
       'text': instance.text,
     };
