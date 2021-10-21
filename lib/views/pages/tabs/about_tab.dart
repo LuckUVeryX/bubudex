@@ -291,6 +291,8 @@ class _PokeDexDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Pokemon pokemon =
+        Provider.of<PokeDetailsProvider>(context, listen: false).pokemon;
     final textTheme = Theme.of(context).textTheme;
     final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
     final pokeSpecies = provider.pokeSpecies;
@@ -351,26 +353,10 @@ class _PokeDexDataTable extends StatelessWidget {
         TableRow(
           children: [
             const Text(
-              'Base Happiness',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(pokeSpecies.baseHappiness.toString()),
-          ],
-        ),
-        _tableRowSpacing(),
-        TableRow(
-          children: [
-            const Text(
               'Height',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('1. Shed-skin'),
-                Text('Overcoat (hidden)', style: textTheme.subtitle2),
-              ],
-            ),
+            Text('${pokemon.height / 10}m')
           ],
         ),
         _tableRowSpacing(),
@@ -380,13 +366,7 @@ class _PokeDexDataTable extends StatelessWidget {
               'Weight',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('1. Shed-skin'),
-                Text('Overcoat (hidden)', style: textTheme.subtitle2),
-              ],
-            ),
+            Text('${pokemon.weight / 10}kg')
           ],
         ),
         _tableRowSpacing(),
@@ -399,8 +379,12 @@ class _PokeDexDataTable extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('1. Shed-skin'),
-                Text('Overcoat (hidden)', style: textTheme.subtitle2),
+                for (PokeAbility ability in pokemon.abilities)
+                  ability.isHidden
+                      ? Text('${ability.ability.name.capitalize()} (hidden)',
+                          style: textTheme.subtitle2)
+                      : Text(
+                          '${ability.slot}. ${ability.ability.name.capitalize()}'),
               ],
             ),
           ],
