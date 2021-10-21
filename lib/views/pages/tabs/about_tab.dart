@@ -315,9 +315,6 @@ class _PokedexDataTable extends StatelessWidget {
                       : Text(
                           '${pokeAbility.slot}. ${pokeAbility.ability.name.capitalize()}',
                         ),
-
-                // Text('1. Overgrow'),
-                // Text('Chlorophyll (hidden ability)'),
               ],
             ),
           ],
@@ -332,11 +329,9 @@ class _PokedexDataTable extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: const [
-                WeaknessIcon(pokeType: PokeType.fire),
-                WeaknessIcon(pokeType: PokeType.flying),
-                WeaknessIcon(pokeType: PokeType.ice),
-                WeaknessIcon(pokeType: PokeType.psychic),
+              children: [
+                for (PokeType type in getTypeWeakness(pokemon.typeDefences))
+                  WeaknessIcon(pokeType: type),
               ],
             ),
           ],
