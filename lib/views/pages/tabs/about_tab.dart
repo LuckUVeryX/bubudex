@@ -227,6 +227,10 @@ class _BreedingTable extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final pokeSpecies =
         Provider.of<PokeDetailsProvider>(context, listen: false).pokeSpecies;
+    List<String> eggGroups = [];
+    for (NamedApiResource eggGroup in pokeSpecies.eggGroups) {
+      eggGroups.add(eggGroup.name.capitalize());
+    }
     return Table(
       columnWidths: columnWidths,
       children: [
@@ -257,23 +261,34 @@ class _BreedingTable extends StatelessWidget {
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Egg Groups',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('Grass Monster'),
+            Text(eggGroups.isNotEmpty ? eggGroups.join(', ') : 'None'),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Egg Cycles',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('20 (4,884-5140 steps'),
+            RichText(
+              text: TextSpan(
+                style: textTheme.bodyText2,
+                children: [
+                  TextSpan(text: '${pokeSpecies.hatchCounter} '),
+                  TextSpan(
+                    text: '(${255 * (pokeSpecies.hatchCounter + 1)} steps)',
+                    style: textTheme.subtitle2,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ],
