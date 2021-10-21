@@ -1,4 +1,4 @@
-enum PokeType {
+enum PokeTypes {
   bug,
   dark,
   dragon,

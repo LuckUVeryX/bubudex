@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bubudex/repository/repository.dart';
-import 'package:bubudex/view_models/poke_details_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
+import '../../repository/repository.dart';
 import '../../services/services.dart';
 import '../../utils/utils.dart';
+import '../../view_models/poke_details_provider.dart';
 import '../components/components.dart';
 import '../theme/theme.dart';
 import 'pages.dart';
@@ -61,7 +61,7 @@ class PokeDetailsPage extends StatelessWidget {
           },
           body: ChangeNotifierProvider(
             create: (_) => PokeDetailsProvider(
-                PokeSpeciesRepository(_apiService, _hiveService)),
+                PokeDetailsRepository(_apiService, _hiveService)),
             child: Consumer<PokeDetailsProvider>(builder: (_, value, __) {
               switch (value.status) {
                 case PokeDetailsStatus.init:

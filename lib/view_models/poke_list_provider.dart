@@ -71,9 +71,9 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   // * Filter
-  final List<PokeType> _typeFilter = [];
+  final List<PokeTypes> _typeFilter = [];
 
-  void toggleTypeFilter(PokeType pokeType) {
+  void toggleTypeFilter(PokeTypes pokeType) {
     if (_typeFilter.contains(pokeType)) {
       _typeFilter.remove(pokeType);
     } else {
@@ -83,7 +83,7 @@ class PokeListProvider extends ChangeNotifier {
     debugPrint('Type Filter: $_typeFilter');
   }
 
-  FilterColor getTypeColor(PokeType pokeType) {
+  FilterColor getTypeColor(PokeTypes pokeType) {
     if (_typeFilter.contains(pokeType)) {
       return FilterColor(
           background: Palette.getTypeColor(pokeType), icon: Colors.white);
@@ -93,9 +93,9 @@ class PokeListProvider extends ChangeNotifier {
     }
   }
 
-  final List<PokeType> _weaknessFilter = [];
+  final List<PokeTypes> _weaknessFilter = [];
 
-  void toggleWeaknessFilter(PokeType pokeType) {
+  void toggleWeaknessFilter(PokeTypes pokeType) {
     if (_weaknessFilter.contains(pokeType)) {
       _weaknessFilter.remove(pokeType);
     } else {
@@ -106,7 +106,7 @@ class PokeListProvider extends ChangeNotifier {
     debugPrint('Weakness Filter: $_weaknessFilter');
   }
 
-  FilterColor getWeaknessColor(PokeType pokeType) {
+  FilterColor getWeaknessColor(PokeTypes pokeType) {
     if (_weaknessFilter.contains(pokeType)) {
       return FilterColor(
           background: Palette.getTypeColor(pokeType), icon: Colors.white);

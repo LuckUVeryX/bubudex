@@ -21,7 +21,7 @@ class PokeCard extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
 
-    final List<PokeType> types =
+    final List<PokeTypes> types =
         pokemon.types.map((e) => pokeTypeFromString(e)).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -53,7 +53,7 @@ class PokeCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        for (PokeType type in types)
+                        for (PokeTypes type in types)
                           PokeTypeChip(pokeType: type),
                       ],
                     )

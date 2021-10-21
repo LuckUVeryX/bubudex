@@ -412,7 +412,7 @@ class _PokeDexDataTable extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: const [WeaknessIcon(pokeType: PokeType.fire)],
+              children: const [WeaknessIcon(pokeType: PokeTypes.fire)],
             ),
           ],
         ),

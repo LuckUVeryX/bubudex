@@ -6,9 +6,9 @@ import '../repository/repository.dart';
 enum PokeDetailsStatus { init, done, error }
 
 class PokeDetailsProvider extends ChangeNotifier {
-  PokeDetailsProvider(this._speciesRepository);
+  PokeDetailsProvider(this._repository);
 
-  final IPokeSpeciesRepository _speciesRepository;
+  final IPokeDetailsRepository _repository;
   PokeDetailsStatus _status = PokeDetailsStatus.init;
 
   PokeDetailsStatus get status => _status;
@@ -23,7 +23,7 @@ class PokeDetailsProvider extends ChangeNotifier {
 
   void init(int id) async {
     try {
-      _pokeSpecies = await _speciesRepository.getSpecies(id);
+      _pokeSpecies = await _repository.getSpecies(id);
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());

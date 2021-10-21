@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import '../models/models.dart';
 import '../services/services.dart';
-import 'base_repositories/base_poke_repository.dart';
+import 'base_repositories/base_poke_summary_repository.dart';
 
 class PokeSummaryRepository implements IPokeSummaryRepository {
   PokeSummaryRepository(this._apiService, this._hiveService);

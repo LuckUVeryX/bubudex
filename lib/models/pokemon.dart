@@ -138,26 +138,26 @@ class TypeDefences {
 
   Map<String, dynamic> toJson() => _$TypeDefencesToJson(this);
 
-  Map<PokeType, double?> toMap() {
-    return <PokeType, double?>{
-      PokeType.normal: normal,
-      PokeType.fire: fire,
-      PokeType.water: water,
-      PokeType.electric: electric,
-      PokeType.grass: grass,
-      PokeType.ice: ice,
-      PokeType.fighting: fighting,
-      PokeType.poison: poison,
-      PokeType.ground: ground,
-      PokeType.flying: flying,
-      PokeType.psychic: psychic,
-      PokeType.bug: bug,
-      PokeType.rock: rock,
-      PokeType.ghost: ghost,
-      PokeType.dragon: dragon,
-      PokeType.dark: dark,
-      PokeType.steel: steel,
-      PokeType.fairy: fairy,
+  Map<PokeTypes, double?> toMap() {
+    return <PokeTypes, double?>{
+      PokeTypes.normal: normal,
+      PokeTypes.fire: fire,
+      PokeTypes.water: water,
+      PokeTypes.electric: electric,
+      PokeTypes.grass: grass,
+      PokeTypes.ice: ice,
+      PokeTypes.fighting: fighting,
+      PokeTypes.poison: poison,
+      PokeTypes.ground: ground,
+      PokeTypes.flying: flying,
+      PokeTypes.psychic: psychic,
+      PokeTypes.bug: bug,
+      PokeTypes.rock: rock,
+      PokeTypes.ghost: ghost,
+      PokeTypes.dragon: dragon,
+      PokeTypes.dark: dark,
+      PokeTypes.steel: steel,
+      PokeTypes.fairy: fairy,
     };
   }
 }

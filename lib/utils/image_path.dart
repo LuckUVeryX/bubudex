@@ -1,7 +1,7 @@
 import 'utils.dart';
 
 // Pokemon type icon
-String getPokeTypeIcon(PokeType pokeType) {
+String getPokeTypeIcon(PokeTypes pokeType) {
   final type = stringFromPokeType(pokeType);
   return 'assets/poke_types/$type.svg';
 }

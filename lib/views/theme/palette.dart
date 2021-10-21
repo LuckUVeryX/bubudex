@@ -23,43 +23,43 @@ class Palette {
   static const kSteel = Color(0xff417d9a);
   static const kWater = Color(0xff4a90da);
 
-  static Color getTypeColor(PokeType pokeType) {
+  static Color getTypeColor(PokeTypes pokeType) {
     switch (pokeType) {
-      case PokeType.bug:
+      case PokeTypes.bug:
         return kBug;
-      case PokeType.dark:
+      case PokeTypes.dark:
         return kDark;
-      case PokeType.dragon:
+      case PokeTypes.dragon:
         return kDragon;
-      case PokeType.electric:
+      case PokeTypes.electric:
         return kElectric;
-      case PokeType.fairy:
+      case PokeTypes.fairy:
         return kFairy;
-      case PokeType.fighting:
+      case PokeTypes.fighting:
         return kFighting;
-      case PokeType.fire:
+      case PokeTypes.fire:
         return kFire;
-      case PokeType.flying:
+      case PokeTypes.flying:
         return kFlying;
-      case PokeType.ghost:
+      case PokeTypes.ghost:
         return kGhost;
-      case PokeType.grass:
+      case PokeTypes.grass:
         return kGrass;
-      case PokeType.ground:
+      case PokeTypes.ground:
         return kGround;
-      case PokeType.ice:
+      case PokeTypes.ice:
         return kIce;
-      case PokeType.normal:
+      case PokeTypes.normal:
         return kNormal;
-      case PokeType.poison:
+      case PokeTypes.poison:
         return kPoison;
-      case PokeType.psychic:
+      case PokeTypes.psychic:
         return kPsychic;
-      case PokeType.rock:
+      case PokeTypes.rock:
         return kRock;
-      case PokeType.steel:
+      case PokeTypes.steel:
         return kSteel;
-      case PokeType.water:
+      case PokeTypes.water:
         return kWater;
     }
   }
@@ -84,43 +84,43 @@ class Palette {
   static const kBackgroundSteel = Color(0xff4c91b2);
   static const kBackgroundWater = Color(0xff58abf6);
 
-  static Color getBackgroundTypeColor(PokeType pokeType) {
+  static Color getBackgroundTypeColor(PokeTypes pokeType) {
     switch (pokeType) {
-      case PokeType.bug:
+      case PokeTypes.bug:
         return kBackgroundBug;
-      case PokeType.dark:
+      case PokeTypes.dark:
         return kBackgroundDark;
-      case PokeType.dragon:
+      case PokeTypes.dragon:
         return kBackgroundDragon;
-      case PokeType.electric:
+      case PokeTypes.electric:
         return kBackgroundElectric;
-      case PokeType.fairy:
+      case PokeTypes.fairy:
         return kBackgroundFairy;
-      case PokeType.fighting:
+      case PokeTypes.fighting:
         return kBackgroundFighting;
-      case PokeType.fire:
+      case PokeTypes.fire:
         return kBackgroundFire;
-      case PokeType.flying:
+      case PokeTypes.flying:
         return kBackgroundFlying;
-      case PokeType.ghost:
+      case PokeTypes.ghost:
         return kBackgroundGhost;
-      case PokeType.grass:
+      case PokeTypes.grass:
         return kBackgroundGrass;
-      case PokeType.ground:
+      case PokeTypes.ground:
         return kBackgroundGround;
-      case PokeType.ice:
+      case PokeTypes.ice:
         return kBackgroundIce;
-      case PokeType.normal:
+      case PokeTypes.normal:
         return kBackgroundNormal;
-      case PokeType.poison:
+      case PokeTypes.poison:
         return kBackgroundPoison;
-      case PokeType.psychic:
+      case PokeTypes.psychic:
         return kBackgroundPsychic;
-      case PokeType.rock:
+      case PokeTypes.rock:
         return kBackgroundRock;
-      case PokeType.steel:
+      case PokeTypes.steel:
         return kBackgroundSteel;
-      case PokeType.water:
+      case PokeTypes.water:
         return kBackgroundWater;
     }
   }

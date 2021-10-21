@@ -1,11 +1,11 @@
 import 'utils.dart';
 
-String stringFromPokeType(PokeType pokeType) {
+String stringFromPokeType(PokeTypes pokeType) {
   return pokeType.toString().split('.')[1];
 }
 
-PokeType pokeTypeFromString(String pokeType) {
-  return PokeType.values.firstWhere((element) {
+PokeTypes pokeTypeFromString(String pokeType) {
+  return PokeTypes.values.firstWhere((element) {
     return pokeType == stringFromPokeType(element);
   });
 }

@@ -10,7 +10,7 @@ class WeaknessIcon extends StatelessWidget {
     required this.pokeType,
   }) : super(key: key);
 
-  final PokeType pokeType;
+  final PokeTypes pokeType;
 
   @override
   Widget build(BuildContext context) {
