@@ -3,6 +3,273 @@
 part of 'poke_species.dart';
 
 // **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class PokeSpeciesAdapter extends TypeAdapter<PokeSpecies> {
+  @override
+  final int typeId = 7;
+
+  @override
+  PokeSpecies read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PokeSpecies(
+      id: fields[0] as int,
+      name: fields[1] as String,
+      order: fields[2] as int,
+      genderRate: fields[3] as int,
+      captureRate: fields[4] as int,
+      baseHappiness: fields[5] as int,
+      isBaby: fields[6] as bool,
+      isLegendary: fields[7] as bool,
+      isMythical: fields[8] as bool,
+      hatchCounter: fields[9] as int,
+      hasGenderDifferences: fields[10] as bool,
+      formsSwitchable: fields[11] as bool,
+      growthRate: fields[12] as NamedApiResource,
+      pokedexNumbers: (fields[13] as List).cast<PokeSpeciesDexEntry>(),
+      eggGroups: (fields[14] as List).cast<NamedApiResource>(),
+      color: fields[15] as NamedApiResource,
+      shape: fields[16] as NamedApiResource,
+      evolvesFromSpecies: fields[17] as NamedApiResource?,
+      evolutionChain: fields[18] as ApiResource,
+      habitat: fields[19] as NamedApiResource,
+      generation: fields[20] as NamedApiResource,
+      names: (fields[21] as List).cast<Name>(),
+      palParkEncounters: (fields[22] as List).cast<PalParkEncounterArea>(),
+      flavorTextEntries: (fields[23] as List).cast<FlavorText>(),
+      formDescriptions: (fields[24] as List).cast<Description>(),
+      genera: (fields[25] as List).cast<Genus>(),
+      varieties: (fields[26] as List).cast<PokemonSpeciesVariety>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PokeSpecies obj) {
+    writer
+      ..writeByte(27)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.order)
+      ..writeByte(3)
+      ..write(obj.genderRate)
+      ..writeByte(4)
+      ..write(obj.captureRate)
+      ..writeByte(5)
+      ..write(obj.baseHappiness)
+      ..writeByte(6)
+      ..write(obj.isBaby)
+      ..writeByte(7)
+      ..write(obj.isLegendary)
+      ..writeByte(8)
+      ..write(obj.isMythical)
+      ..writeByte(9)
+      ..write(obj.hatchCounter)
+      ..writeByte(10)
+      ..write(obj.hasGenderDifferences)
+      ..writeByte(11)
+      ..write(obj.formsSwitchable)
+      ..writeByte(12)
+      ..write(obj.growthRate)
+      ..writeByte(13)
+      ..write(obj.pokedexNumbers)
+      ..writeByte(14)
+      ..write(obj.eggGroups)
+      ..writeByte(15)
+      ..write(obj.color)
+      ..writeByte(16)
+      ..write(obj.shape)
+      ..writeByte(17)
+      ..write(obj.evolvesFromSpecies)
+      ..writeByte(18)
+      ..write(obj.evolutionChain)
+      ..writeByte(19)
+      ..write(obj.habitat)
+      ..writeByte(20)
+      ..write(obj.generation)
+      ..writeByte(21)
+      ..write(obj.names)
+      ..writeByte(22)
+      ..write(obj.palParkEncounters)
+      ..writeByte(23)
+      ..write(obj.flavorTextEntries)
+      ..writeByte(24)
+      ..write(obj.formDescriptions)
+      ..writeByte(25)
+      ..write(obj.genera)
+      ..writeByte(26)
+      ..write(obj.varieties);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokeSpeciesAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class PokeSpeciesDexEntryAdapter extends TypeAdapter<PokeSpeciesDexEntry> {
+  @override
+  final int typeId = 8;
+
+  @override
+  PokeSpeciesDexEntry read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PokeSpeciesDexEntry(
+      entryNumber: fields[0] as int,
+      pokedex: fields[1] as NamedApiResource,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PokeSpeciesDexEntry obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.entryNumber)
+      ..writeByte(1)
+      ..write(obj.pokedex);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokeSpeciesDexEntryAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class PalParkEncounterAreaAdapter extends TypeAdapter<PalParkEncounterArea> {
+  @override
+  final int typeId = 9;
+
+  @override
+  PalParkEncounterArea read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PalParkEncounterArea(
+      baseScore: fields[0] as int,
+      rate: fields[1] as int,
+      palParkArea: fields[2] as NamedApiResource,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PalParkEncounterArea obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.baseScore)
+      ..writeByte(1)
+      ..write(obj.rate)
+      ..writeByte(2)
+      ..write(obj.palParkArea);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PalParkEncounterAreaAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class PokemonSpeciesVarietyAdapter extends TypeAdapter<PokemonSpeciesVariety> {
+  @override
+  final int typeId = 10;
+
+  @override
+  PokemonSpeciesVariety read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PokemonSpeciesVariety(
+      isDefault: fields[0] as bool,
+      pokemon: fields[1] as NamedApiResource,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PokemonSpeciesVariety obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.isDefault)
+      ..writeByte(1)
+      ..write(obj.pokemon);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokemonSpeciesVarietyAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class GenusAdapter extends TypeAdapter<Genus> {
+  @override
+  final int typeId = 11;
+
+  @override
+  Genus read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Genus(
+      genus: fields[0] as String,
+      language: fields[1] as NamedApiResource,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Genus obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.genus)
+      ..writeByte(1)
+      ..write(obj.language);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is GenusAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

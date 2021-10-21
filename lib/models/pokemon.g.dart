@@ -8,7 +8,7 @@ part of 'pokemon.dart';
 
 class PokemonAdapter extends TypeAdapter<Pokemon> {
   @override
-  final int typeId = 0;
+  final int typeId = 5;
 
   @override
   Pokemon read(BinaryReader reader) {
@@ -63,7 +63,7 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
 
 class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
   @override
-  final int typeId = 1;
+  final int typeId = 6;
 
   @override
   TypeDefences read(BinaryReader reader) {
@@ -72,24 +72,24 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TypeDefences(
-      normal: fields[40] as double?,
-      fire: fields[41] as double?,
-      water: fields[42] as double?,
-      electric: fields[43] as double?,
-      grass: fields[44] as double?,
-      ice: fields[45] as double?,
-      fighting: fields[46] as double?,
-      poison: fields[47] as double?,
-      ground: fields[48] as double?,
-      flying: fields[49] as double?,
-      psychic: fields[50] as double?,
-      bug: fields[51] as double?,
-      rock: fields[52] as double?,
-      ghost: fields[53] as double?,
-      dragon: fields[54] as double?,
-      dark: fields[55] as double?,
-      steel: fields[56] as double?,
-      fairy: fields[57] as double?,
+      normal: fields[0] as double?,
+      fire: fields[1] as double?,
+      water: fields[2] as double?,
+      electric: fields[3] as double?,
+      grass: fields[4] as double?,
+      ice: fields[5] as double?,
+      fighting: fields[6] as double?,
+      poison: fields[7] as double?,
+      ground: fields[8] as double?,
+      flying: fields[9] as double?,
+      psychic: fields[10] as double?,
+      bug: fields[11] as double?,
+      rock: fields[12] as double?,
+      ghost: fields[13] as double?,
+      dragon: fields[14] as double?,
+      dark: fields[15] as double?,
+      steel: fields[16] as double?,
+      fairy: fields[17] as double?,
     );
   }
 
@@ -97,41 +97,41 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
   void write(BinaryWriter writer, TypeDefences obj) {
     writer
       ..writeByte(18)
-      ..writeByte(40)
+      ..writeByte(0)
       ..write(obj.normal)
-      ..writeByte(41)
+      ..writeByte(1)
       ..write(obj.fire)
-      ..writeByte(42)
+      ..writeByte(2)
       ..write(obj.water)
-      ..writeByte(43)
+      ..writeByte(3)
       ..write(obj.electric)
-      ..writeByte(44)
+      ..writeByte(4)
       ..write(obj.grass)
-      ..writeByte(45)
+      ..writeByte(5)
       ..write(obj.ice)
-      ..writeByte(46)
+      ..writeByte(6)
       ..write(obj.fighting)
-      ..writeByte(47)
+      ..writeByte(7)
       ..write(obj.poison)
-      ..writeByte(48)
+      ..writeByte(8)
       ..write(obj.ground)
-      ..writeByte(49)
+      ..writeByte(9)
       ..write(obj.flying)
-      ..writeByte(50)
+      ..writeByte(10)
       ..write(obj.psychic)
-      ..writeByte(51)
+      ..writeByte(11)
       ..write(obj.bug)
-      ..writeByte(52)
+      ..writeByte(12)
       ..write(obj.rock)
-      ..writeByte(53)
+      ..writeByte(13)
       ..write(obj.ghost)
-      ..writeByte(54)
+      ..writeByte(14)
       ..write(obj.dragon)
-      ..writeByte(55)
+      ..writeByte(15)
       ..write(obj.dark)
-      ..writeByte(56)
+      ..writeByte(16)
       ..write(obj.steel)
-      ..writeByte(57)
+      ..writeByte(17)
       ..write(obj.fairy);
   }
 

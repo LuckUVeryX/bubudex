@@ -1,10 +1,16 @@
+import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../utils/utils.dart';
 
 part 'poke_utility.g.dart';
 
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.namedApiResource)
 class NamedApiResource {
+  @HiveField(0)
   final String name;
+  @HiveField(1)
   final String url;
 
   NamedApiResource({required this.name, required this.url});
@@ -16,7 +22,9 @@ class NamedApiResource {
 }
 
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.apiResource)
 class ApiResource {
+  @HiveField(0)
   final String url;
 
   ApiResource({required this.url});
@@ -28,8 +36,12 @@ class ApiResource {
 }
 
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.name)
 class Name {
+  @HiveField(0)
   final String name;
+
+  @HiveField(1)
   final NamedApiResource language;
 
   Name({required this.name, required this.language});
@@ -40,8 +52,12 @@ class Name {
 }
 
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.description)
 class Description {
+  @HiveField(0)
   final String description;
+
+  @HiveField(1)
   final NamedApiResource language;
 
   Description({required this.description, required this.language});
@@ -53,12 +69,16 @@ class Description {
 }
 
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.flavorText)
 class FlavorText {
   @JsonKey(name: 'flavor_text')
+  @HiveField(0)
   final String flavorText;
 
+  @HiveField(1)
   final NamedApiResource language;
 
+  @HiveField(2)
   final NamedApiResource version;
 
   FlavorText({

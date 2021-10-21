@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/models.dart';
-import '../../repository/repository.dart';
 import '../../services/services.dart';
 import '../../utils/utils.dart';
-import '../../view_models/view_models.dart';
 import '../components/components.dart';
 import '../theme/theme.dart';
 import 'pages.dart';
@@ -20,7 +18,6 @@ class PokeDetailsPage extends StatelessWidget {
   final int pokeId;
   @override
   Widget build(BuildContext context) {
-    final _apiService = Provider.of<ApiService>(context, listen: false);
     final _hiveService = Provider.of<HiveService>(context, listen: false);
 
     final Pokemon pokemon = _hiveService.getPokemon(pokeId);
@@ -59,31 +56,12 @@ class PokeDetailsPage extends StatelessWidget {
               )
             ];
           },
-          body: ChangeNotifierProvider(
-            create: (_) =>
-                PokeDetailsProvider(PokeSpeciesRepository(_apiService)),
-            child: Consumer<PokeDetailsProvider>(
-                builder: (_, pokeDetailsProvider, __) {
-              switch (pokeDetailsProvider.status) {
-                case PokeDetailsStatus.init:
-                  pokeDetailsProvider.init(pokeId);
-                  return Center(
-                    child: CircularProgressIndicator(color: backgroundColor),
-                  );
-                case PokeDetailsStatus.done:
-                  return TabBarView(
-                    children: [
-                      AboutTab(
-                        pokemon: pokemon,
-                      ),
-                      const Center(child: Text('Stats')),
-                      const Center(child: Text('Evolution')),
-                    ],
-                  );
-                case PokeDetailsStatus.error:
-                  return const Center(child: Text('Error'));
-              }
-            }),
+          body: TabBarView(
+            children: [
+              AboutTab(pokemon: pokemon, pokeId: pokeId),
+              const Center(child: Text('Stats')),
+              const Center(child: Text('Evolution')),
+            ],
           ),
         ),
       ),

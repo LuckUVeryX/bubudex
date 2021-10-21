@@ -5,9 +5,34 @@ import '../models/models.dart';
 import '../utils/utils.dart';
 
 class HiveService {
+  Future<void> init() async {
+    await Hive.initFlutter();
+
+    Hive.registerAdapter(NamedApiResourceAdapter());
+    Hive.registerAdapter(ApiResourceAdapter());
+    Hive.registerAdapter(NameAdapter());
+    Hive.registerAdapter(DescriptionAdapter());
+    Hive.registerAdapter(FlavorTextAdapter());
+
+    Hive.registerAdapter(PokemonAdapter());
+    Hive.registerAdapter(TypeDefencesAdapter());
+
+    Hive.registerAdapter(PokeSpeciesAdapter());
+    Hive.registerAdapter(PokeSpeciesDexEntryAdapter());
+    Hive.registerAdapter(PalParkEncounterAreaAdapter());
+    Hive.registerAdapter(PokemonSpeciesVarietyAdapter());
+    Hive.registerAdapter(GenusAdapter());
+
+    _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
+    _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
+
+    debugPrint('Initialized Hive Service');
+  }
+
   late Box<Pokemon> _pokemonDb;
 
-  bool get isNotEmpty => _pokemonDb.isNotEmpty;
+  bool get pokemonDbIsNotEmpty => _pokemonDb.isNotEmpty;
+
   List<Pokemon> get pokemons => _pokemonDb.values.toList();
 
   Future<void> addPokemons(List<Pokemon> pokemons) async {
@@ -24,14 +49,20 @@ class HiveService {
     }
   }
 
-  Future<void> init() async {
-    await Hive.initFlutter();
+  late Box<PokeSpecies> _pokeSpeciesDb;
 
-    Hive.registerAdapter(PokemonAdapter());
-    Hive.registerAdapter(TypeDefencesAdapter());
+  bool inSpeciesDb(int id) => _pokeSpeciesDb.containsKey(id);
 
-    _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
+  PokeSpecies getPokeSpecies(int id) {
+    PokeSpecies? pokeSpecies = _pokeSpeciesDb.get(id);
+    if (pokeSpecies != null) {
+      return pokeSpecies;
+    } else {
+      throw 'Invalid pokemon id';
+    }
+  }
 
-    debugPrint('Initialized Hive Service');
+  Future<void> addPokeSpecies(PokeSpecies pokeSpecies) async {
+    await _pokeSpeciesDb.put(pokeSpecies.id, pokeSpecies);
   }
 }

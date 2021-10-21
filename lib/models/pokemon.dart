@@ -57,59 +57,59 @@ class Pokemon {
 @JsonSerializable()
 @HiveType(typeId: HiveTypeId.typeDefenses)
 class TypeDefences {
-  @HiveField(40)
+  @HiveField(0)
   final double? normal;
 
-  @HiveField(41)
+  @HiveField(1)
   final double? fire;
 
-  @HiveField(42)
+  @HiveField(2)
   final double? water;
 
-  @HiveField(43)
+  @HiveField(3)
   final double? electric;
 
-  @HiveField(44)
+  @HiveField(4)
   final double? grass;
 
-  @HiveField(45)
+  @HiveField(5)
   final double? ice;
 
-  @HiveField(46)
+  @HiveField(6)
   final double? fighting;
 
-  @HiveField(47)
+  @HiveField(7)
   final double? poison;
 
-  @HiveField(48)
+  @HiveField(8)
   final double? ground;
 
-  @HiveField(49)
+  @HiveField(9)
   final double? flying;
 
-  @HiveField(50)
+  @HiveField(10)
   final double? psychic;
 
-  @HiveField(51)
+  @HiveField(11)
   final double? bug;
 
-  @HiveField(52)
+  @HiveField(12)
   final double? rock;
 
-  @HiveField(53)
+  @HiveField(13)
   final double? ghost;
 
-  @HiveField(54)
+  @HiveField(14)
   final double? dragon;
 
   @JsonKey(name: 'darl')
-  @HiveField(55)
+  @HiveField(15)
   final double? dark;
 
-  @HiveField(56)
+  @HiveField(16)
   final double? steel;
 
-  @HiveField(57)
+  @HiveField(17)
   final double? fairy;
 
   TypeDefences({

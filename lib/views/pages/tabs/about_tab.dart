@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../models/models.dart';
+import '../../../repository/repository.dart';
+import '../../../services/services.dart';
 import '../../../utils/utils.dart';
+import '../../../view_models/view_models.dart';
 import '../../components/weakness_icon.dart';
 import '../../theme/theme.dart';
 
@@ -9,53 +13,80 @@ class AboutTab extends StatelessWidget {
   const AboutTab({
     Key? key,
     required this.pokemon,
+    required this.pokeId,
   }) : super(key: key);
 
   static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
 
   final Pokemon pokemon;
+  final int pokeId;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final headerColor =
-        Palette.getTypeColor(pokeTypeFromString(pokemon.types[0]));
+    final _apiService = Provider.of<ApiService>(context, listen: false);
+    final _hiveService = Provider.of<HiveService>(context, listen: false);
 
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              pokemon.description,
-              textAlign: TextAlign.justify,
-            ),
-            const SizedBox(height: 28),
-            Text('Pokédex Data',
-                style: textTheme.bodyText1!.copyWith(color: headerColor)),
-            const SizedBox(height: verticalSpacing),
-            _PokedexDataTable(columnWidths: columnWidths, pokemon: pokemon),
-            const SizedBox(height: verticalSpacing),
-            Text('Training',
-                style: textTheme.bodyText1!.copyWith(color: headerColor)),
-            const SizedBox(height: verticalSpacing),
-            const _TrainingTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
-            Text('Breeding',
-                style: textTheme.bodyText1!.copyWith(color: headerColor)),
-            const SizedBox(height: verticalSpacing),
-            const _BreedingTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
-            Text('Location',
-                style: textTheme.bodyText1!.copyWith(color: headerColor)),
-            const SizedBox(height: verticalSpacing),
-            const _LocationTable(columnWidths: columnWidths)
-          ],
-        ),
-      ),
+    final backgroundColor =
+        Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
+    final textTheme = Theme.of(context).textTheme;
+
+    return ChangeNotifierProvider(
+      create: (_) =>
+          AboutTabProvider(PokeSpeciesRepository(_apiService, _hiveService)),
+      child: Consumer<AboutTabProvider>(builder: (_, pokeDetailsProvider, __) {
+        switch (pokeDetailsProvider.status) {
+          case AboutTabStatus.init:
+            pokeDetailsProvider.init(pokeId);
+            return Center(
+              child: CircularProgressIndicator(color: backgroundColor),
+            );
+          case AboutTabStatus.error:
+            return const Center(child: Text('Error'));
+
+          case AboutTabStatus.done:
+            return SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      pokemon.description,
+                      textAlign: TextAlign.justify,
+                    ),
+                    const SizedBox(height: 28),
+                    Text('Pokédex Data',
+                        style: textTheme.bodyText1!
+                            .copyWith(color: backgroundColor)),
+                    const SizedBox(height: verticalSpacing),
+                    _PokedexDataTable(
+                        columnWidths: columnWidths, pokemon: pokemon),
+                    const SizedBox(height: verticalSpacing),
+                    Text('Training',
+                        style: textTheme.bodyText1!
+                            .copyWith(color: backgroundColor)),
+                    const SizedBox(height: verticalSpacing),
+                    const _TrainingTable(columnWidths: columnWidths),
+                    const SizedBox(height: verticalSpacing),
+                    Text('Breeding',
+                        style: textTheme.bodyText1!
+                            .copyWith(color: backgroundColor)),
+                    const SizedBox(height: verticalSpacing),
+                    const _BreedingTable(columnWidths: columnWidths),
+                    const SizedBox(height: verticalSpacing),
+                    Text('Location',
+                        style: textTheme.bodyText1!
+                            .copyWith(color: backgroundColor)),
+                    const SizedBox(height: verticalSpacing),
+                    const _LocationTable(columnWidths: columnWidths)
+                  ],
+                ),
+              ),
+            );
+        }
+      }),
     );
   }
 }
