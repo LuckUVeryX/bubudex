@@ -15,18 +15,18 @@ class PokeDetailsPage extends StatelessWidget {
   const PokeDetailsPage({
     Key? key,
     @PathParam('pokeId') required this.pokeId,
-    required this.pokemon,
   }) : super(key: key);
 
   final int pokeId;
-  final Pokemon pokemon;
   @override
   Widget build(BuildContext context) {
     final _apiService = Provider.of<ApiService>(context, listen: false);
-    final _hiveService = Provider.of<HiveService?>(context, listen: false);
+    final _hiveService = Provider.of<HiveService>(context, listen: false);
 
+    final Pokemon pokemon = _hiveService.getPokemon(pokeId);
     final backgroundColor =
         Palette.getBackgroundTypeColor(pokeTypeFromString(pokemon.types[0]));
+
     return Scaffold(
       body: DefaultTabController(
         length: 3,
@@ -61,7 +61,7 @@ class PokeDetailsPage extends StatelessWidget {
           },
           body: ChangeNotifierProvider(
             create: (_) => PokeDetailsProvider(
-                PokeDetailsRepository(_apiService, _hiveService!)),
+                PokeDetailsRepository(_apiService, _hiveService)),
             child: Consumer<PokeDetailsProvider>(
                 builder: (_, pokeDetailsProvider, __) {
               switch (pokeDetailsProvider.status) {
@@ -73,7 +73,10 @@ class PokeDetailsPage extends StatelessWidget {
                 case PokeDetailsStatus.done:
                   return TabBarView(
                     children: [
-                      AboutTab(pokemon: pokemon),
+                      AboutTab(
+                        pokemon: pokemon,
+                        pokeData: pokeDetailsProvider.pokeData,
+                      ),
                       const Center(child: Text('Stats')),
                       const Center(child: Text('Evolution')),
                     ],

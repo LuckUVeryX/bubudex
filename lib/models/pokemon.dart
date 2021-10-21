@@ -27,9 +27,12 @@ class Pokemon {
   double weight;
 
   @HiveField(6)
-  List<String> types;
+  String species;
 
   @HiveField(7)
+  List<String> types;
+
+  @HiveField(8)
   TypeDefences typeDefences;
 
   Pokemon({
@@ -39,6 +42,7 @@ class Pokemon {
     required this.description,
     required this.height,
     required this.weight,
+    required this.species,
     required this.types,
     required this.typeDefences,
   });

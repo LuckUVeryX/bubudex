@@ -17,10 +17,8 @@ class PokeApiRepository implements IPokeRepository {
   @override
   Future<List<Pokemon>> getPokemons() async {
     // get pokemon from db
-    Box<Pokemon> pokemonDb = _hiveService.pokemonDb;
-    List<Pokemon> dbList = pokemonDb.values.toList();
-    if (dbList.isNotEmpty) {
-      return dbList;
+    if (_hiveService.isNotEmpty) {
+      return _hiveService.pokemons;
     }
     // if db does not have pokemons fetch from api
     debugPrint('Fetching from API');
@@ -29,8 +27,7 @@ class PokeApiRepository implements IPokeRepository {
     List<Pokemon> ls = l.map((e) => Pokemon.fromJson(e)).toList();
 
     // add pokemons to db
-    pokemonDb.addAll(ls);
-
+    _hiveService.addPokemons(ls);
     return ls;
   }
 }

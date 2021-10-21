@@ -6,12 +6,17 @@ import '../../components/weakness_icon.dart';
 import '../../theme/theme.dart';
 
 class AboutTab extends StatelessWidget {
-  const AboutTab({Key? key, required this.pokemon}) : super(key: key);
+  const AboutTab({
+    Key? key,
+    required this.pokemon,
+    required this.pokeData,
+  }) : super(key: key);
 
   static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
 
   final Pokemon pokemon;
+  final PokeData pokeData;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class AboutTab extends StatelessWidget {
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
             const SizedBox(height: verticalSpacing),
-            const _PokedexDataTable(columnWidths: columnWidths),
+            _PokedexDataTable(columnWidths: columnWidths, pokemon: pokemon),
             const SizedBox(height: verticalSpacing),
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: headerColor)),
@@ -241,33 +246,37 @@ class _BreedingTable extends StatelessWidget {
 }
 
 class _PokedexDataTable extends StatelessWidget {
-  const _PokedexDataTable({Key? key, required this.columnWidths})
-      : super(key: key);
+  const _PokedexDataTable({
+    Key? key,
+    required this.columnWidths,
+    required this.pokemon,
+  }) : super(key: key);
 
   final Map<int, TableColumnWidth> columnWidths;
+  final Pokemon pokemon;
 
   @override
   Widget build(BuildContext context) {
     return Table(
       columnWidths: columnWidths,
       children: [
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Species',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('Seed Pokémon'),
+            Text(pokemon.species),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Height',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('0.7m (2′04″)'),
+            Text('${pokemon.height}m'),
           ],
         ),
         _tableRowSpacing(),
