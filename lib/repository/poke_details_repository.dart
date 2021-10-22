@@ -38,7 +38,7 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   }
 
   @override
-  Future<List<PokeLocationArea>> getLocations(int id) async {
+  Future<List<PokeLocationArea>> getEncounters(int id) async {
     if (_hiveService.inLocationDb(id)) {
       return _hiveService.getPokeLocationArea(id);
     }

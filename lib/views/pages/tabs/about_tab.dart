@@ -24,6 +24,7 @@ class AboutTab extends StatelessWidget {
 
     final PokeSpecies pokeSpecies = provider.pokeSpecies;
     final Pokemon pokemon = provider.pokemon;
+    final List<PokeLocationArea> pokeLocationAreas = provider.locationAreas;
 
     final Color color = Palette.getTypeColor(pokeTypesFromString(
         pokemon.types.firstWhere((type) => type.slot == 1).type.name));
@@ -67,10 +68,16 @@ class AboutTab extends StatelessWidget {
             const SizedBox(height: verticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
-            Text('Location',
-                style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
-            const _LocationTable(columnWidths: columnWidths)
+            pokeLocationAreas.isNotEmpty
+                ? Text('Location',
+                    style: textTheme.bodyText1!.copyWith(color: color))
+                : const SizedBox(),
+            pokeLocationAreas.isNotEmpty
+                ? const SizedBox(height: verticalSpacing)
+                : const SizedBox(),
+            pokeLocationAreas.isNotEmpty
+                ? const _LocationTable(columnWidths: columnWidths)
+                : const SizedBox(),
           ],
         ),
       ),

@@ -33,14 +33,27 @@ class PokeDetailsProvider extends ChangeNotifier {
   void init() async {
     try {
       _pokeSummary = _repository.getPokeSummary(_id);
-      _pokemon = await _repository.getPokemon(_id);
-      _pokeSpecies = await _repository.getSpecies(_id);
-      _pokeLocationArea = await _repository.getLocations(_id);
-
+      await Future.wait([
+        _initPokemon(),
+        _initPokeSpecies(),
+        _initEncounters(),
+      ]);
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());
       setStatus(PokeDetailsStatus.error);
     }
+  }
+
+  Future<void> _initEncounters() async {
+    _pokeLocationArea = await _repository.getEncounters(_id);
+  }
+
+  Future<void> _initPokeSpecies() async {
+    _pokeSpecies = await _repository.getSpecies(_id);
+  }
+
+  Future<void> _initPokemon() async {
+    _pokemon = await _repository.getPokemon(_id);
   }
 }
