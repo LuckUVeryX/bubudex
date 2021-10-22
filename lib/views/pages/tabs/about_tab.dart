@@ -10,10 +10,7 @@ import '../../theme/theme.dart';
 class AboutTab extends StatelessWidget {
   const AboutTab({
     Key? key,
-    required this.pokeId,
   }) : super(key: key);
-
-  final int pokeId;
 
   static const columnWidths = {0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;

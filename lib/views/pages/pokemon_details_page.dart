@@ -76,11 +76,11 @@ class PokeDetailsPage extends StatelessWidget {
                   return const Center(child: Text('Error'));
 
                 case PokeDetailsStatus.done:
-                  return TabBarView(
+                  return const TabBarView(
                     children: [
-                      AboutTab(pokeId: pokeId),
-                      const Center(child: Text('Stats')),
-                      const Center(child: Text('Evolution')),
+                      AboutTab(),
+                      StatsTab(),
+                      Center(child: Text('Evolution')),
                     ],
                   );
               }
