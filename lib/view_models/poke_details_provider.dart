@@ -1,8 +1,8 @@
-import 'package:bubudex/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/models.dart';
 import '../repository/repository.dart';
+import '../utils/utils.dart';
 
 enum PokeDetailsStatus { init, done, error }
 

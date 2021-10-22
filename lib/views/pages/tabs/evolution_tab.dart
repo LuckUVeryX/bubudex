@@ -63,143 +63,10 @@ class _PokemonEvoRow extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CachedNetworkImage(
-                      imageUrl: getImageUrl(info.id - 1),
+                      imageUrl: getImageUrl(pokeEvolutionInfo[idx - 1].id),
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.arrow_forward, color: Colors.grey[300]),
-                        const SizedBox(height: 8),
-                        if (info.minLevel != null)
-                          Text(
-                            '(Level ${info.minLevel})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.item != null)
-                          Text(
-                            '(Item ${info.item})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.heldItem != null)
-                          Text(
-                            '(Held item ${info.heldItem})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.knownMove != null)
-                          Text(
-                            '(Known move ${info.knownMove})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.knownMoveType != null)
-                          Text(
-                            '(Known move type ${info.knownMoveType})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.location != null)
-                          Text(
-                            '(Location ${info.location})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.minHappiness != null)
-                          Text(
-                            '(Min happiness ${info.minHappiness})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.minBeauty != null)
-                          Text(
-                            '(Min beauty ${info.minBeauty})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.minAffection != null)
-                          Text(
-                            '(Min affection ${info.minAffection})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.needsOverworldRain)
-                          Text(
-                            '(Needs overworld rain)',
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.partySpecies != null)
-                          Text(
-                            '(Party species ${info.partySpecies})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.partyType != null)
-                          Text(
-                            '(Party type ${info.partyType})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.relativePhysicalStats != null)
-                          Text(
-                            '(${info.relativePhysicalStats})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.timeOfDay != null)
-                          Text(
-                            '(Time of day ${info.timeOfDay})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.tradeSpecies != null)
-                          Text(
-                            '(Trade species ${info.tradeSpecies})'
-                                .replaceAll('-', ' ')
-                                .capitalizeEvery(),
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                        if (info.turnUpsideDown)
-                          Text(
-                            '(Needs 3DS turned upside-down)',
-                            textAlign: TextAlign.center,
-                            style: textTheme.bodyText1,
-                          ),
-                      ],
-                    ),
-                  ),
+                  _PokeEvoReq(info: info),
                   Expanded(
                     child: CachedNetworkImage(
                       imageUrl: getImageUrl(info.id),
@@ -213,7 +80,7 @@ class _PokemonEvoRow extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          '#${pokeIdToString(info.id - 1)}',
+                          '#${pokeEvolutionInfo[idx - 1].id}',
                         ),
                         Text(
                           pokeEvolutionInfo[idx - 1].speciesName.capitalize(),
@@ -240,5 +107,149 @@ class _PokemonEvoRow extends StatelessWidget {
               ),
             ],
           );
+  }
+}
+
+class _PokeEvoReq extends StatelessWidget {
+  const _PokeEvoReq({
+    Key? key,
+    required this.info,
+  }) : super(key: key);
+
+  final PokeEvolutionInfo info;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.arrow_forward, color: Colors.grey[300]),
+          const SizedBox(height: 8),
+          if (info.minLevel != null)
+            Text(
+              '(Level ${info.minLevel})'.replaceAll('-', ' ').capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.item != null)
+            Text(
+              '(Item ${info.item})'.replaceAll('-', ' ').capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.heldItem != null)
+            Text(
+              '(Held item ${info.heldItem})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.knownMove != null)
+            Text(
+              '(Known move ${info.knownMove})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.knownMoveType != null)
+            Text(
+              '(Known move type ${info.knownMoveType})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.location != null)
+            Text(
+              '(Location ${info.location})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.minHappiness != null)
+            Text(
+              '(Min happiness ${info.minHappiness})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.minBeauty != null)
+            Text(
+              '(Min beauty ${info.minBeauty})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.minAffection != null)
+            Text(
+              '(Min affection ${info.minAffection})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.needsOverworldRain)
+            Text(
+              '(Needs overworld rain)',
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.partySpecies != null)
+            Text(
+              '(Party species ${info.partySpecies})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.partyType != null)
+            Text(
+              '(Party type ${info.partyType})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.relativePhysicalStats != null)
+            Text(
+              '(${info.relativePhysicalStats})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.timeOfDay != null)
+            Text(
+              '(Time of day ${info.timeOfDay})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.tradeSpecies != null)
+            Text(
+              '(Trade species ${info.tradeSpecies})'
+                  .replaceAll('-', ' ')
+                  .capitalizeEvery(),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+          if (info.turnUpsideDown)
+            Text(
+              '(Needs 3DS turned upside-down)',
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText1,
+            ),
+        ],
+      ),
+    );
   }
 }
