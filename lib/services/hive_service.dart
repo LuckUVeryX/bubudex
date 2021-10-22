@@ -35,10 +35,15 @@ class HiveService {
     Hive.registerAdapter(VersionEncounterDetailAdapter());
     Hive.registerAdapter(EncounterAdapter());
 
+    Hive.registerAdapter(PokeEvolutionAdapter());
+    Hive.registerAdapter(ChainLinkAdapter());
+    Hive.registerAdapter(EvolutionDetailAdapter());
+
     _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokeSummaryDb);
     _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
     _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
+    _pokeEvolutionDb = await Hive.openBox(HiveBoxId.pokeEvolutionDb);
 
     debugPrint('Initialized Hive Service');
   }
@@ -49,6 +54,7 @@ class HiveService {
     _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
     _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
+    _pokeEvolutionDb = await Hive.openBox(HiveBoxId.pokeEvolutionDb);
   }
 
   // PokeSummary
@@ -125,6 +131,23 @@ class HiveService {
 
   void addPokeLocationArea(int id, PokeLocationAreas areas) {
     _pokeLocationDb.put(id, areas);
+  }
+
+  late Box<PokeEvolution> _pokeEvolutionDb;
+
+  bool inEvolutionDb(int id) => _pokeEvolutionDb.containsKey(id);
+
+  PokeEvolution getPokeEvolution(int id) {
+    PokeEvolution? pokeEvolution = _pokeEvolutionDb.get(id);
+    if (pokeEvolution != null) {
+      return pokeEvolution;
+    } else {
+      throw const NoSuchPokemonId();
+    }
+  }
+
+  void addPokeEvolution(PokeEvolution pokeEvolution) {
+    _pokeEvolutionDb.put(pokeEvolution.id, pokeEvolution);
   }
 }
 

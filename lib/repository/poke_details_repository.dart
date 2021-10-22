@@ -51,4 +51,15 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
     _hiveService.addPokeLocationArea(id, areas);
     return areas;
   }
+
+  @override
+  Future<PokeEvolution> getEvolutions(int id, String url) async {
+    if (_hiveService.inEvolutionDb(id)) {
+      return _hiveService.getPokeEvolution(id);
+    }
+    final res = await _apiService.get(url);
+    final pokeEvolution = PokeEvolution.fromJson(jsonDecode(res.body));
+    _hiveService.addPokeEvolution(pokeEvolution);
+    return pokeEvolution;
+  }
 }

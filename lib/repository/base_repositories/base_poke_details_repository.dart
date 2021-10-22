@@ -8,4 +8,6 @@ abstract class IPokeDetailsRepository {
   Future<PokeSpecies> getSpecies(int id);
 
   Future<PokeLocationAreas> getEncounters(int id);
+
+  Future<PokeEvolution> getEvolutions(int id, String url);
 }
