@@ -13,7 +13,6 @@ class AboutTab extends StatelessWidget {
   }) : super(key: key);
 
   static const columnWidths = {0: FixedColumnWidth(160)};
-  static const verticalSpacing = 20.0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,25 +51,25 @@ class AboutTab extends StatelessWidget {
             const SizedBox(height: 28),
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: detailsVerticalSpacing),
             const _PokeDexDataTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: detailsVerticalSpacing),
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: detailsVerticalSpacing),
             const _TrainingTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: detailsVerticalSpacing),
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: detailsVerticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: detailsVerticalSpacing),
             pokeLocationAreas.areas.isNotEmpty
                 ? Text('Location',
                     style: textTheme.bodyText1!.copyWith(color: color))
                 : const SizedBox(),
             pokeLocationAreas.areas.isNotEmpty
-                ? const SizedBox(height: verticalSpacing)
+                ? const SizedBox(height: detailsVerticalSpacing)
                 : const SizedBox(),
             pokeLocationAreas.areas.isNotEmpty
                 ? const _LocationTable(columnWidths: columnWidths)
