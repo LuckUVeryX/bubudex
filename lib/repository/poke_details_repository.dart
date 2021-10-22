@@ -53,11 +53,10 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   }
 
   @override
-  Future<PokeEvolution> getEvolutions(int id) async {
+  Future<PokeEvolution> getEvolutions(int id, String url) async {
     if (_hiveService.inEvolutionDb(id)) {
       return _hiveService.getPokeEvolution(id);
     }
-    String url = 'https://pokeapi.co/api/v2/evolution-chain/$id/';
     final res = await _apiService.get(url);
     final pokeEvolution = PokeEvolution.fromJson(jsonDecode(res.body));
     _hiveService.addPokeEvolution(pokeEvolution);

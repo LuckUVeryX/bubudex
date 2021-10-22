@@ -6,6 +6,20 @@ import 'poke_utility.dart';
 
 part 'poke_evolution.g.dart';
 
+class PokeEvolutionInfo {
+  final String speciesName;
+  final int? minLevel;
+  final String? triggerName;
+  final String? item;
+
+  PokeEvolutionInfo({
+    required this.speciesName,
+    required this.minLevel,
+    required this.triggerName,
+    required this.item,
+  });
+}
+
 @JsonSerializable()
 @HiveType(typeId: HiveTypeId.pokeEvolution)
 class PokeEvolution {
@@ -69,7 +83,7 @@ class EvolutionDetail {
   final NamedApiResource? item;
 
   @HiveField(1)
-  final NamedApiResource? trigger;
+  final NamedApiResource trigger;
 
   @HiveField(2)
   final int? gender;
@@ -135,7 +149,7 @@ class EvolutionDetail {
 
   EvolutionDetail({
     this.item,
-    this.trigger,
+    required this.trigger,
     this.gender,
     this.heldItem,
     this.knownMove,

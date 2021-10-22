@@ -33,6 +33,22 @@ class PokeDetailsProvider extends ChangeNotifier {
   late final PokeEvolution _pokeEvolution;
   PokeEvolution get pokeEvolution => _pokeEvolution;
 
+  List<PokeEvolutionInfo> get evoChain {
+    List<PokeEvolutionInfo> evoChain = [];
+    ChainLink chain = _pokeEvolution.chain;
+
+    while (chain.evolvesTo.isNotEmpty) {
+      evoChain.add(PokeEvolutionInfo(
+        speciesName: chain.species.name,
+        minLevel: chain.evolutionDetails?.first.minLevel,
+        triggerName: chain.evolutionDetails?.first.trigger.name,
+        item: chain.evolutionDetails?.first.item?.name,
+      ));
+      chain = chain.evolvesTo.first;
+    }
+    return evoChain;
+  }
+
   void init() async {
     try {
       _pokeSummary = _repository.getPokeSummary(_id);
@@ -40,8 +56,8 @@ class PokeDetailsProvider extends ChangeNotifier {
         _initPokemon(),
         _initPokeSpecies(),
         _initEncounters(),
-        _initPokeEvolution(),
       ]);
+      await _initPokeEvolution();
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());
@@ -62,6 +78,7 @@ class PokeDetailsProvider extends ChangeNotifier {
   }
 
   Future<void> _initPokeEvolution() async {
-    _pokeEvolution = await _repository.getEvolutions(_id);
+    _pokeEvolution =
+        await _repository.getEvolutions(_id, _pokeSpecies.evolutionChain.url);
   }
 }

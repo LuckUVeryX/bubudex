@@ -101,7 +101,7 @@ class EvolutionDetailAdapter extends TypeAdapter<EvolutionDetail> {
     };
     return EvolutionDetail(
       item: fields[0] as NamedApiResource?,
-      trigger: fields[1] as NamedApiResource?,
+      trigger: fields[1] as NamedApiResource,
       gender: fields[2] as int?,
       heldItem: fields[3] as NamedApiResource?,
       knownMove: fields[4] as NamedApiResource?,
@@ -219,9 +219,8 @@ EvolutionDetail _$EvolutionDetailFromJson(Map<String, dynamic> json) =>
       item: json['item'] == null
           ? null
           : NamedApiResource.fromJson(json['item'] as Map<String, dynamic>),
-      trigger: json['trigger'] == null
-          ? null
-          : NamedApiResource.fromJson(json['trigger'] as Map<String, dynamic>),
+      trigger:
+          NamedApiResource.fromJson(json['trigger'] as Map<String, dynamic>),
       gender: json['gender'] as int?,
       heldItem: json['held_item'] == null
           ? null

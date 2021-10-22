@@ -15,6 +15,7 @@ class EvolutionTab extends StatelessWidget {
     final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
 
     final Pokemon pokemon = provider.pokemon;
+    final PokeEvolution pokeEvolution = provider.pokeEvolution;
 
     final Color color = Palette.getTypeColor(pokeTypesFromString(
         pokemon.types.firstWhere((type) => type.slot == 1).type.name));
