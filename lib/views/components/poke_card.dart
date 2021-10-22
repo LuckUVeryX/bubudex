@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../models/models.dart';
 import '../../routes/app_router.dart';
@@ -23,6 +24,7 @@ class PokeCard extends StatelessWidget {
 
     final List<PokeTypes> types =
         pokemon.types.map((e) => pokeTypesFromString(e)).toList();
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Card(
@@ -33,9 +35,22 @@ class PokeCard extends StatelessWidget {
             context.navigateTo(PokeDetailsRoute(pokeId: pokemon.id));
           },
           child: Stack(
-            alignment: Alignment.topLeft,
             clipBehavior: Clip.none,
             children: [
+              Positioned(
+                top: -24,
+                left: 80,
+                child: SizedBox(
+                  width: size.width / 5,
+                  child: Opacity(
+                    opacity: 0.2,
+                    child: SvgPicture.asset(
+                      k6x3Pattern,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -58,6 +73,19 @@ class PokeCard extends StatelessWidget {
                       ],
                     )
                   ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Opacity(
+                  opacity: 0.2,
+                  child: SvgPicture.asset(
+                    kPokeballPattern,
+                    color: Colors.white,
+                    fit: BoxFit.contain,
+                    height: size.width / 3.5,
+                    width: size.width / 3.5,
+                  ),
                 ),
               ),
               Positioned(
