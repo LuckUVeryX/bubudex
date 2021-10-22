@@ -39,6 +39,14 @@ String formatStat(String stat) {
   }
 }
 
+String? intToString(int? val) {
+  if (val == null) {
+    return null;
+  } else {
+    return val.toString();
+  }
+}
+
 extension StringExtension on String {
   String capitalize() {
     return '${this[0].toUpperCase()}${substring(1)}';

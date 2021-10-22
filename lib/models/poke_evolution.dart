@@ -7,16 +7,44 @@ import 'poke_utility.dart';
 part 'poke_evolution.g.dart';
 
 class PokeEvolutionInfo {
+  final int id;
   final String speciesName;
   final int? minLevel;
-  final String? triggerName;
   final String? item;
+  final String? heldItem;
+  final String? knownMove;
+  final String? knownMoveType;
+  final String? location;
+  final String? minHappiness;
+  final String? minBeauty;
+  final String? minAffection;
+  final bool needsOverworldRain;
+  final String? partySpecies;
+  final String? partyType;
+  final String? relativePhysicalStats;
+  final String? timeOfDay;
+  final String? tradeSpecies;
+  final bool turnUpsideDown;
 
   PokeEvolutionInfo({
+    required this.id,
     required this.speciesName,
     required this.minLevel,
-    required this.triggerName,
     required this.item,
+    required this.heldItem,
+    required this.knownMove,
+    required this.knownMoveType,
+    required this.location,
+    required this.minHappiness,
+    required this.minBeauty,
+    required this.minAffection,
+    required this.needsOverworldRain,
+    required this.partySpecies,
+    required this.partyType,
+    required this.relativePhysicalStats,
+    required this.timeOfDay,
+    required this.tradeSpecies,
+    required this.turnUpsideDown,
   });
 }
 
@@ -137,7 +165,7 @@ class EvolutionDetail {
 
   @JsonKey(name: 'time_of_day')
   @HiveField(15)
-  final String timeOfDay;
+  final String? timeOfDay;
 
   @JsonKey(name: 'trade_species')
   @HiveField(16)

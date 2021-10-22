@@ -1,3 +1,4 @@
+import 'package:bubudex/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/models.dart';
@@ -37,14 +38,60 @@ class PokeDetailsProvider extends ChangeNotifier {
     List<PokeEvolutionInfo> evoChain = [];
     ChainLink chain = _pokeEvolution.chain;
 
-    while (chain.evolvesTo.isNotEmpty) {
-      evoChain.add(PokeEvolutionInfo(
-        speciesName: chain.species.name,
-        minLevel: chain.evolutionDetails?.first.minLevel,
-        triggerName: chain.evolutionDetails?.first.trigger.name,
-        item: chain.evolutionDetails?.first.item?.name,
-      ));
-      chain = chain.evolvesTo.first;
+    while (true) {
+      EvolutionDetail? detail;
+      if (chain.evolutionDetails?.isNotEmpty == true) {
+        detail = chain.evolutionDetails?.first;
+      } else {
+        detail = null;
+      }
+      int id = int.parse(chain.species.url
+          .replaceAll('https://pokeapi.co/api/v2/pokemon-species/', '')
+          .replaceAll('/', ''));
+
+      String? getRelativePhysicalStats;
+      if (detail?.relativePhysicalStats == null) {
+        getRelativePhysicalStats = null;
+      } else {
+        if (detail?.relativePhysicalStats == 1) {
+          getRelativePhysicalStats = 'Attack > Defense';
+        }
+        if (detail?.relativePhysicalStats == 0) {
+          getRelativePhysicalStats = 'Attack = Defense';
+        }
+        if (detail?.relativePhysicalStats == -1) {
+          getRelativePhysicalStats = 'Attack < Defense';
+        }
+      }
+
+      evoChain.add(
+        PokeEvolutionInfo(
+          id: id,
+          speciesName: chain.species.name,
+          minLevel: detail?.minLevel,
+          item: detail?.item?.name,
+          needsOverworldRain: detail?.needsOverworldRain ?? false,
+          turnUpsideDown: detail?.turnUpsideDown ?? false,
+          heldItem: detail?.heldItem?.name,
+          knownMove: detail?.knownMove?.name,
+          knownMoveType: detail?.knownMoveType?.name,
+          location: detail?.location?.name,
+          minAffection: intToString(detail?.minAffection),
+          minBeauty: intToString(detail?.minBeauty),
+          minHappiness: intToString(detail?.minHappiness),
+          partySpecies: detail?.partySpecies?.name,
+          partyType: detail?.partyType?.name,
+          relativePhysicalStats: getRelativePhysicalStats,
+          timeOfDay:
+              detail?.timeOfDay?.isNotEmpty == true ? detail?.timeOfDay : null,
+          tradeSpecies: detail?.tradeSpecies?.name,
+        ),
+      );
+      if (chain.evolvesTo.isNotEmpty) {
+        chain = chain.evolvesTo.first;
+      } else {
+        break;
+      }
     }
     return evoChain;
   }

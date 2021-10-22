@@ -115,7 +115,7 @@ class EvolutionDetailAdapter extends TypeAdapter<EvolutionDetail> {
       partySpecies: fields[12] as NamedApiResource?,
       partyType: fields[13] as NamedApiResource?,
       relativePhysicalStats: fields[14] as int?,
-      timeOfDay: fields[15] as String,
+      timeOfDay: fields[15] as String?,
       tradeSpecies: fields[16] as NamedApiResource?,
       turnUpsideDown: fields[17] as bool,
     );
@@ -251,7 +251,7 @@ EvolutionDetail _$EvolutionDetailFromJson(Map<String, dynamic> json) =>
           : NamedApiResource.fromJson(
               json['party_type'] as Map<String, dynamic>),
       relativePhysicalStats: json['relative_physical_stats'] as int?,
-      timeOfDay: json['time_of_day'] as String,
+      timeOfDay: json['time_of_day'] as String?,
       tradeSpecies: json['trade_species'] == null
           ? null
           : NamedApiResource.fromJson(
