@@ -4,19 +4,15 @@ import 'package:provider/provider.dart';
 import '../../../models/models.dart';
 import '../../../utils/utils.dart';
 import '../../../view_models/view_models.dart';
-import '../../components/weakness_icon.dart';
+import '../../components/components.dart';
 import '../../theme/theme.dart';
 
 class AboutTab extends StatelessWidget {
   const AboutTab({
     Key? key,
-    required this.pokeId,
   }) : super(key: key);
 
-  final int pokeId;
-
   static const columnWidths = {0: FixedColumnWidth(160)};
-  static const verticalSpacing = 20.0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +20,7 @@ class AboutTab extends StatelessWidget {
 
     final PokeSpecies pokeSpecies = provider.pokeSpecies;
     final Pokemon pokemon = provider.pokemon;
-    final List<PokeLocationArea> pokeLocationAreas = provider.locationAreas;
+    final PokeLocationAreas pokeLocationAreas = provider.locationAreas;
 
     final Color color = Palette.getTypeColor(pokeTypesFromString(
         pokemon.types.firstWhere((type) => type.slot == 1).type.name));
@@ -34,7 +30,7 @@ class AboutTab extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(kTabsPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,27 +51,27 @@ class AboutTab extends StatelessWidget {
             const SizedBox(height: 28),
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             const _PokeDexDataTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             const _TrainingTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: verticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
-            const SizedBox(height: verticalSpacing),
-            pokeLocationAreas.isNotEmpty
+            const SizedBox(height: kDetailsVerticalSpacing),
+            pokeLocationAreas.areas.isNotEmpty
                 ? Text('Location',
                     style: textTheme.bodyText1!.copyWith(color: color))
                 : const SizedBox(),
-            pokeLocationAreas.isNotEmpty
-                ? const SizedBox(height: verticalSpacing)
+            pokeLocationAreas.areas.isNotEmpty
+                ? const SizedBox(height: kDetailsVerticalSpacing)
                 : const SizedBox(),
-            pokeLocationAreas.isNotEmpty
+            pokeLocationAreas.areas.isNotEmpty
                 ? const _LocationTable(columnWidths: columnWidths)
                 : const SizedBox(),
           ],
@@ -116,7 +112,7 @@ class _TrainingTable extends StatelessWidget {
                 for (PokeStat stat
                     in pokemon.stats.where((stat) => stat.effort >= 1))
                   Text(
-                      '${stat.effort} ${stat.stat.name.replaceAll('-', ' ').capitalizeEvery()}'),
+                      '${stat.effort} ${stat.stat.name == 'hp' ? 'HP' : stat.stat.name.replaceAll('-', ' ').capitalizeEvery()}'),
               ],
             ),
           ],
@@ -190,7 +186,7 @@ class _LocationTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<PokeLocationArea> areas =
+    final PokeLocationAreas areas =
         Provider.of<PokeDetailsProvider>(context, listen: false).locationAreas;
 
     return Table(
@@ -199,9 +195,9 @@ class _LocationTable extends StatelessWidget {
     );
   }
 
-  List<TableRow> getLocations(List<PokeLocationArea> areas) {
+  List<TableRow> getLocations(PokeLocationAreas pokeLocationAreas) {
     List<TableRow> ls = [];
-    for (PokeLocationArea area in areas) {
+    for (PokeLocationArea area in pokeLocationAreas.areas) {
       ls.add(TableRow(children: [
         Text(area.locationArea.name.replaceAll('-', ' ').capitalizeEvery(),
             style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -415,7 +411,7 @@ class _PokeDexDataTable extends StatelessWidget {
               runSpacing: 8,
               children: [
                 for (PokeTypes typeWeakness
-                    in getTypeWeakness(pokeSummary.typeDefences))
+                    in getWeaknessTypes(pokeSummary.typeDefences))
                   WeaknessIcon(pokeTypes: typeWeakness)
               ],
             ),

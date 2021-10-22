@@ -6,9 +6,43 @@ part of 'poke_location.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PokeLocationAreaAdapter extends TypeAdapter<PokeLocationArea> {
+class PokeLocationAreasAdapter extends TypeAdapter<PokeLocationAreas> {
   @override
   final int typeId = 18;
+
+  @override
+  PokeLocationAreas read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PokeLocationAreas(
+      areas: (fields[0] as List).cast<PokeLocationArea>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PokeLocationAreas obj) {
+    writer
+      ..writeByte(1)
+      ..writeByte(0)
+      ..write(obj.areas);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokeLocationAreasAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class PokeLocationAreaAdapter extends TypeAdapter<PokeLocationArea> {
+  @override
+  final int typeId = 19;
 
   @override
   PokeLocationArea read(BinaryReader reader) {
@@ -46,7 +80,7 @@ class PokeLocationAreaAdapter extends TypeAdapter<PokeLocationArea> {
 class VersionEncounterDetailAdapter
     extends TypeAdapter<VersionEncounterDetail> {
   @override
-  final int typeId = 19;
+  final int typeId = 20;
 
   @override
   VersionEncounterDetail read(BinaryReader reader) {
@@ -86,7 +120,7 @@ class VersionEncounterDetailAdapter
 
 class EncounterAdapter extends TypeAdapter<Encounter> {
   @override
-  final int typeId = 20;
+  final int typeId = 21;
 
   @override
   Encounter read(BinaryReader reader) {

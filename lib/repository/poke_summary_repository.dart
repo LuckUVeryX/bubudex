@@ -38,15 +38,16 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   }
 
   @override
-  Future<List<PokeLocationArea>> getEncounters(int id) async {
+  Future<PokeLocationAreas> getEncounters(int id) async {
     if (_hiveService.inLocationDb(id)) {
       return _hiveService.getPokeLocationArea(id);
     }
     String url = 'https://pokeapi.co/api/v2/pokemon/$id/encounters';
     final res = await _apiService.get(url);
     Iterable l = jsonDecode(res.body);
-    List<PokeLocationArea> areas = List<PokeLocationArea>.from(
-        l.map((model) => PokeLocationArea.fromJson(model)));
+    PokeLocationAreas areas = PokeLocationAreas(
+        areas: List<PokeLocationArea>.from(
+            l.map((model) => PokeLocationArea.fromJson(model))));
     _hiveService.addPokeLocationArea(id, areas);
     return areas;
   }

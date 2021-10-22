@@ -23,9 +23,10 @@ class HiveTypeId {
   static const pokemonSpeciesVariety = 16;
   static const genus = 17;
 
-  static const pokeLocationArea = 18;
-  static const versionEncounterDetail = 19;
-  static const encounter = 20;
+  static const pokeLocationAreas = 18;
+  static const pokeLocationArea = 19;
+  static const versionEncounterDetail = 20;
+  static const encounter = 21;
 }
 
 class HiveBoxId {

@@ -30,6 +30,7 @@ class HiveService {
     Hive.registerAdapter(PokemonSpeciesVarietyAdapter());
     Hive.registerAdapter(GenusAdapter());
 
+    Hive.registerAdapter(PokeLocationAreasAdapter());
     Hive.registerAdapter(PokeLocationAreaAdapter());
     Hive.registerAdapter(VersionEncounterDetailAdapter());
     Hive.registerAdapter(EncounterAdapter());
@@ -40,6 +41,14 @@ class HiveService {
     _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
 
     debugPrint('Initialized Hive Service');
+  }
+
+  Future<void> clearCache() async {
+    await Hive.deleteFromDisk();
+    _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokeSummaryDb);
+    _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
+    _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
+    _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
   }
 
   // PokeSummary
@@ -101,12 +110,12 @@ class HiveService {
   }
 
   // Poke Location
-  late Box<List<PokeLocationArea>> _pokeLocationDb;
+  late Box<PokeLocationAreas> _pokeLocationDb;
 
   bool inLocationDb(int id) => _pokeLocationDb.containsKey(id);
 
-  List<PokeLocationArea> getPokeLocationArea(int id) {
-    List<PokeLocationArea>? pokeLocationAreas = _pokeLocationDb.get(id);
+  PokeLocationAreas getPokeLocationArea(int id) {
+    PokeLocationAreas? pokeLocationAreas = _pokeLocationDb.get(id);
     if (pokeLocationAreas != null) {
       return pokeLocationAreas;
     } else {
@@ -114,7 +123,7 @@ class HiveService {
     }
   }
 
-  void addPokeLocationArea(int id, List<PokeLocationArea> areas) {
+  void addPokeLocationArea(int id, PokeLocationAreas areas) {
     _pokeLocationDb.put(id, areas);
   }
 }

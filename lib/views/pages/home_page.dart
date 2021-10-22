@@ -86,6 +86,12 @@ class _HomePageWithData extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
+                context.read<HomeProvider>().clearCache();
+              },
+              icon: const Icon(Icons.clear_all),
+            ),
+            IconButton(
+              onPressed: () {
                 _showHomeBottomSheet(context, const GenerationsBottomSheet());
               },
               icon: const Icon(PokeIcons.generation),
