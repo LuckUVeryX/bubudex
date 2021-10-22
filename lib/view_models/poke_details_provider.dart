@@ -27,11 +27,15 @@ class PokeDetailsProvider extends ChangeNotifier {
   late final Pokemon _pokemon;
   Pokemon get pokemon => _pokemon;
 
+  late final List<PokeLocationArea> _pokeLocationArea;
+  List<PokeLocationArea> get locationAreas => _pokeLocationArea;
+
   void init() async {
     try {
       _pokeSummary = _repository.getPokeSummary(_id);
-      _pokeSpecies = await _repository.getSpecies(_id);
       _pokemon = await _repository.getPokemon(_id);
+      _pokeSpecies = await _repository.getSpecies(_id);
+      _pokeLocationArea = await _repository.getLocations(_id);
 
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {

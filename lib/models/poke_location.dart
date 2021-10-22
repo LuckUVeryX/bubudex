@@ -1,7 +1,7 @@
-import 'package:bubudex/utils/utils.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../utils/utils.dart';
 import 'models.dart';
 
 part 'poke_location.g.dart';

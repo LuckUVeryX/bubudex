@@ -20,7 +20,9 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
       return _hiveService.getPokemon(id);
     }
     final res = await _apiService.get('https://pokeapi.co/api/v2/pokemon/$id/');
-    return Pokemon.fromJson(jsonDecode(res.body));
+    final pokemon = Pokemon.fromJson(jsonDecode(res.body));
+    _hiveService.addPokemon(pokemon);
+    return pokemon;
   }
 
   @override
@@ -31,13 +33,21 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
     String url = 'https://pokeapi.co/api/v2/pokemon-species/$id/';
     final res = await _apiService.get(url);
     final pokeSpecies = PokeSpecies.fromJson(jsonDecode(res.body));
-    await _hiveService.addPokeSpecies(pokeSpecies);
+    _hiveService.addPokeSpecies(pokeSpecies);
     return pokeSpecies;
   }
 
   @override
-  Future<PokeLocationArea> getLocation(int id) {
-    // TODO: implement getLocation
-    throw UnimplementedError();
+  Future<List<PokeLocationArea>> getLocations(int id) async {
+    if (_hiveService.inLocationDb(id)) {
+      return _hiveService.getPokeLocationArea(id);
+    }
+    String url = 'https://pokeapi.co/api/v2/pokemon/$id/encounters';
+    final res = await _apiService.get(url);
+    Iterable l = jsonDecode(res.body);
+    List<PokeLocationArea> areas = List<PokeLocationArea>.from(
+        l.map((model) => PokeLocationArea.fromJson(model)));
+    _hiveService.addPokeLocationArea(id, areas);
+    return areas;
   }
 }

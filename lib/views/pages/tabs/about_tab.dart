@@ -183,71 +183,26 @@ class _LocationTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<PokeLocationArea> areas =
+        Provider.of<PokeDetailsProvider>(context, listen: false).locationAreas;
+
     return Table(
       columnWidths: columnWidths,
-      children: [
-        const TableRow(
-          children: [
-            Text(
-              '001',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('(Red/Blue/Yellow)'),
-          ],
-        ),
-        _tableRowSpacing(),
-        const TableRow(
-          children: [
-            Text(
-              '226',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('(Gold/Silver/Crystal)'),
-          ],
-        ),
-        _tableRowSpacing(),
-        const TableRow(
-          children: [
-            Text(
-              '001',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('(FireRed/LeafGreen)'),
-          ],
-        ),
-        _tableRowSpacing(),
-        const TableRow(
-          children: [
-            Text(
-              '231',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('(HeartGold/SoulSilver)'),
-          ],
-        ),
-        _tableRowSpacing(),
-        const TableRow(
-          children: [
-            Text(
-              '080',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('(X/Y - Central Kalos)'),
-          ],
-        ),
-        _tableRowSpacing(),
-        const TableRow(
-          children: [
-            Text(
-              '001',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text("(Let's Go Pikachu/Let's Go Eevee)"),
-          ],
-        ),
-        _tableRowSpacing(),
-      ],
+      children: getLocations(areas),
     );
+  }
+
+  List<TableRow> getLocations(List<PokeLocationArea> areas) {
+    List<TableRow> ls = [];
+    for (PokeLocationArea area in areas) {
+      ls.add(TableRow(children: [
+        Text(area.locationArea.name.replaceAll('-', ' ').capitalizeEvery(),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text('(${area.versionDetails[0].version.name.capitalize()})'),
+      ]));
+      ls.add(_tableRowSpacing());
+    }
+    return ls;
   }
 }
 

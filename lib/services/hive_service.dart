@@ -37,6 +37,7 @@ class HiveService {
     _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokeSummaryDb);
     _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
+    _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
 
     debugPrint('Initialized Hive Service');
   }
@@ -48,7 +49,7 @@ class HiveService {
 
   List<PokeSummary> get pokemons => _pokeSummaryDb.values.toList();
 
-  Future<void> addPokemons(List<PokeSummary> pokemons) async {
+  Future<void> addPokemonSummaries(List<PokeSummary> pokemons) async {
     final pokeMap = {for (PokeSummary pokemon in pokemons) pokemon.id: pokemon};
     await _pokeSummaryDb.putAll(pokeMap);
   }
@@ -58,14 +59,11 @@ class HiveService {
     if (pokeSummary != null) {
       return pokeSummary;
     } else {
-      throw 'Invalid pokemon id';
+      throw const NoSuchPokemonId();
     }
   }
 
   // Pokemon
-  Future<void> addPokeSpecies(PokeSpecies pokeSpecies) async {
-    await _pokeSpeciesDb.put(pokeSpecies.id, pokeSpecies);
-  }
 
   late Box<Pokemon> _pokemonDb;
 
@@ -76,8 +74,12 @@ class HiveService {
     if (pokemon != null) {
       return pokemon;
     } else {
-      throw 'Invalid pokemon id';
+      throw const NoSuchPokemonId();
     }
+  }
+
+  void addPokemon(Pokemon pokemon) {
+    _pokemonDb.put(pokemon.id, pokemon);
   }
 
   // Poke Species
@@ -90,7 +92,38 @@ class HiveService {
     if (pokeSpecies != null) {
       return pokeSpecies;
     } else {
-      throw 'Invalid pokemon id';
+      throw const NoSuchPokemonId();
     }
   }
+
+  void addPokeSpecies(PokeSpecies pokeSpecies) {
+    _pokeSpeciesDb.put(pokeSpecies.id, pokeSpecies);
+  }
+
+  // Poke Location
+  late Box<List<PokeLocationArea>> _pokeLocationDb;
+
+  bool inLocationDb(int id) => _pokeLocationDb.containsKey(id);
+
+  List<PokeLocationArea> getPokeLocationArea(int id) {
+    List<PokeLocationArea>? pokeLocationAreas = _pokeLocationDb.get(id);
+    if (pokeLocationAreas != null) {
+      return pokeLocationAreas;
+    } else {
+      throw const NoSuchPokemonId();
+    }
+  }
+
+  void addPokeLocationArea(int id, List<PokeLocationArea> areas) {
+    _pokeLocationDb.put(id, areas);
+  }
+}
+
+class NoSuchPokemonId implements Exception {
+  final String? msg;
+
+  const NoSuchPokemonId([this.msg]);
+
+  @override
+  String toString() => msg ?? 'NoSuchPokemonId';
 }

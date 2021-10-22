@@ -19,7 +19,7 @@ class PokeSummaryRepository implements IPokeSummaryRepository {
     final res = await _apiService.get(_dbEndpoint);
     Iterable l = jsonDecode(res.body);
     List<PokeSummary> ls = l.map((e) => PokeSummary.fromJson(e)).toList();
-    _hiveService.addPokemons(ls);
+    _hiveService.addPokemonSummaries(ls);
     return ls;
   }
 }
