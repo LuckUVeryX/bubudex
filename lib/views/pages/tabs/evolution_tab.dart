@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/models.dart';
@@ -62,14 +63,32 @@ class _PokemonEvoRow extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: CachedNetworkImage(
-                      imageUrl: getImageUrl(pokeEvolutionInfo[idx - 1].id),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          kPokeballPattern,
+                          color: Colors.grey[300],
+                        ),
+                        CachedNetworkImage(
+                          imageUrl: getImageUrl(pokeEvolutionInfo[idx - 1].id),
+                        ),
+                      ],
                     ),
                   ),
                   _PokeEvoReq(info: info),
                   Expanded(
-                    child: CachedNetworkImage(
-                      imageUrl: getImageUrl(info.id),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          kPokeballPattern,
+                          color: Colors.grey[300],
+                        ),
+                        CachedNetworkImage(
+                          imageUrl: getImageUrl(info.id),
+                        ),
+                      ],
                     ),
                   ),
                 ],
