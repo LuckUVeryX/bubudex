@@ -22,4 +22,9 @@ class PokeSummaryRepository implements IPokeSummaryRepository {
     _hiveService.addPokemonSummaries(ls);
     return ls;
   }
+
+  @override
+  Future<void> clearCache() async {
+    await _hiveService.clearCache();
+  }
 }
