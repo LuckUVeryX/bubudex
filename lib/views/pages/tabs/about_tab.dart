@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../models/models.dart';
 import '../../../utils/utils.dart';
 import '../../../view_models/view_models.dart';
-import '../../components/weakness_icon.dart';
+import '../../components/components.dart';
 import '../../theme/theme.dart';
 
 class AboutTab extends StatelessWidget {
