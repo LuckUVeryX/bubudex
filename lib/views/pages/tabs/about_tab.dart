@@ -30,7 +30,7 @@ class AboutTab extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(kTabsPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,25 +51,25 @@ class AboutTab extends StatelessWidget {
             const SizedBox(height: 28),
             Text('Pokédex Data',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             const _PokeDexDataTable(columnWidths: columnWidths),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             Text('Training',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             const _TrainingTable(columnWidths: columnWidths),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             Text('Breeding',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             pokeLocationAreas.areas.isNotEmpty
                 ? Text('Location',
                     style: textTheme.bodyText1!.copyWith(color: color))
                 : const SizedBox(),
             pokeLocationAreas.areas.isNotEmpty
-                ? const SizedBox(height: detailsVerticalSpacing)
+                ? const SizedBox(height: kDetailsVerticalSpacing)
                 : const SizedBox(),
             pokeLocationAreas.areas.isNotEmpty
                 ? const _LocationTable(columnWidths: columnWidths)
@@ -112,7 +112,7 @@ class _TrainingTable extends StatelessWidget {
                 for (PokeStat stat
                     in pokemon.stats.where((stat) => stat.effort >= 1))
                   Text(
-                      '${stat.effort} ${stat.stat.name.replaceAll('-', ' ').capitalizeEvery()}'),
+                      '${stat.effort} ${stat.stat.name == 'hp' ? 'HP' : stat.stat.name.replaceAll('-', ' ').capitalizeEvery()}'),
               ],
             ),
           ],

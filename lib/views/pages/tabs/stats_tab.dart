@@ -14,9 +14,7 @@ class StatsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
 
-    final PokeSpecies pokeSpecies = provider.pokeSpecies;
     final Pokemon pokemon = provider.pokemon;
-    final PokeLocationAreas pokeLocationAreas = provider.locationAreas;
 
     final Color color = Palette.getTypeColor(pokeTypesFromString(
         pokemon.types.firstWhere((type) => type.slot == 1).type.name));
@@ -32,7 +30,7 @@ class StatsTab extends StatelessWidget {
           children: [
             Text('Base Stats',
                 style: textTheme.bodyText1!.copyWith(color: color)),
-            const SizedBox(height: detailsVerticalSpacing),
+            const SizedBox(height: kDetailsVerticalSpacing),
             StatsRow(color: color, stat: 'HP', value: 45, min: 200, max: 294),
             StatsRow(
                 color: color, stat: 'Attack', value: 45, min: 200, max: 294),
