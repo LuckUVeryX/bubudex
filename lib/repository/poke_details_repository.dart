@@ -10,6 +10,11 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   final HiveService _hiveService;
 
   @override
+  PokeSummary getPokeSummary(id) {
+    return _hiveService.getPokeSummary(id);
+  }
+
+  @override
   Future<Pokemon> getPokemon(int id) async {
     if (_hiveService.inPokemonDb(id)) {
       return _hiveService.getPokemon(id);
@@ -31,7 +36,8 @@ class PokeDetailsRepository extends IPokeDetailsRepository {
   }
 
   @override
-  PokeSummary getPokeSummary(id) {
-    return _hiveService.getPokeSummary(id);
+  Future<PokeLocationArea> getLocation(int id) {
+    // TODO: implement getLocation
+    throw UnimplementedError();
   }
 }

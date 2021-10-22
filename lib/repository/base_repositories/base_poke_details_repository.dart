@@ -1,9 +1,11 @@
 import '../../models/models.dart';
 
 abstract class IPokeDetailsRepository {
+  PokeSummary getPokeSummary(id);
+
   Future<Pokemon> getPokemon(int id);
 
   Future<PokeSpecies> getSpecies(int id);
 
-  PokeSummary getPokeSummary(id);
+  Future<PokeLocationArea> getLocation(int id);
 }
