@@ -30,6 +30,9 @@ class PokeDetailsProvider extends ChangeNotifier {
   late final PokeLocationAreas _pokeLocationAreas;
   PokeLocationAreas get locationAreas => _pokeLocationAreas;
 
+  late final PokeEvolution _pokeEvolution;
+  PokeEvolution get pokeEvolution => _pokeEvolution;
+
   void init() async {
     try {
       _pokeSummary = _repository.getPokeSummary(_id);
@@ -37,6 +40,7 @@ class PokeDetailsProvider extends ChangeNotifier {
         _initPokemon(),
         _initPokeSpecies(),
         _initEncounters(),
+        _initPokeEvolution(),
       ]);
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
@@ -45,15 +49,19 @@ class PokeDetailsProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> _initEncounters() async {
-    _pokeLocationAreas = await _repository.getEncounters(_id);
+  Future<void> _initPokemon() async {
+    _pokemon = await _repository.getPokemon(_id);
   }
 
   Future<void> _initPokeSpecies() async {
     _pokeSpecies = await _repository.getSpecies(_id);
   }
 
-  Future<void> _initPokemon() async {
-    _pokemon = await _repository.getPokemon(_id);
+  Future<void> _initEncounters() async {
+    _pokeLocationAreas = await _repository.getEncounters(_id);
+  }
+
+  Future<void> _initPokeEvolution() async {
+    _pokeEvolution = await _repository.getEvolutions(_id);
   }
 }

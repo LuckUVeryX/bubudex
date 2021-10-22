@@ -18,7 +18,7 @@ class PokeEvolutionAdapter extends TypeAdapter<PokeEvolution> {
     };
     return PokeEvolution(
       id: fields[0] as int,
-      babyTriggerItem: fields[1] as NamedApiResource,
+      babyTriggerItem: fields[1] as NamedApiResource?,
       chain: fields[2] as ChainLink,
     );
   }
@@ -181,8 +181,10 @@ class EvolutionDetailAdapter extends TypeAdapter<EvolutionDetail> {
 PokeEvolution _$PokeEvolutionFromJson(Map<String, dynamic> json) =>
     PokeEvolution(
       id: json['id'] as int,
-      babyTriggerItem: NamedApiResource.fromJson(
-          json['baby_trigger_item'] as Map<String, dynamic>),
+      babyTriggerItem: json['baby_trigger_item'] == null
+          ? null
+          : NamedApiResource.fromJson(
+              json['baby_trigger_item'] as Map<String, dynamic>),
       chain: ChainLink.fromJson(json['chain'] as Map<String, dynamic>),
     );
 

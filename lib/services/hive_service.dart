@@ -54,6 +54,7 @@ class HiveService {
     _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
     _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
+    _pokeEvolutionDb = await Hive.openBox(HiveBoxId.pokeEvolutionDb);
   }
 
   // PokeSummary
@@ -143,6 +144,10 @@ class HiveService {
     } else {
       throw const NoSuchPokemonId();
     }
+  }
+
+  void addPokeEvolution(PokeEvolution pokeEvolution) {
+    _pokeEvolutionDb.put(pokeEvolution.id, pokeEvolution);
   }
 }
 

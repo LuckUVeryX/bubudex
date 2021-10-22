@@ -14,7 +14,7 @@ class PokeEvolution {
 
   @JsonKey(name: 'baby_trigger_item')
   @HiveField(1)
-  final NamedApiResource babyTriggerItem;
+  final NamedApiResource? babyTriggerItem;
 
   @HiveField(2)
   final ChainLink chain;
