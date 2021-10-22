@@ -186,6 +186,7 @@ class PokeListProvider extends ChangeNotifier {
     _weaknessFilter.clear();
     _heightFilter.clear();
     _weightFilter.clear();
+    _generationFilter.clear();
     _rangeValues = SfRangeValues(1.0, _numOfPoke.toDouble());
     notifyListeners();
   }
