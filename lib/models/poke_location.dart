@@ -6,6 +6,15 @@ import 'models.dart';
 
 part 'poke_location.g.dart';
 
+/// This is an object that holds List of PokeLocationArea to save into Hive DB as Hive cannot save Lists directly
+@HiveType(typeId: HiveTypeId.pokeLocationAreas)
+class PokeLocationAreas {
+  @HiveField(0)
+  final List<PokeLocationArea> areas;
+
+  PokeLocationAreas({required this.areas});
+}
+
 @JsonSerializable()
 @HiveType(typeId: HiveTypeId.pokeLocationArea)
 class PokeLocationArea {

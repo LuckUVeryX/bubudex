@@ -27,8 +27,8 @@ class PokeDetailsProvider extends ChangeNotifier {
   late final Pokemon _pokemon;
   Pokemon get pokemon => _pokemon;
 
-  late final List<PokeLocationArea> _pokeLocationArea;
-  List<PokeLocationArea> get locationAreas => _pokeLocationArea;
+  late final PokeLocationAreas _pokeLocationAreas;
+  PokeLocationAreas get locationAreas => _pokeLocationAreas;
 
   void init() async {
     try {
@@ -46,7 +46,7 @@ class PokeDetailsProvider extends ChangeNotifier {
   }
 
   Future<void> _initEncounters() async {
-    _pokeLocationArea = await _repository.getEncounters(_id);
+    _pokeLocationAreas = await _repository.getEncounters(_id);
   }
 
   Future<void> _initPokeSpecies() async {

@@ -21,7 +21,7 @@ class AboutTab extends StatelessWidget {
 
     final PokeSpecies pokeSpecies = provider.pokeSpecies;
     final Pokemon pokemon = provider.pokemon;
-    final List<PokeLocationArea> pokeLocationAreas = provider.locationAreas;
+    final PokeLocationAreas pokeLocationAreas = provider.locationAreas;
 
     final Color color = Palette.getTypeColor(pokeTypesFromString(
         pokemon.types.firstWhere((type) => type.slot == 1).type.name));
@@ -65,14 +65,14 @@ class AboutTab extends StatelessWidget {
             const SizedBox(height: verticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: verticalSpacing),
-            pokeLocationAreas.isNotEmpty
+            pokeLocationAreas.areas.isNotEmpty
                 ? Text('Location',
                     style: textTheme.bodyText1!.copyWith(color: color))
                 : const SizedBox(),
-            pokeLocationAreas.isNotEmpty
+            pokeLocationAreas.areas.isNotEmpty
                 ? const SizedBox(height: verticalSpacing)
                 : const SizedBox(),
-            pokeLocationAreas.isNotEmpty
+            pokeLocationAreas.areas.isNotEmpty
                 ? const _LocationTable(columnWidths: columnWidths)
                 : const SizedBox(),
           ],
@@ -187,7 +187,7 @@ class _LocationTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<PokeLocationArea> areas =
+    final PokeLocationAreas areas =
         Provider.of<PokeDetailsProvider>(context, listen: false).locationAreas;
 
     return Table(
@@ -196,9 +196,9 @@ class _LocationTable extends StatelessWidget {
     );
   }
 
-  List<TableRow> getLocations(List<PokeLocationArea> areas) {
+  List<TableRow> getLocations(PokeLocationAreas pokeLocationAreas) {
     List<TableRow> ls = [];
-    for (PokeLocationArea area in areas) {
+    for (PokeLocationArea area in pokeLocationAreas.areas) {
       ls.add(TableRow(children: [
         Text(area.locationArea.name.replaceAll('-', ' ').capitalizeEvery(),
             style: const TextStyle(fontWeight: FontWeight.bold)),
