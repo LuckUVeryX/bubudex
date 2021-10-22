@@ -15,7 +15,7 @@ class AboutTab extends StatelessWidget {
 
   final int pokeId;
 
-  static const columnWidths = <int, TableColumnWidth>{0: FixedColumnWidth(160)};
+  static const columnWidths = {0: FixedColumnWidth(160)};
   static const verticalSpacing = 20.0;
 
   @override
@@ -88,46 +88,83 @@ class _TrainingTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
+    final pokemon = provider.pokemon;
+    final pokeSpecies = provider.pokeSpecies;
+
+    final textTheme = Theme.of(context).textTheme;
+
     return Table(
       columnWidths: columnWidths,
       children: [
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'EV Yield',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('1 Special Attack'),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (PokeStat stat
+                    in pokemon.stats.where((stat) => stat.effort >= 1))
+                  Text(
+                      '${stat.effort} ${stat.stat.name.replaceAll('-', ' ').capitalizeEvery()}'),
+              ],
+            ),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
+              'Catch Rate',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${pokeSpecies.captureRate}'),
+                Text(
+                  '(${(pokeSpecies.captureRate / 765 * 100).toStringAsFixed(1)}% with PokéBall, full HP)',
+                  style: textTheme.subtitle2,
+                )
+              ],
+            ),
+          ],
+        ),
+        _tableRowSpacing(),
+        TableRow(
+          children: [
+            const Text(
               'Base Friendship',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('70 (normal)'),
+            Text(
+                '${pokeSpecies.baseHappiness} (${getFriendshipTier(pokeSpecies.baseHappiness)})'),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Base Exp',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('64'),
+            Text(pokemon.baseExperience.toString()),
           ],
         ),
         _tableRowSpacing(),
-        const TableRow(
+        TableRow(
           children: [
-            Text(
+            const Text(
               'Growth Rate',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text('Medium Slow'),
+            Text(pokeSpecies.growthRate.name
+                .replaceAll('-', ' ')
+                .capitalizeEvery()),
+            // Text('Medium Slow'),
           ],
         ),
         _tableRowSpacing(),

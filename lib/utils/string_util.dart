@@ -30,4 +30,12 @@ extension StringExtension on String {
   String capitalize() {
     return '${this[0].toUpperCase()}${substring(1)}';
   }
+
+  String capitalizeEvery() {
+    List<String> ls = split(' ');
+    for (int i = 0; i < ls.length; i++) {
+      ls[i] = ls[i].capitalize();
+    }
+    return ls.join(' ');
+  }
 }

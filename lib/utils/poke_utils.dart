@@ -58,3 +58,13 @@ Generation getGeneration(PokeSummary pokemon) {
     return Generation.VIII;
   }
 }
+
+String getFriendshipTier(int value) {
+  if (value < 50) {
+    return 'Lower than normal';
+  } else if (value < 100) {
+    return 'Normal';
+  } else {
+    return 'Higher than normal';
+  }
+}
