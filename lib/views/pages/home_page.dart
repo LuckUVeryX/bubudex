@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../repository/repository.dart';
 import '../../services/services.dart';
+import '../../utils/utils.dart';
 import '../../view_models/view_models.dart';
 import '../components/components.dart';
 import '../theme/theme.dart';
@@ -86,12 +88,6 @@ class _HomePageWithData extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                context.read<HomeProvider>().clearCache();
-              },
-              icon: const Icon(Icons.clear_all),
-            ),
-            IconButton(
-              onPressed: () {
                 _showHomeBottomSheet(context, const GenerationsBottomSheet());
               },
               icon: const Icon(PokeIcons.generation),
@@ -110,21 +106,30 @@ class _HomePageWithData extends StatelessWidget {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: CustomScrollView(
-            slivers: [
-              const HomeAppBar(),
-              Consumer<PokeListProvider>(builder: (_, search, __) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, i) => PokeCard(pokemon: search.pokemons[i]),
-                    childCount: search.pokemons.length,
-                  ),
-                );
-              }),
-            ],
-          ),
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            SvgPicture.asset(kPokeballPattern,
+                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.grey[200]),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: CustomScrollView(
+                slivers: [
+                  const HomeAppBar(),
+                  Consumer<PokeListProvider>(builder: (_, search, __) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (_, i) => PokeCard(pokemon: search.pokemons[i]),
+                        childCount: search.pokemons.length,
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

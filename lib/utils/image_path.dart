@@ -45,3 +45,6 @@ List<String> getGenerationImg(Generation generation) {
     'assets/poke_generations/generation$i/3.png',
   ];
 }
+
+String kPokeballPattern = 'assets/poke_patterns/pokeball.svg';
+String k6x3Pattern = 'assets/poke_patterns/6x3.svg';

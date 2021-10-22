@@ -41,6 +41,7 @@ flutter:
     - assets/poke_heights/
     - assets/poke_types/
     - assets/poke_weights/
+    - assets/poke_patterns/
     - assets/poke_generations/generation1/
     - assets/poke_generations/generation2/
     - assets/poke_generations/generation3/

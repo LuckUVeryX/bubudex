@@ -27,11 +27,4 @@ class HomeProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  // ! For Dev
-  void clearCache() async {
-    await _repository.clearCache();
-    _status = HomePageStatus.init;
-    notifyListeners();
-  }
 }
