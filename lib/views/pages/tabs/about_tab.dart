@@ -411,7 +411,7 @@ class _PokeDexDataTable extends StatelessWidget {
               runSpacing: 8,
               children: [
                 for (PokeTypes typeWeakness
-                    in getTypeWeakness(pokeSummary.typeDefences))
+                    in getWeaknessTypes(pokeSummary.typeDefences))
                   WeaknessIcon(pokeTypes: typeWeakness)
               ],
             ),

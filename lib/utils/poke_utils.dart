@@ -1,13 +1,29 @@
 import '../models/models.dart';
 import 'utils.dart';
 
-List<PokeTypes> getTypeWeakness(TypeDefences typeDefences) {
+List<PokeTypes> getWeaknessTypes(TypeDefences typeDefences) {
   Map<PokeTypes, double?> map = typeDefences.toMap();
   map.removeWhere((key, value) {
     // remove if defense value is null or less than 1
     return value == null || value < 1;
   });
   return map.keys.toList();
+}
+
+String getTypeDefense(PokeTypes pokeTypes, TypeDefences typeDefences) {
+  Map<PokeTypes, double?> map = typeDefences.toMap();
+  double? value = map[pokeTypes];
+  if (value == null) {
+    return '';
+  } else if (value == 2.0) {
+    return '2';
+  } else if (value == 0.5) {
+    return '½';
+  } else if (value == 0.25) {
+    return '¼';
+  } else {
+    return value.toString();
+  }
 }
 
 /// Height thresholds obtained from

@@ -15,6 +15,7 @@ class StatsTab extends StatelessWidget {
     final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
 
     final Pokemon pokemon = provider.pokemon;
+    final PokeSummary pokeSummary = provider.pokeSummary;
 
     final Color color = Palette.getTypeColor(pokeTypesFromString(
         pokemon.types.firstWhere((type) => type.slot == 1).type.name));
@@ -38,31 +39,70 @@ class StatsTab extends StatelessWidget {
                 value: stat.baseStat,
                 effort: stat.effort,
               ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Row(
-                children: [
-                  Expanded(child: Text('Total', style: textTheme.bodyText1)),
-                  Expanded(
-                    child: Text(
-                      '318',
-                      textAlign: TextAlign.right,
-                      style: textTheme.bodyText1,
-                    ),
-                  ),
-                  const Expanded(child: SizedBox(), flex: 2),
-                  Expanded(
-                    child: Text(
-                      'Effort',
-                      textAlign: TextAlign.right,
-                      style: textTheme.bodyText1,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const StatsBottomRow(),
+            const SizedBox(height: kDetailsVerticalSpacing),
+            Text('Type Defenses',
+                style: textTheme.bodyText1!.copyWith(color: color)),
+            const SizedBox(height: kDetailsVerticalSpacing),
+            Text(
+                'The effectiveness of each type on ${pokemon.name.capitalize()}'),
+            GridView.count(
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 9,
+              shrinkWrap: true,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1 / 2,
+              children: [
+                for (var type in PokeTypes.values)
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: WeaknessIcon(pokeTypes: type),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(getTypeDefense(type, pokeSummary.typeDefences)),
+                    ],
+                  )
+              ],
+            )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class StatsBottomRow extends StatelessWidget {
+  const StatsBottomRow({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        children: [
+          Expanded(child: Text('Total', style: textTheme.bodyText1)),
+          Expanded(
+            child: Text(
+              '318',
+              textAlign: TextAlign.right,
+              style: textTheme.bodyText1,
+            ),
+          ),
+          const Expanded(child: SizedBox(), flex: 2),
+          Expanded(
+            child: Text(
+              'Effort',
+              textAlign: TextAlign.right,
+              style: textTheme.bodyText1,
+            ),
+          ),
+        ],
       ),
     );
   }
