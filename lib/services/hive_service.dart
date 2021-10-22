@@ -48,15 +48,6 @@ class HiveService {
     debugPrint('Initialized Hive Service');
   }
 
-  Future<void> clearCache() async {
-    await Hive.deleteFromDisk();
-    _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokeSummaryDb);
-    _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
-    _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
-    _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
-    _pokeEvolutionDb = await Hive.openBox(HiveBoxId.pokeEvolutionDb);
-  }
-
   // PokeSummary
   late Box<PokeSummary> _pokeSummaryDb;
 
