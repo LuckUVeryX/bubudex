@@ -1,3 +1,5 @@
+import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -105,21 +107,30 @@ class _HomePageWithData extends StatelessWidget {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: CustomScrollView(
-            slivers: [
-              const HomeAppBar(),
-              Consumer<PokeListProvider>(builder: (_, search, __) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, i) => PokeCard(pokemon: search.pokemons[i]),
-                    childCount: search.pokemons.length,
-                  ),
-                );
-              }),
-            ],
-          ),
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            SvgPicture.asset(kPokeballPattern,
+                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.grey[200]),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: CustomScrollView(
+                slivers: [
+                  const HomeAppBar(),
+                  Consumer<PokeListProvider>(builder: (_, search, __) {
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (_, i) => PokeCard(pokemon: search.pokemons[i]),
+                        childCount: search.pokemons.length,
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
