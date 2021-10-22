@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'routes/app_router.dart';
@@ -7,6 +8,10 @@ import 'views/theme/theme.dart';
 
 void main() async {
   HiveService hiveService = await _initHiveServices();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(
     Provider.value(value: hiveService, child: MyApp()),
   );
