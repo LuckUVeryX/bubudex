@@ -8,7 +8,7 @@ class ApiService {
     debugPrint('GET Request: $url');
     Uri uri = Uri.parse(url);
     final res = await retry(() => http.get(uri));
-    debugPrint('GET Response: ${res.body}');
+    // debugPrint('GET Response: ${res.body}');
     return res;
   }
 }

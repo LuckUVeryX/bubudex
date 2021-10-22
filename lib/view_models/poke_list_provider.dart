@@ -14,8 +14,9 @@ class PokeListProvider extends ChangeNotifier {
     _pokemonsCopy = _pokemons;
   }
 
-  late final List<Pokemon> _pokemonsCopy; // to hold immutable list of pokemons
-  List<Pokemon> _pokemons;
+  late final List<PokeSummary>
+      _pokemonsCopy; // to hold immutable list of pokemons
+  List<PokeSummary> _pokemons;
 
   // * Sort
   SortOrder _sortOrder = SortOrder.smallest;
@@ -26,7 +27,7 @@ class PokeListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Pokemon> get pokemons {
+  List<PokeSummary> get pokemons {
     switch (_sortOrder) {
       case SortOrder.smallest:
         _pokemons.sort((a, b) => a.id.compareTo(b.id));
@@ -70,9 +71,9 @@ class PokeListProvider extends ChangeNotifier {
   }
 
   // * Filter
-  final List<PokeType> _typeFilter = [];
+  final List<PokeTypes> _typeFilter = [];
 
-  void toggleTypeFilter(PokeType pokeType) {
+  void toggleTypeFilter(PokeTypes pokeType) {
     if (_typeFilter.contains(pokeType)) {
       _typeFilter.remove(pokeType);
     } else {
@@ -82,7 +83,7 @@ class PokeListProvider extends ChangeNotifier {
     debugPrint('Type Filter: $_typeFilter');
   }
 
-  FilterColor getTypeColor(PokeType pokeType) {
+  FilterColor getTypeColor(PokeTypes pokeType) {
     if (_typeFilter.contains(pokeType)) {
       return FilterColor(
           background: Palette.getTypeColor(pokeType), icon: Colors.white);
@@ -92,9 +93,9 @@ class PokeListProvider extends ChangeNotifier {
     }
   }
 
-  final List<PokeType> _weaknessFilter = [];
+  final List<PokeTypes> _weaknessFilter = [];
 
-  void toggleWeaknessFilter(PokeType pokeType) {
+  void toggleWeaknessFilter(PokeTypes pokeType) {
     if (_weaknessFilter.contains(pokeType)) {
       _weaknessFilter.remove(pokeType);
     } else {
@@ -105,7 +106,7 @@ class PokeListProvider extends ChangeNotifier {
     debugPrint('Weakness Filter: $_weaknessFilter');
   }
 
-  FilterColor getWeaknessColor(PokeType pokeType) {
+  FilterColor getWeaknessColor(PokeTypes pokeType) {
     if (_weaknessFilter.contains(pokeType)) {
       return FilterColor(
           background: Palette.getTypeColor(pokeType), icon: Colors.white);
@@ -206,7 +207,7 @@ class PokeListProvider extends ChangeNotifier {
   void _applyFilters() {
     _pokemons = _pokemonsCopy.where((poke) {
       bool typeMatch = _typeFilter
-          .every((type) => poke.types.contains(stringFromPokeType(type)));
+          .every((type) => poke.types.contains(stringFromPokeTypes(type)));
       bool weaknessMatch = _weaknessFilter
           .every((type) => getTypeWeakness(poke.typeDefences).contains(type));
       bool heightMatch =

@@ -1,8 +1,8 @@
 import '../models/models.dart';
 import 'utils.dart';
 
-List<PokeType> getTypeWeakness(TypeDefences typeDefences) {
-  Map<PokeType, double?> map = typeDefences.toMap();
+List<PokeTypes> getTypeWeakness(TypeDefences typeDefences) {
+  Map<PokeTypes, double?> map = typeDefences.toMap();
   map.removeWhere((key, value) {
     // remove if defense value is null or less than 1
     return value == null || value < 1;
@@ -13,7 +13,7 @@ List<PokeType> getTypeWeakness(TypeDefences typeDefences) {
 /// Height thresholds obtained from
 ///
 /// https://pokemon.fandom.com/wiki/List_of_Pokémon_by_height
-PokeHeight getPokeHeight(Pokemon pokemon) {
+PokeHeight getPokeHeight(PokeSummary pokemon) {
   if (pokemon.height < 1.3) {
     return PokeHeight.short;
   } else if (pokemon.height < 2.2) {
@@ -26,7 +26,7 @@ PokeHeight getPokeHeight(Pokemon pokemon) {
 /// Weight thresholds obtained from
 ///
 /// https://pokemon.fandom.com/wiki/List_of_Pokémon_by_weight
-PokeWeight getPokeWeight(Pokemon pokemon) {
+PokeWeight getPokeWeight(PokeSummary pokemon) {
   if (pokemon.weight < 45) {
     return PokeWeight.light;
   } else if (pokemon.weight < 230) {
@@ -39,7 +39,7 @@ PokeWeight getPokeWeight(Pokemon pokemon) {
 /// Generations obtained from
 ///
 /// https://en.wikipedia.org/wiki/List_of_Pokémon#List_of_species
-Generation getGeneration(Pokemon pokemon) {
+Generation getGeneration(PokeSummary pokemon) {
   if (pokemon.id < 152) {
     return Generation.I;
   } else if (pokemon.id < 252) {
@@ -56,5 +56,15 @@ Generation getGeneration(Pokemon pokemon) {
     return Generation.VII;
   } else {
     return Generation.VIII;
+  }
+}
+
+String getFriendshipTier(int value) {
+  if (value < 50) {
+    return 'Lower than normal';
+  } else if (value < 100) {
+    return 'Normal';
+  } else {
+    return 'Higher than normal';
   }
 }

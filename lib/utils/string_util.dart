@@ -1,12 +1,12 @@
 import 'utils.dart';
 
-String stringFromPokeType(PokeType pokeType) {
+String stringFromPokeTypes(PokeTypes pokeType) {
   return pokeType.toString().split('.')[1];
 }
 
-PokeType pokeTypeFromString(String pokeType) {
-  return PokeType.values.firstWhere((element) {
-    return pokeType == stringFromPokeType(element);
+PokeTypes pokeTypesFromString(String pokeType) {
+  return PokeTypes.values.firstWhere((element) {
+    return pokeType == stringFromPokeTypes(element);
   });
 }
 
@@ -29,5 +29,13 @@ String getImageUrl(int id) {
 extension StringExtension on String {
   String capitalize() {
     return '${this[0].toUpperCase()}${substring(1)}';
+  }
+
+  String capitalizeEvery() {
+    List<String> ls = split(' ');
+    for (int i = 0; i < ls.length; i++) {
+      ls[i] = ls[i].capitalize();
+    }
+    return ls.join(' ');
   }
 }

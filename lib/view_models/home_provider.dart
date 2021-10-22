@@ -8,13 +8,13 @@ enum HomePageStatus { init, done, error }
 
 class HomeProvider extends ChangeNotifier {
   HomeProvider(this._repository);
-  final IPokeRepository _repository;
+  final IPokeSummaryRepository _repository;
 
   HomePageStatus _status = HomePageStatus.init;
   HomePageStatus get status => _status;
 
-  List<Pokemon> _pokemons = [];
-  List<Pokemon> get pokemons => _pokemons;
+  List<PokeSummary> _pokemons = [];
+  List<PokeSummary> get pokemons => _pokemons;
 
   void getPokemons() async {
     try {
@@ -23,6 +23,7 @@ class HomeProvider extends ChangeNotifier {
     } catch (e) {
       _status = HomePageStatus.error;
       debugPrint(e.toString());
+      rethrow;
     }
     notifyListeners();
   }

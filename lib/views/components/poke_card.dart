@@ -14,15 +14,15 @@ class PokeCard extends StatelessWidget {
     required this.pokemon,
   }) : super(key: key);
 
-  final Pokemon pokemon;
+  final PokeSummary pokemon;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
 
-    final List<PokeType> types =
-        pokemon.types.map((e) => pokeTypeFromString(e)).toList();
+    final List<PokeTypes> types =
+        pokemon.types.map((e) => pokeTypesFromString(e)).toList();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Card(
@@ -30,8 +30,7 @@ class PokeCard extends StatelessWidget {
         color: Palette.getBackgroundTypeColor(types.first),
         child: InkWell(
           onTap: () {
-            // ! Temp
-            context.pushRoute(PokeDetailsRoute(pokeId: 1));
+            context.navigateTo(PokeDetailsRoute(pokeId: pokemon.id));
           },
           child: Stack(
             alignment: Alignment.topLeft,
@@ -54,7 +53,7 @@ class PokeCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        for (PokeType type in types)
+                        for (PokeTypes type in types)
                           PokeTypeChip(pokeType: type),
                       ],
                     )

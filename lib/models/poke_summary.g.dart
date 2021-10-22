@@ -1,36 +1,37 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pokemon.dart';
+part of 'poke_summary.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PokemonAdapter extends TypeAdapter<Pokemon> {
+class PokeSummaryAdapter extends TypeAdapter<PokeSummary> {
   @override
-  final int typeId = 0;
+  final int typeId = 5;
 
   @override
-  Pokemon read(BinaryReader reader) {
+  PokeSummary read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Pokemon(
+    return PokeSummary(
       id: fields[0] as int,
       name: fields[1] as String,
       image: fields[2] as String,
-      height: fields[3] as double,
-      weight: fields[4] as double,
-      types: (fields[5] as List).cast<String>(),
-      typeDefences: fields[6] as TypeDefences,
+      description: fields[3] as String,
+      height: fields[4] as double,
+      weight: fields[5] as double,
+      types: (fields[7] as List).cast<String>(),
+      typeDefences: fields[10] as TypeDefences,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Pokemon obj) {
+  void write(BinaryWriter writer, PokeSummary obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,12 +39,14 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
       ..writeByte(2)
       ..write(obj.image)
       ..writeByte(3)
-      ..write(obj.height)
+      ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.weight)
+      ..write(obj.height)
       ..writeByte(5)
+      ..write(obj.weight)
+      ..writeByte(7)
       ..write(obj.types)
-      ..writeByte(6)
+      ..writeByte(10)
       ..write(obj.typeDefences);
   }
 
@@ -53,14 +56,14 @@ class PokemonAdapter extends TypeAdapter<Pokemon> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PokemonAdapter &&
+      other is PokeSummaryAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
 class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
   @override
-  final int typeId = 1;
+  final int typeId = 6;
 
   @override
   TypeDefences read(BinaryReader reader) {
@@ -69,24 +72,24 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TypeDefences(
-      normal: fields[6] as double?,
-      fire: fields[7] as double?,
-      water: fields[8] as double?,
-      electric: fields[9] as double?,
-      grass: fields[10] as double?,
-      ice: fields[11] as double?,
-      fighting: fields[12] as double?,
-      poison: fields[13] as double?,
-      ground: fields[14] as double?,
-      flying: fields[15] as double?,
-      psychic: fields[16] as double?,
-      bug: fields[17] as double?,
-      rock: fields[18] as double?,
-      ghost: fields[19] as double?,
-      dragon: fields[20] as double?,
-      dark: fields[21] as double?,
-      steel: fields[22] as double?,
-      fairy: fields[23] as double?,
+      normal: fields[0] as double?,
+      fire: fields[1] as double?,
+      water: fields[2] as double?,
+      electric: fields[3] as double?,
+      grass: fields[4] as double?,
+      ice: fields[5] as double?,
+      fighting: fields[6] as double?,
+      poison: fields[7] as double?,
+      ground: fields[8] as double?,
+      flying: fields[9] as double?,
+      psychic: fields[10] as double?,
+      bug: fields[11] as double?,
+      rock: fields[12] as double?,
+      ghost: fields[13] as double?,
+      dragon: fields[14] as double?,
+      dark: fields[15] as double?,
+      steel: fields[16] as double?,
+      fairy: fields[17] as double?,
     );
   }
 
@@ -94,41 +97,41 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
   void write(BinaryWriter writer, TypeDefences obj) {
     writer
       ..writeByte(18)
-      ..writeByte(6)
+      ..writeByte(0)
       ..write(obj.normal)
-      ..writeByte(7)
+      ..writeByte(1)
       ..write(obj.fire)
-      ..writeByte(8)
+      ..writeByte(2)
       ..write(obj.water)
-      ..writeByte(9)
+      ..writeByte(3)
       ..write(obj.electric)
-      ..writeByte(10)
+      ..writeByte(4)
       ..write(obj.grass)
-      ..writeByte(11)
+      ..writeByte(5)
       ..write(obj.ice)
-      ..writeByte(12)
+      ..writeByte(6)
       ..write(obj.fighting)
-      ..writeByte(13)
+      ..writeByte(7)
       ..write(obj.poison)
-      ..writeByte(14)
+      ..writeByte(8)
       ..write(obj.ground)
-      ..writeByte(15)
+      ..writeByte(9)
       ..write(obj.flying)
-      ..writeByte(16)
+      ..writeByte(10)
       ..write(obj.psychic)
-      ..writeByte(17)
+      ..writeByte(11)
       ..write(obj.bug)
-      ..writeByte(18)
+      ..writeByte(12)
       ..write(obj.rock)
-      ..writeByte(19)
+      ..writeByte(13)
       ..write(obj.ghost)
-      ..writeByte(20)
+      ..writeByte(14)
       ..write(obj.dragon)
-      ..writeByte(21)
+      ..writeByte(15)
       ..write(obj.dark)
-      ..writeByte(22)
+      ..writeByte(16)
       ..write(obj.steel)
-      ..writeByte(23)
+      ..writeByte(17)
       ..write(obj.fairy);
   }
 
@@ -147,10 +150,11 @@ class TypeDefencesAdapter extends TypeAdapter<TypeDefences> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
+PokeSummary _$PokeSummaryFromJson(Map<String, dynamic> json) => PokeSummary(
       id: json['id'] as int,
       name: json['name'] as String,
       image: json['image'] as String,
+      description: json['description'] as String,
       height: (json['height'] as num).toDouble(),
       weight: (json['weight'] as num).toDouble(),
       types: (json['types'] as List<dynamic>).map((e) => e as String).toList(),
@@ -158,10 +162,12 @@ Pokemon _$PokemonFromJson(Map<String, dynamic> json) => Pokemon(
           TypeDefences.fromJson(json['typeDefences'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PokemonToJson(Pokemon instance) => <String, dynamic>{
+Map<String, dynamic> _$PokeSummaryToJson(PokeSummary instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'image': instance.image,
+      'description': instance.description,
       'height': instance.height,
       'weight': instance.weight,
       'types': instance.types,

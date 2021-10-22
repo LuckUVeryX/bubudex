@@ -5,6 +5,7 @@ import '../../repository/repository.dart';
 import '../../services/services.dart';
 import '../../view_models/view_models.dart';
 import '../components/components.dart';
+import '../theme/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,11 +13,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _apiService = Provider.of<ApiService>(context, listen: false);
-    final _hiveService = Provider.of<HiveService?>(context, listen: false);
+    final _hiveService = Provider.of<HiveService>(context, listen: false);
 
     return ChangeNotifierProvider(
       create: (_) =>
-          HomeProvider(PokeApiRepository(_apiService, _hiveService!)),
+          HomeProvider(PokeSummaryRepository(_apiService, _hiveService)),
       child: Consumer<HomeProvider>(
         builder: (_, homeProvider, __) {
           switch (homeProvider.status) {
@@ -61,7 +62,7 @@ class _HomePageLoading extends StatelessWidget {
           children: const [
             Text('Loading pokemons for the first time...'),
             SizedBox(height: 20),
-            LinearProgressIndicator(),
+            LinearProgressIndicator(color: Palette.kPsychic),
           ],
         ),
       ),

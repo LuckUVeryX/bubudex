@@ -43,18 +43,18 @@ class FilterBottomSheet extends StatelessWidget {
                   'Use advanced search to explore Pokémon by type, weakness, height and more!'),
             ),
             const SizedBox(height: 16),
-            FilterTypeScroll<PokeType>(
+            FilterTypeScroll<PokeTypes>(
               title: 'Types',
               horizontalPad: horizontalPad,
-              enumValues: PokeType.values,
+              enumValues: PokeTypes.values,
               getSvgAsset: getPokeTypeIcon,
               getFilterColor: pokeListProvider.getTypeColor,
               onPressed: pokeListProvider.toggleTypeFilter,
             ),
-            FilterTypeScroll<PokeType>(
+            FilterTypeScroll<PokeTypes>(
               title: 'Weaknessses',
               horizontalPad: horizontalPad,
-              enumValues: PokeType.values,
+              enumValues: PokeTypes.values,
               getSvgAsset: getPokeTypeIcon,
               getFilterColor: pokeListProvider.getWeaknessColor,
               onPressed: pokeListProvider.toggleWeaknessFilter,
