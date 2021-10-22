@@ -27,6 +27,10 @@ class HiveTypeId {
   static const pokeLocationArea = 19;
   static const versionEncounterDetail = 20;
   static const encounter = 21;
+
+  static const pokeEvolution = 22;
+  static const chainLink = 23;
+  static const evolutionDetail = 24;
 }
 
 class HiveBoxId {
@@ -34,4 +38,5 @@ class HiveBoxId {
   static const pokemonDb = 'pokemonDb';
   static const pokeSpeciesDb = 'pokeSpeciesDb';
   static const pokeLocationDb = 'pokeLocationDb';
+  static const pokeEvolutionDb = 'pokeEvolutionDb';
 }
