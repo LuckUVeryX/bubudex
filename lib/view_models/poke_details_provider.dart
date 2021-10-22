@@ -38,7 +38,6 @@ class PokeDetailsProvider extends ChangeNotifier {
         _initPokeSpecies(),
         _initEncounters(),
       ]);
-
       setStatus(PokeDetailsStatus.done);
     } on Exception catch (e) {
       debugPrint(e.toString());
