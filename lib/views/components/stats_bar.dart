@@ -10,12 +10,12 @@ class StatsValueBar extends StatelessWidget {
   }) : super(key: key);
 
   final Color color;
-  final double value;
+  final int value;
 
   @override
   Widget build(BuildContext context) {
     final maxStatsLength =
-        (MediaQuery.of(context).size.width - kTabsPadding * 2) * 3 / 8;
+        (MediaQuery.of(context).size.width - kTabsPadding * 2) * 2 / 5;
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(

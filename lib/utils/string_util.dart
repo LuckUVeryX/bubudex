@@ -26,6 +26,19 @@ String getImageUrl(int id) {
   return 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokeIdToString(id)}.png';
 }
 
+String formatStat(String stat) {
+  switch (stat) {
+    case 'hp':
+      return 'HP';
+    case 'special-attack':
+      return 'Sp.Atk';
+    case 'special-defense':
+      return 'Sp.Def';
+    default:
+      return stat.capitalize();
+  }
+}
+
 extension StringExtension on String {
   String capitalize() {
     return '${this[0].toUpperCase()}${substring(1)}';
