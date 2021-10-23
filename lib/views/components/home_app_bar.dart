@@ -10,7 +10,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const height = kToolbarHeight + 132;
+    const height = kToolbarHeight + 100;
     final textTheme = Theme.of(context).textTheme;
     final searchProvider =
         Provider.of<PokeListProvider>(context, listen: false);
@@ -19,34 +19,36 @@ class HomeAppBar extends StatelessWidget {
       floating: true,
       collapsedHeight: height,
       expandedHeight: height,
-      flexibleSpace: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Pokédex', style: textTheme.headline5),
-          const SizedBox(height: 8),
-          const Text(
-            'Search for Pokémon by name or using the National Pokédex number.',
-          ),
-          const SizedBox(height: 24),
-          TextField(
-            controller: searchProvider.searchController,
-            onChanged: (_) {
-              searchProvider.searchPokemons();
-            },
-            textCapitalization: TextCapitalization.words,
-            style: textTheme.bodyText2,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              prefixIcon: const Icon(Icons.search),
-              hintText: 'What Pokémon are you looking for?',
+      flexibleSpace: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Pokédex', style: textTheme.headline5),
+            const SizedBox(height: 8),
+            const Text(
+              'Search for Pokémon by name or using the National Pokédex number.',
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 12),
+            TextField(
+              controller: searchProvider.searchController,
+              onChanged: (_) {
+                searchProvider.searchPokemons();
+              },
+              textCapitalization: TextCapitalization.words,
+              style: textTheme.bodyText2,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                prefixIcon: const Icon(Icons.search),
+                hintText: 'What Pokémon are you looking for?',
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

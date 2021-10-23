@@ -12,7 +12,10 @@ class AboutTab extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static const columnWidths = {0: FixedColumnWidth(160)};
+  static const columnWidths = {
+    0: FlexColumnWidth(),
+    1: FlexColumnWidth(),
+  };
 
   @override
   Widget build(BuildContext context) {

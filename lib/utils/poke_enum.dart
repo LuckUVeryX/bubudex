@@ -1,3 +1,23 @@
+// ignore_for_file: constant_identifier_names
+
+import 'package:hive/hive.dart';
+
+import 'utils.dart';
+
+part 'poke_enum.g.dart';
+
+@HiveType(typeId: HiveTypeId.sortOrder)
+enum SortOrder {
+  @HiveField(0)
+  smallest,
+  @HiveField(1)
+  highest,
+  @HiveField(2)
+  aToZ,
+  @HiveField(3)
+  zToA,
+}
+
 enum PokeTypes {
   bug,
   dark,
@@ -19,9 +39,16 @@ enum PokeTypes {
   water,
 }
 
-enum PokeHeight { short, medium, tall }
+enum PokeHeight {
+  short,
+  medium,
+  tall,
+}
 
-enum PokeWeight { light, normal, heavy }
+enum PokeWeight {
+  light,
+  normal,
+  heavy,
+}
 
-// ignore: constant_identifier_names
 enum Generation { I, II, III, IV, V, VI, VII, VIII }

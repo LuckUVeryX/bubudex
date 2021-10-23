@@ -21,16 +21,18 @@ class PokemonSpaceBar extends StatelessWidget {
     return FlexibleSpaceBar(
       title: Text(pokemon.name.capitalize(),
           style: textTheme.headline6!.copyWith(color: Colors.white)),
+      centerTitle: true,
       background: Stack(
         alignment: Alignment.topCenter,
         children: [
           SizedBox(
-            height: 152,
-            child: Opacity(
-              opacity: 0.3,
-              child: Marquee(
-                  text: pokemon.name.toUpperCase(), style: textTheme.headline1),
-            ),
+            height: double.infinity,
+            child: Marquee(
+                fadingEdgeEndFraction: 0.1,
+                fadingEdgeStartFraction: 0.1,
+                text: pokemon.name.toUpperCase(),
+                style: textTheme.headline1!
+                    .copyWith(color: Colors.white.withOpacity(0.3))),
           ),
           IntrinsicHeight(
             child: Row(
@@ -49,8 +51,12 @@ class PokemonSpaceBar extends StatelessWidget {
                       Text('#${pokeIdToString(pokemon.id)}',
                           style: textTheme.bodyText1),
                       for (String pokeType in pokemon.types)
-                        PokeTypeChip(pokeType: pokeTypesFromString(pokeType)),
-                      const Spacer(flex: 2),
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: PokeTypeChip(
+                              pokeType: pokeTypesFromString(pokeType)),
+                        ),
+                      const Spacer(),
                     ],
                   ),
                 )

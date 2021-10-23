@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/utils.dart';
 import '../../view_models/poke_list_provider.dart';
 import '../theme/theme.dart';
 
