@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../models/models.dart';
 import '../services/services.dart';
+import '../utils/utils.dart';
 import 'base_repositories/base_poke_summary_repository.dart';
 
 class PokeSummaryRepository implements IPokeSummaryRepository {
@@ -21,5 +22,13 @@ class PokeSummaryRepository implements IPokeSummaryRepository {
     List<PokeSummary> ls = l.map((e) => PokeSummary.fromJson(e)).toList();
     _hiveService.addPokemonSummaries(ls);
     return ls;
+  }
+
+  @override
+  SortOrder get sortOrder => _hiveService.sortPreference;
+
+  @override
+  void storeSortPreference(SortOrder order) {
+    _hiveService.setSortPreference(order);
   }
 }

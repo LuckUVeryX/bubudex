@@ -31,13 +31,18 @@ class HiveTypeId {
   static const pokeEvolution = 22;
   static const chainLink = 23;
   static const evolutionDetail = 24;
+
+  static const sortOrder = 25;
 }
 
 class HiveBoxId {
   static const settingsDb = 'settingsDb';
+
   static const pokeSummaryDb = 'pokeSummaryDb';
   static const pokemonDb = 'pokemonDb';
   static const pokeSpeciesDb = 'pokeSpeciesDb';
   static const pokeLocationDb = 'pokeLocationDb';
   static const pokeEvolutionDb = 'pokeEvolutionDb';
+
+  static const sortPreference = 'sortPreference';
 }

@@ -9,7 +9,7 @@ class SettingsRepository extends ISettingsRepository {
   bool get isDarkTheme => _hiveService.isDarkTheme;
 
   @override
-  void setDarkTheme(bool value) async {
-    await _hiveService.setDarkTheme(value);
+  void setDarkTheme(bool value) {
+    _hiveService.setDarkTheme(value);
   }
 }

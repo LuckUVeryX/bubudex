@@ -4,26 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../models/models.dart';
+import '../repository/repository.dart';
 import '../utils/utils.dart';
 import '../views/theme/theme.dart';
 
-enum SortOrder { smallest, highest, aToZ, zToA }
-
 class PokeListProvider extends ChangeNotifier {
-  PokeListProvider(this._pokemons, this._numOfPoke) {
+  PokeListProvider(this._pokemons, this._numOfPoke, this._repository) {
     _pokemonsCopy = _pokemons;
+    _sortOrder = _repository.sortOrder;
   }
+
+  final PokeSummaryRepository _repository;
 
   late final List<PokeSummary>
       _pokemonsCopy; // to hold immutable list of pokemons
   List<PokeSummary> _pokemons;
 
   // * Sort
-  SortOrder _sortOrder = SortOrder.smallest;
+  late SortOrder _sortOrder;
   SortOrder get sortOrder => _sortOrder;
 
   void setSortOrder(SortOrder order) {
     _sortOrder = order;
+    _repository.storeSortPreference(order);
     notifyListeners();
   }
 

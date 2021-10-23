@@ -34,6 +34,7 @@ class HomePage extends StatelessWidget {
                 create: (_) => PokeListProvider(
                   homeProvider.pokemons,
                   homeProvider.pokemons.length,
+                  PokeSummaryRepository(_apiService, _hiveService),
                 ),
                 child: const _HomePageWithData(),
               );

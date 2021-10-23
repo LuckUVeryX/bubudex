@@ -39,15 +39,29 @@ class HiveService {
     Hive.registerAdapter(ChainLinkAdapter());
     Hive.registerAdapter(EvolutionDetailAdapter());
 
+    Hive.registerAdapter(SortOrderAdapter());
+
     _pokeSummaryDb = await Hive.openBox(HiveBoxId.pokeSummaryDb);
     _pokemonDb = await Hive.openBox(HiveBoxId.pokemonDb);
     _pokeSpeciesDb = await Hive.openBox(HiveBoxId.pokeSpeciesDb);
     _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
     _pokeEvolutionDb = await Hive.openBox(HiveBoxId.pokeEvolutionDb);
 
+    _sortPreference = await Hive.openBox(HiveBoxId.sortPreference);
+
     _settingsDb = await Hive.openBox(HiveBoxId.settingsDb);
 
     debugPrint('Initialized Hive Service');
+  }
+
+  // Preferences
+  late Box<SortOrder> _sortPreference;
+
+  SortOrder get sortPreference =>
+      _sortPreference.get(kSortPreference) ?? SortOrder.smallest;
+
+  void setSortPreference(SortOrder order) {
+    _sortPreference.put(kSortPreference, order);
   }
 
   // Theme
@@ -55,7 +69,7 @@ class HiveService {
 
   bool get isDarkTheme => _settingsDb.get(kIsDarkTheme) ?? false;
 
-  Future<void> setDarkTheme(bool value) async {
+  void setDarkTheme(bool value) async {
     await _settingsDb.put(kIsDarkTheme, value);
   }
 
@@ -66,7 +80,7 @@ class HiveService {
 
   List<PokeSummary> get pokemons => _pokeSummaryDb.values.toList();
 
-  Future<void> addPokemonSummaries(List<PokeSummary> pokemons) async {
+  void addPokemonSummaries(List<PokeSummary> pokemons) async {
     final pokeMap = {for (PokeSummary pokemon in pokemons) pokemon.id: pokemon};
     await _pokeSummaryDb.putAll(pokeMap);
   }
