@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'repository/repository.dart';
 import 'routes/app_router.dart';
 import 'services/services.dart';
+import 'view_models/view_models.dart';
 import 'views/theme/theme.dart';
 
 void main() async {
@@ -30,15 +32,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _hiveService = Provider.of<HiveService>(context);
     return MultiProvider(
       providers: [
         Provider<ApiService>(create: (_) => ApiService()),
+        ChangeNotifierProvider(
+          create: (_) => SettingsProvider(SettingsRepository(_hiveService)),
+        )
       ],
-      child: MaterialApp.router(
-        routerDelegate: _appRouter.delegate(),
-        routeInformationParser: _appRouter.defaultRouteParser(),
-        theme: AppTheme.theme,
-      ),
+      child: Consumer<SettingsProvider>(builder: (_, provider, __) {
+        return MaterialApp.router(
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: provider.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+        );
+      }),
     );
   }
 }

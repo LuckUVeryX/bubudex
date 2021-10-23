@@ -34,6 +34,7 @@ class HiveTypeId {
 }
 
 class HiveBoxId {
+  static const settingsDb = 'settingsDb';
   static const pokeSummaryDb = 'pokeSummaryDb';
   static const pokemonDb = 'pokemonDb';
   static const pokeSpeciesDb = 'pokeSpeciesDb';

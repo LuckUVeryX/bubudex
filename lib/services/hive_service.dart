@@ -45,7 +45,18 @@ class HiveService {
     _pokeLocationDb = await Hive.openBox(HiveBoxId.pokeLocationDb);
     _pokeEvolutionDb = await Hive.openBox(HiveBoxId.pokeEvolutionDb);
 
+    _settingsDb = await Hive.openBox(HiveBoxId.settingsDb);
+
     debugPrint('Initialized Hive Service');
+  }
+
+  // Theme
+  late Box<bool> _settingsDb;
+
+  bool get isDarkTheme => _settingsDb.get(kIsDarkTheme) ?? false;
+
+  Future<void> setDarkTheme(bool value) async {
+    await _settingsDb.put(kIsDarkTheme, value);
   }
 
   // PokeSummary

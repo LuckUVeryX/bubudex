@@ -85,6 +85,17 @@ class _HomePageWithData extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: Consumer<SettingsProvider>(builder: (_, provider, __) {
+            return IconButton(
+              onPressed: () {
+                Provider.of<SettingsProvider>(context, listen: false)
+                    .toggleDarkTheme();
+              },
+              icon: Icon(
+                provider.isDarkTheme ? Icons.light_mode : Icons.dark_mode,
+              ),
+            );
+          }),
           actions: [
             IconButton(
               onPressed: () {
@@ -112,7 +123,7 @@ class _HomePageWithData extends StatelessWidget {
             SvgPicture.asset(kPokeballPattern,
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.grey[200]),
+                color: Theme.of(context).colorScheme.secondary),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: CustomScrollView(
