@@ -21,7 +21,7 @@ class StatsTab extends StatelessWidget {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: const EdgeInsets.all(kTabsPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
