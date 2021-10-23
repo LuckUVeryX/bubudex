@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart';
 
 import '../models/models.dart';
 import '../repository/repository.dart';
 import '../utils/utils.dart';
+import '../views/theme/theme.dart';
 
 enum PokeDetailsStatus { init, done, error }
 
@@ -33,6 +35,17 @@ class PokeDetailsProvider extends ChangeNotifier {
 
   late final PokeEvolution _pokeEvolution;
   PokeEvolution get pokeEvolution => _pokeEvolution;
+
+  Color get color => Palette.getTypeColor(pokeTypesFromString(
+      _pokemon.types.firstWhere((type) => type.slot == 1).type.name));
+
+  int get pokeStatTotal {
+    int value = 0;
+    for (PokeStat stat in _pokemon.stats) {
+      value += stat.baseStat;
+    }
+    return value;
+  }
 
   List<PokeEvolutionInfo> get evoChain {
     List<PokeEvolutionInfo> evoChain = [];
