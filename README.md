@@ -2,6 +2,17 @@
 
 A PokeDex project built using Flutter
 
+## Screenshots
+![Home Page](screenshots/IMG_1954.PNG?raw=true)
+![Dark Theme](screenshots/IMG_1955.PNG?raw=true)
+![Generations](screenshots/IMG_1956.PNG?raw=true)
+![Sort](screenshots/IMG_1957.PNG?raw=true)
+![Filter](screenshots/IMG_1958.PNG?raw=true)
+![About Tab](screenshots/IMG_1960.PNG?raw=true)
+![Stats Tab](screenshots/IMG_1961.PNG?raw=true)
+![Evolution Tab](screenshots/IMG_1962.PNG?raw=true)
+
+
 ## Features
 1. Get list of pokemons
 2. View details about each pokemon
