@@ -26,7 +26,7 @@ class PokeCard extends StatelessWidget {
         pokemon.types.map((e) => pokeTypesFromString(e)).toList();
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Card(
         elevation: 4,
         color: Palette.getBackgroundTypeColor(types.first),

@@ -114,7 +114,7 @@ class _HomePageWithData extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 color: Colors.grey[200]),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: CustomScrollView(
                 slivers: [
                   const HomeAppBar(),
