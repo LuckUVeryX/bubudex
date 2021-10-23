@@ -31,7 +31,8 @@ class PokeDetailsPage extends StatelessWidget {
       body: DefaultTabController(
         length: 3,
         child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
+          physics: const ClampingScrollPhysics(),
+          headerSliverBuilder: (_, __) {
             return [
               SliverAppBar(
                 iconTheme: const IconThemeData(color: Colors.white),
@@ -56,7 +57,7 @@ class PokeDetailsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
             ];
           },
           body: ChangeNotifierProvider(
@@ -77,6 +78,7 @@ class PokeDetailsPage extends StatelessWidget {
 
                 case PokeDetailsStatus.done:
                   return const TabBarView(
+                    physics: ClampingScrollPhysics(),
                     children: [AboutTab(), StatsTab(), EvolutionTab()],
                   );
               }
