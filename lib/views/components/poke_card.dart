@@ -38,7 +38,7 @@ class PokeCard extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                top: -24,
+                top: -14,
                 left: 80,
                 child: SizedBox(
                   width: size.width / 5,
