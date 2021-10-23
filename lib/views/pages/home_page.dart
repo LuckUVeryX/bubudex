@@ -84,10 +84,11 @@ class _HomePageWithData extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          leading: Consumer<SettingsProvider>(builder: (_, provider, __) {
-            return IconButton(
+      child: Consumer<SettingsProvider>(builder: (_, provider, __) {
+        return Scaffold(
+          backgroundColor: provider.isDarkTheme ? Colors.black : Colors.white,
+          appBar: AppBar(
+            leading: IconButton(
               onPressed: () {
                 Provider.of<SettingsProvider>(context, listen: false)
                     .toggleDarkTheme();
@@ -95,55 +96,55 @@ class _HomePageWithData extends StatelessWidget {
               icon: Icon(
                 provider.isDarkTheme ? Icons.light_mode : Icons.dark_mode,
               ),
-            );
-          }),
-          actions: [
-            IconButton(
-              onPressed: () {
-                _showHomeBottomSheet(context, const GenerationsBottomSheet());
-              },
-              icon: const Icon(PokeIcons.generation),
             ),
-            IconButton(
-              onPressed: () {
-                _showHomeBottomSheet(context, const SortBottomSheet());
-              },
-              icon: const Icon(PokeIcons.sort),
-            ),
-            IconButton(
-              onPressed: () {
-                _showHomeBottomSheet(context, const FilterBottomSheet());
-              },
-              icon: const Icon(PokeIcons.filter),
-            ),
-          ],
-        ),
-        body: Stack(
-          alignment: Alignment.center,
-          children: [
-            SvgPicture.asset(kPokeballPattern,
-                fit: BoxFit.fill,
-                width: MediaQuery.of(context).size.width,
-                color: Theme.of(context).colorScheme.secondary),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: CustomScrollView(
-                slivers: [
-                  const HomeAppBar(),
-                  Consumer<PokeListProvider>(builder: (_, search, __) {
-                    return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (_, i) => PokeCard(pokemon: search.pokemons[i]),
-                        childCount: search.pokemons.length,
-                      ),
-                    );
-                  }),
-                ],
+            actions: [
+              IconButton(
+                onPressed: () {
+                  _showHomeBottomSheet(context, const GenerationsBottomSheet());
+                },
+                icon: const Icon(PokeIcons.generation),
               ),
-            ),
-          ],
-        ),
-      ),
+              IconButton(
+                onPressed: () {
+                  _showHomeBottomSheet(context, const SortBottomSheet());
+                },
+                icon: const Icon(PokeIcons.sort),
+              ),
+              IconButton(
+                onPressed: () {
+                  _showHomeBottomSheet(context, const FilterBottomSheet());
+                },
+                icon: const Icon(PokeIcons.filter),
+              ),
+            ],
+          ),
+          body: Stack(
+            alignment: Alignment.center,
+            children: [
+              SvgPicture.asset(kPokeballPattern,
+                  fit: BoxFit.fill,
+                  width: MediaQuery.of(context).size.width,
+                  color: Theme.of(context).colorScheme.secondary),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: CustomScrollView(
+                  slivers: [
+                    const HomeAppBar(),
+                    Consumer<PokeListProvider>(builder: (_, search, __) {
+                      return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (_, i) => PokeCard(pokemon: search.pokemons[i]),
+                          childCount: search.pokemons.length,
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 
