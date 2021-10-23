@@ -5,7 +5,6 @@ import '../../../models/models.dart';
 import '../../../utils/utils.dart';
 import '../../../view_models/view_models.dart';
 import '../../components/components.dart';
-import '../../theme/theme.dart';
 
 class StatsTab extends StatelessWidget {
   const StatsTab({Key? key}) : super(key: key);
@@ -17,9 +16,6 @@ class StatsTab extends StatelessWidget {
     final Pokemon pokemon = provider.pokemon;
     final PokeSummary pokeSummary = provider.pokeSummary;
 
-    final Color color = Palette.getTypeColor(pokeTypesFromString(
-        pokemon.types.firstWhere((type) => type.slot == 1).type.name));
-
     final textTheme = Theme.of(context).textTheme;
 
     return SingleChildScrollView(
@@ -30,11 +26,11 @@ class StatsTab extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Base Stats',
-                style: textTheme.bodyText1!.copyWith(color: color)),
+                style: textTheme.bodyText1!.copyWith(color: provider.color)),
             const SizedBox(height: kDetailsVerticalSpacing),
             for (PokeStat stat in pokemon.stats)
               StatsRow(
-                color: color,
+                color: provider.color,
                 stat: formatStat(stat.stat.name),
                 value: stat.baseStat,
                 effort: stat.effort,
@@ -42,7 +38,7 @@ class StatsTab extends StatelessWidget {
             const StatsBottomRow(),
             const SizedBox(height: kDetailsVerticalSpacing),
             Text('Type Defenses',
-                style: textTheme.bodyText1!.copyWith(color: color)),
+                style: textTheme.bodyText1!.copyWith(color: provider.color)),
             const SizedBox(height: kDetailsVerticalSpacing),
             Text(
                 'The effectiveness of each type on ${pokemon.name.capitalize()}'),
@@ -82,6 +78,8 @@ class StatsBottomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -89,7 +87,7 @@ class StatsBottomRow extends StatelessWidget {
           Expanded(child: Text('Total', style: textTheme.bodyText1)),
           Expanded(
             child: Text(
-              '318',
+              provider.pokeStatTotal.toString(),
               textAlign: TextAlign.right,
               style: textTheme.bodyText1,
             ),

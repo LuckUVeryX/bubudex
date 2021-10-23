@@ -19,11 +19,7 @@ class AboutTab extends StatelessWidget {
     final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
 
     final PokeSpecies pokeSpecies = provider.pokeSpecies;
-    final Pokemon pokemon = provider.pokemon;
     final PokeLocationAreas pokeLocationAreas = provider.locationAreas;
-
-    final Color color = Palette.getTypeColor(pokeTypesFromString(
-        pokemon.types.firstWhere((type) => type.slot == 1).type.name));
 
     final textTheme = Theme.of(context).textTheme;
 
@@ -50,23 +46,23 @@ class AboutTab extends StatelessWidget {
             ),
             const SizedBox(height: 28),
             Text('Pokédex Data',
-                style: textTheme.bodyText1!.copyWith(color: color)),
+                style: textTheme.bodyText1!.copyWith(color: provider.color)),
             const SizedBox(height: kDetailsVerticalSpacing),
             const _PokeDexDataTable(columnWidths: columnWidths),
             const SizedBox(height: kDetailsVerticalSpacing),
             Text('Training',
-                style: textTheme.bodyText1!.copyWith(color: color)),
+                style: textTheme.bodyText1!.copyWith(color: provider.color)),
             const SizedBox(height: kDetailsVerticalSpacing),
             const _TrainingTable(columnWidths: columnWidths),
             const SizedBox(height: kDetailsVerticalSpacing),
             Text('Breeding',
-                style: textTheme.bodyText1!.copyWith(color: color)),
+                style: textTheme.bodyText1!.copyWith(color: provider.color)),
             const SizedBox(height: kDetailsVerticalSpacing),
             const _BreedingTable(columnWidths: columnWidths),
             const SizedBox(height: kDetailsVerticalSpacing),
             pokeLocationAreas.areas.isNotEmpty
                 ? Text('Location',
-                    style: textTheme.bodyText1!.copyWith(color: color))
+                    style: textTheme.bodyText1!.copyWith(color: provider.color))
                 : const SizedBox(),
             pokeLocationAreas.areas.isNotEmpty
                 ? const SizedBox(height: kDetailsVerticalSpacing)

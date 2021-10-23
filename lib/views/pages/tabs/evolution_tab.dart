@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../../models/models.dart';
 import '../../../utils/utils.dart';
 import '../../../view_models/view_models.dart';
-import '../../theme/theme.dart';
 
 class EvolutionTab extends StatelessWidget {
   const EvolutionTab({Key? key}) : super(key: key);
@@ -15,11 +14,7 @@ class EvolutionTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<PokeDetailsProvider>(context, listen: false);
 
-    final Pokemon pokemon = provider.pokemon;
     final List<PokeEvolutionInfo> pokeEvolutionInfo = provider.evoChain;
-
-    final Color color = Palette.getTypeColor(pokeTypesFromString(
-        pokemon.types.firstWhere((type) => type.slot == 1).type.name));
 
     final textTheme = Theme.of(context).textTheme;
 
@@ -29,7 +24,7 @@ class EvolutionTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Evolution Chart',
-              style: textTheme.bodyText1!.copyWith(color: color)),
+              style: textTheme.bodyText1!.copyWith(color: provider.color)),
           for (int i = 0; i < pokeEvolutionInfo.length; i++)
             _PokemonEvoRow(idx: i),
         ],
