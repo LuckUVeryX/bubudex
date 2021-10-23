@@ -15,10 +15,10 @@ A PokeDex project built using Flutter with
 
 ## Credits
 
-###UI & Assets from
+### UI & Assets from
 
 Flávio Farias, Co-founder of [umpontoseis](https://www.umpontoseis.com)
 
-###APIs used
+### APIs used
 
 [PokeApi](https://pokeapi.co/) & [Pokemon Db Json](https://pokemon-db-json.herokuapp.com/)
