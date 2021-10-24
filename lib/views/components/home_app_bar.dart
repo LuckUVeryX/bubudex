@@ -20,7 +20,7 @@ class HomeAppBar extends StatelessWidget {
       collapsedHeight: height,
       expandedHeight: height,
       flexibleSpace: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -86,7 +86,6 @@ class AppTheme {
 
   static const _darkAppBarTheme = AppBarTheme(
     elevation: 0,
-    color: Colors.black,
     iconTheme: _darkIconTheme,
   );
 
