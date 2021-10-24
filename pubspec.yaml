@@ -30,6 +30,7 @@ dev_dependencies:
   build_runner: ^2.1.4
   flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.0
+  flutter_native_splash: ^1.2.4
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.1
@@ -61,3 +62,17 @@ flutter:
     - family: PokeIcons
       fonts:
         - asset: assets/poke_icons/PokeIcons.ttf
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/app_icon/icon.png
+
+  color_dark: "#000000"
+  image_dark: assets/app_icon/icon.png
+ 
+  android: true
+  ios: true
+  web: false
+  
+  fullscreen: true
+  android12: true
