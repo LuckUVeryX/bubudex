@@ -11,6 +11,8 @@ A PokeDex project built using Flutter
 ![About Tab](screenshots/IMG_1960.PNG?raw=true)
 ![Stats Tab](screenshots/IMG_1961.PNG?raw=true)
 ![Evolution Tab](screenshots/IMG_1962.PNG?raw=true)
+![Native Splash](screenshots/IMG_1971.PNG?raw=true)
+![Native Splash Dark](screenshots/IMG_1970.PNG?raw=true)
 
 
 ## Features
@@ -21,6 +23,7 @@ A PokeDex project built using Flutter
 5. Sort pokemon based on Id and Name
 6. Dark Theme
 7. Remember theme and sort by preferences
+8. Native splash screens with light and dark varients depending on SystemTheme
 
 ## Packages used
 
@@ -34,6 +37,7 @@ A PokeDex project built using Flutter
 8. Retry package to retry API calls on SocketExceptions / TimeoutExceptions
 9. Syncfusion Widgets for Custom Range Slider UI
 10. Json Annotation to generate models
+11. Flutter Native Splash to generate native splash screens
 
 ## Credits
 
