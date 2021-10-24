@@ -65,10 +65,10 @@ flutter:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/app_icon/icon.png
+  image: assets/app_splash/splash_icon.png
 
   color_dark: "#000000"
-  image_dark: assets/app_icon/icon.png
+  image_dark: assets/app_splash/splash_icon.png
  
   android: true
   ios: true
